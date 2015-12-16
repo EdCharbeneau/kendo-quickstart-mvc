@@ -1,7 +1,5 @@
-## Step
+## Client Side
 
 In this chapter...
 
-### Sub Step
-
-Lorem Ipsum
+### Working with client side events

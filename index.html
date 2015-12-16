@@ -49,49 +49,94 @@ However, the UI for ASP.NET MVC wrappers provide additional capaiblites for use 
 			</div>
 			<hr>
 			<div class="chapter">
-				<h2 id="asp-net-mvc-wrappers-ui-helpers-vs-kendo-ui-widgets">ASP.NET MVC wrappers (UI helpers) vs Kendo UI widgets</h2>
-<p>In this chapter...</p>
-<p>From client-side point of view, the vanilla HTML/JavaScript Kendo UI widgets and their ASP.NET MVC wrappers (UI helpers) represent the same thing and provide the same capabilities.
-However, there are some implementation specifics to consider before choosing one product over the other.</p>
-<p>The <strong>UI for ASP.NET MVC</strong> helpers (Kendo UI MVC wrappers) provide the following benefits:</p>
-<ul>
-<li>Create widgets with no HTML and JavaScript coding. JavaScript knowledge will still be required to use client-side methods and events.</li>
-<li><a href="/kendo-ui/aspnet-mvc/helpers/grid/server-binding">Server-side data binding</a> and in some cases, server-side rendering.</li>
-<li>Use the <a href="/kendo-ui/aspnet-mvc/helpers/grid/ajax-binding">ToDataSourceResult</a> extension method to bind Kendo UI widgets to server-side collections and
-perform data operations (paging, sorting, filtering, grouping).</li>
-<li>Integration with some ASP.NET MVC features, e.g. <a href="/kendo-ui/aspnet-mvc/helpers/menu/overview#security-trimming">security trimming</a> or
-<a href="/kendo-ui/aspnet-mvc/globalization#localized-user-interface">localization with resource files</a> or <a href="/kendo-ui/aspnet-mvc/helpers/grid/editor-templates">editor templates</a>.</li>
-<li>Support for unobtrusive validation based on Data Annotation attributes.</li>
-<li>CRUD operations implementation simplicity - support for CRUD operations will require less coding, compared to when client-side Kendo UI is used.
-In the latter case, you will have to repeat the model and data field configuration in the JavaScript code.</li>
-<li>Visual Studio intellisense for the server-side configuration syntax.</li>
-<li><a href="/kendo-ui/aspnet-mvc/vs-integration/introduction">Visual Studio Extensions</a> for automatic creation of new Kendo UI ASP.NET MVC applications, or adding Kendo UI to existing projects,
-or automatic updating of the Kendo UI version.</li>
-<li>Use <a href="/kendo-ui/aspnet-mvc/scaffolding">Scaffolding</a> to generate widget declarations and related controller action methods.</li>
-</ul>
-<p>The vanilla HTML/JavaScript Kendo UI widgets (<strong>Kendo UI Professional</strong>) provide the following benefits:</p></p>
-<ul>
-<li>Complete server platform independence. The widgets can be used with any web server and server framework (<strong>including ASP.NET MVC</strong>).
-For example, you can build Single Page Applications with any RESTful back-end.</li>
-<li>Full control over the initialization scripts&#39; placement - server wrappers render the widgets&#39; initialization scripts right after the widget&#39;s HTML output.
-Even if you use <a href="/kendo-ui/aspnet-mvc/fundamentals#deferred-initialization">deferred initialization</a>, the scripts will still be in the View.
-When using plain (non-wrapper) Kendo UI widgets, you write the initialization scripts yourself and can move them to external script files.</li>
-<li>Integration with <a href="/kendo-ui/framework/mvvm/overview">MVVM</a>, <a href="/kendo-ui/AngularJS/introduction">AngularJS</a> and <a href="/kendo-ui/framework/spa/overview">Single Page Application</a> development patterns.
-Server wrappers are not intended to be used with those.</li>
-<li><p><a href="/kendo-ui/vs-intellisense">Visual Studio Intellisense</a> for the client-side API.</p>
-</li>
-<li><p>Finally, there is no problem to use UI for ASP.NET MVC helpers and vanilla Kendo UI widgets <strong>at the same time on the same page</strong>, if a specific scenario requires that.</p>
-</li>
-</ul>
+				<h2 id="getting-up-and-running">Getting up and running</h2>
+<p>In this chapter you&#39;re going to start with the basics, including starting a new project, adding UI for MVC to your project, and installing the quick start template.</p>
+<h3 id="create-a-new-mvc-project">Create a new MVC project</h3>
+<h3 id="install-the-quick-start-primer-template">Install the quick start primer template</h3>
+<h3 id="convert-to-telerik-application">Convert to Telerik Application</h3>
 
 			</div>
 			<hr>
 			<div class="chapter">
-				<h2 id="fundamentals">Fundamentals</h2>
-<p>In this chapter...</p>
-<h3 id="sub-step">Sub Step</h3>
+				<h2 id="input-controls">Input Controls</h2>
+<p>Now that your app is ready for development, let&#39;s add some UI components. In this chapter we&#39;ll create Kendo DatePicker inputs using the UI for MVC fluent API.</p>
+<h3 id="fluent-html-helpers">Fluent Html Helpers</h3>
+<h3 id="adding-a-kendo-datepicker">Adding a Kendo DatePicker</h3>
 
 			</div>
+						<hr>
+			<div class="chapter">
+				<h2 id="scaffolding">Scaffolding</h2>
+<p>In this chapter...</p>
+<h3 id="upgrade-the-database">Upgrade the database</h3>
+<h3 id="ui-for-mvc-scaffolding-wizard">UI for MVC Scaffolding wizard</h3>
+
+			</div>
+						<hr>
+			<div class="chapter">
+				<h2 id="kendo-grid">Kendo Grid</h2>
+<p>In this chapter...</p>
+<h3 id="configuring-kendo-grid-options">Configuring Kendo Grid options</h3>
+<h3 id="the-datasourcerequest-object">The DataSourceRequest object</h3>
+
+			</div>
+						<hr>
+			<div class="chapter">
+				<h2 id="kendo-listview">Kendo ListView</h2>
+<p>In this chapter...</p>
+<h3 id="this-listview-control">This ListView control</h3>
+<h3 id="adding-a-list-view">Adding a list view</h3>
+<h3 id="kendo-templates">Kendo Templates</h3>
+
+			</div>
+						<hr>
+			<div class="chapter">
+				<h2 id="client-side">Client Side</h2>
+<p>In this chapter...</p>
+<h3 id="working-with-client-side-events">Working with client side events</h3>
+
+			</div>
+						<hr>
+			<div class="chapter">
+				<h2 id="kendo-datasource">Kendo Datasource</h2>
+<p>In this chapter...</p>
+<h3 id="working-with-the-kendo-datasource">Working with the Kendo Datasource</h3>
+
+			</div>
+						<hr>
+			<div class="chapter">
+				<h2 id="kendo-grid-ajax">Kendo Grid Ajax</h2>
+<p>In this chapter...</p>
+<h3 id="creating-a-custom-filter">Creating a custom filter</h3>
+<h3 id="triggering-a-refresh-from-outside-the-grid">Triggering a refresh from outside the grid</h3>
+
+			</div>
+						<hr>
+			<div class="chapter">
+				<h2 id="kendo-charts">Kendo Charts</h2>
+<p>In this chapter...</p>
+<h3 id="chart-api">Chart API</h3>
+<h3 id="monthly-sales-chart">Monthly sales chart</h3>
+<h3 id="quarter-to-date-sales-chart">Quarter to date sales chart</h3>
+
+			</div>
+						<hr>
+			<div class="chapter">
+				<h2 id="go-responsive">Go Responsive</h2>
+<p>In this chapter...</p>
+<h3 id="responsive-grid">Responsive Grid</h3>
+<h3 id="responsive-panel">Responsive Panel</h3>
+
+			</div>
+						<hr>
+			<div class="chapter">
+				<h2 id="kendo-themes">Kendo Themes</h2>
+<p>In this chapter...</p>
+<h3 id="theme-change">Theme change</h3>
+<h3 id="finishing-the-app-theme">Finishing the app theme</h3>
+
+			</div>
+			
 		</div>
 	</div>
 </div>

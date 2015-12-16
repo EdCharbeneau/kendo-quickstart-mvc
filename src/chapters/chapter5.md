@@ -1,7 +1,10 @@
-## Step
+## Kendo ListView
 
 In this chapter...
 
-### Sub Step
+### This ListView control
 
-Lorem Ipsum
+### Adding a list view
+
+### Kendo Templates
+

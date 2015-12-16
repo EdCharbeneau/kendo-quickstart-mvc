@@ -1,7 +1,7 @@
-## Step
+## Kendo Grid
 
 In this chapter...
 
-### Sub Step
+### Configuring Kendo Grid options
 
-Lorem Ipsum
+### The DataSourceRequest object

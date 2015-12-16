@@ -1,7 +1,5 @@
-## Step
+## Kendo Datasource
 
 In this chapter...
 
-### Sub Step
-
-Lorem Ipsum
+### Working with the Kendo Datasource

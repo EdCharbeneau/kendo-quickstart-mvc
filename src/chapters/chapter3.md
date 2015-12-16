@@ -1,7 +1,7 @@
-## Step
+## Scaffolding
 
 In this chapter...
 
-### Sub Step
+### Upgrade the database
 
-Lorem Ipsum
+### UI for MVC Scaffolding wizard

@@ -1,7 +1,7 @@
-## Step
+## Kendo Grid Ajax
 
 In this chapter...
 
-### Sub Step
+### Creating a custom filter
 
-Lorem Ipsum
+### Triggering a refresh from outside the grid
