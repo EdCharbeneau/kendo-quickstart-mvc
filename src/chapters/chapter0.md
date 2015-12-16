@@ -15,6 +15,6 @@ This guide will walk you through a series of tutorials that will teach you the f
 
 ### Important Resources
 
-[Documentation](http://docs.telerik.com/kendo-ui/aspnet-mvc/introduction)
-[UI for MVC API References](http://docs.telerik.com/KENDO-UI/api/aspnet-mvc/Kendo.Mvc/AggregateFunction)
-[Support](http://www.telerik.com/account/support-tickets/my-support-tickets.aspx)
+- [Documentation - UI for ASP.NET MVC](http://docs.telerik.com/kendo-ui/aspnet-mvc/introduction)
+- [API References - UI for ASP.NET MVC](http://docs.telerik.com/KENDO-UI/api/aspnet-mvc/Kendo.Mvc/AggregateFunction)
+- [Support](http://www.telerik.com/account/support-tickets/my-support-tickets.aspx)
