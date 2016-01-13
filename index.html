@@ -32,13 +32,17 @@
 <h3 id="what-you-re-building">What you&#39;re building</h3>
 <p>This guide will walk you through building Team Efficiency Dashboard, a single page app that does the following things:</p>
 <ul>
-<li>Connects rich chart visualizations and grids to a SQL datasource</li>
+<li>Connects rich chart visualizations and grids to a SQL data source</li>
 <li>Provides an interactive master/detail dashboard with filtering, sorting and exporting</li>
-<li>Responsds to any device size including: mobile, tablet and desktop</li>
+<li>Responds to any device size including: mobile, tablet and desktop</li>
 </ul>
+<p>If you follow along until the end, here is what the finished app will look like.</p>
+<p><img src="images/chapter0/dashboard.jpg" alt=""></p>
+<p>And here is what the app will look like on mobile.</p>
+<p><img src="images/chapter0/mobile-dashboard.jpg" alt=""></p>
 <h3 id="ui-for-asp-net-mvc-vs-kendo-ui-widgets">UI for ASP.NET MVC vs Kendo UI widgets</h3>
 <p>From client-side point of view, the vanilla HTML/JavaScript <strong>Kendo UI</strong> widgets and the rendered <strong>UI for ASP.NET MVC</strong> represent the same thing and provide the same capabilities.
-However, the UI for ASP.NET MVC wrappers provide additional capaiblites for use with ASP.NET MVC and tooling for VisualStudio. Refer to the <a href="http://docs.telerik.com/kendo-ui/aspnet-mvc/kendo-ui-vs-mvc-wrappers">documentation</a> for a complete feature comparison.</p>
+However, the UI for ASP.NET MVC wrappers provide additional capabilities for use with ASP.NET MVC and tooling for VisualStudio. Refer to the <a href="http://docs.telerik.com/kendo-ui/aspnet-mvc/kendo-ui-vs-mvc-wrappers">documentation</a> for a complete feature comparison.</p>
 <h3 id="important-resources">Important Resources</h3>
 <ul>
 <li><a href="http://docs.telerik.com/kendo-ui/aspnet-mvc/introduction">Documentation - UI for ASP.NET MVC</a></li>
@@ -54,20 +58,138 @@ However, the UI for ASP.NET MVC wrappers provide additional capaiblites for use 
 <h3 id="create-a-new-mvc-project">Create a new MVC project</h3>
 <p>UI for ASP.NET MVC can easily be added to an existing ASP.NET MVC project in just a few clicks using VisualStudio. </p>
 <p>Start by creating a new ASP.NET MVC project. You&#39;ll use this project throughout the rest of this tutorial to build your application.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Create a new MVC project<br></h4>
+
+<p>Click <strong>File &gt; New Project</strong></p>
+<p>In the New Project dialog choose the <b>ASP.NET Web Application</b> template by expanding the &quot;Templates&quot; tree to <b>Templates &gt; Visual C# &gt; Web</b></p>
+<p><img src="images/chapter1/file-new-mvc-project.jpg" alt=""></p>
+<p>Give the application a name (ex: MyQuickStartApp)</p>
+<p>Click <b>OK</b> to continue</p>
+<p><img src="images/chapter1/file-new-mvc-project2.jpg" alt=""></p>
+<p>In the <b>New ASP.NET Project</b> dialog, choose MVC from the 4.6 template selection</p>
+<p>Click <b>OK</b> to finish</p>
+<div class="exercise-end"></div>
+
 <h3 id="install-the-quick-start-boilerplate">Install the quick start boilerplate</h3>
 <p>With the new project created, it&#39;s time to start building your app. For this guide, we&#39;ve scaffolded out a boilerplate project to act as a starting point for the Team Efficiency Dashboard.</p>
 <p>The boilerplate has an HTML page, the Northwind database and some server-side code you may find in a typical MVC project.</p>
-<p>Exercise:</p>
-<p>PM&gt; Install-Package KendoQsBoilerplate</p>
-<h3 id="convert-to-telerik-application">Convert to Telerik Application</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Install the quick start boilerplate<br></h4>
 
+<p>Using the package manager console, run the following command</p>
+<pre><code>PM&gt; Install-Package KendoQsBoilerplate
+</code></pre><p>Alternatively, you can use the package manager GUI</p>
+<p>From the Solution Explorer <strong>right-click References</strong>, then choose <strong>Manage NuGet Packages</strong></p>
+<p><img src="images/chapter1/nuget-gui.jpg" alt=""></p>
+<p>Search for <strong>KendoQsBoilerplate</strong></p>
+<p><img src="images/chapter1/nuget-gui2.jpg" alt=""></p>
+<p><strong>Click Install</strong> to continue</p>
+<p>When the package installs you may be prompted to accept a license agreement for the NortwindDB, click <strong>I Accept</strong> to continue</p>
+<p>It is normal for the quick start boiler plate to overwrite existing files, when prompted with a file conflict choose <strong>Yes to All</strong></p>
+<p><img src="images/chapter1/file-conflict.jpg" alt=""></p>
+<div class="exercise-end"></div>
+
+<p>With the boilerplate installed, take a moment to run the application. If all went well, you should see something like this:</p>
+<p><img src="images/chapter1/wire-frame.jpg" alt=""></p>
+<h3 id="convert-to-telerik-application">Convert to Telerik Application</h3>
+<p>At this point, you have the wire frame for a basic MVC application. Next you will be adding the UI for ASP.NET MVC to the application by using the convert to Telerik application tooling. When an application is converted to a Telerik application, all required HTML, CSS, JavaScript and .DLL libraries are added. This is the first step you would take to upgrade a new or existing MVC project to use Kendo.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Convert to a Telerik Application
+</h4>
+
+<p>Stop the application if it is already running.</p>
+<p>In the Solution Explorer <strong>right-click</strong> on the project name and select <strong>Telerik UI for ASP.NET MVC &gt; Convert to Telerik Application</strong>. This will launch the Project Configuration Wizard, from here we can choose settings for our Telerik project.</p>
+<p><img src="images/chapter1/convert-to-telerik1.jpg" alt=""></p>
+<p>For this tutorial your project will use CDN support. This means all Kendo resources are served from Telerik&#39;s content delivery network (CDN) versus relying on your server for the assets. Mark the box <strong>Use CDN support</strong> and click <strong>Next</strong> to continue.</p>
+<p><img src="images/chapter1/convert-to-telerik2.jpg" alt=""></p>
+<p>Since the boilerplate is designed with <a href="http://getbootstrap.com">Bootstrap</a>, <strong>choose Bootstrap</strong> from themes select box so the theme matches the current look of the boilerplate. You&#39;ll change the theme later when you&#39;re ready to customize the look of the application.</p>
+<p><img src="images/chapter1/convert-to-telerik3.jpg" alt=""></p>
+<p>Open <strong>\Views\Shared_Layout.cshtml</strong> find and remove the following script bundle <code>@Scripts.Render(&quot;~/bundles/modernizr&quot;)</code>. This script is included with the Kendo assets.</p>
+<p>Next, find the CSS bundle <code>@Styles.Render(&quot;~/Content/css&quot;)</code> and move it just above the closing head tag <code>&lt;/head&gt;</code> this will make sure that any custom styles are applied when you customize the application.</p>
+<p>The final code of the head section should look like this:</p>
+<pre><code>    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+
+    &lt;title&gt;@ViewBag.Title - UI for MVC / Kendo Quick Start Guide&lt;/title&gt;
+
+    &lt;link href=&quot;http://cdn.kendostatic.com/2015.3.1111/styles/kendo.common-bootstrap.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;http://cdn.kendostatic.com/2015.3.1111/styles/kendo.mobile.all.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;http://cdn.kendostatic.com/2015.3.1111/styles/kendo.dataviz.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;http://cdn.kendostatic.com/2015.3.1111/styles/kendo.bootstrap.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;http://cdn.kendostatic.com/2015.3.1111/styles/kendo.dataviz.bootstrap.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;script src=&quot;http://cdn.kendostatic.com/2015.3.1111/js/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;http://cdn.kendostatic.com/2015.3.1111/js/jszip.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;http://cdn.kendostatic.com/2015.3.1111/js/kendo.all.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;http://cdn.kendostatic.com/2015.3.1111/js/kendo.aspnetmvc.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;@Url.Content(&quot;~/Scripts/kendo.modernizr.custom.js&quot;)&quot;&gt;&lt;/script&gt;
+    @Styles.Render(&quot;~/Content/css&quot;)
+</code></pre><blockquote>
+<p><strong>Tip</strong>: Because the <strong>Convert to Telerik application</strong>, <strong>Upgrade Project</strong>, or <strong>Configure Project</strong> wizards modify the <code>_Layout.cshtml</code> file, be sure to check position of any custom CSS declarations afterward.        </p>
+</blockquote>
+<div class="exercise-end"></div>
 			</div>
 			<hr>
 			<div class="chapter">
 				<h2 id="input-controls">Input Controls</h2>
 <p>Now that your app is ready for development, let&#39;s add some UI components. In this chapter we&#39;ll create Kendo DatePicker inputs using the UI for MVC fluent API.</p>
-<h3 id="fluent-html-helpers">Fluent Html Helpers</h3>
-<h3 id="adding-a-kendo-datepicker">Adding a Kendo DatePicker</h3>
+<h3 id="kendo-helper-overview">Kendo Helper Overview</h3>
+<p><strong>Server-side wrappers</strong></p>
+<p>Telerik UI for ASP.NET MVC is a set of server-side wrappers. A server-wrapper does the following.</p>
+<ul>
+<li>Allows the developer to configure a Kendo UI widget via C# or VB.NET code - set its value, data source etc.</li>
+<li>Renders the HTML and JavaScript needed to initialize the Kendo UI widget. The widget options propagate to the client-side via the widget initialization script.</li>
+</ul>
+<p><img src="images/chapter2/wrapper-output.png" alt="Server-side wrapper outputs HTML and JavaScript"></p>
+<p><strong>Configuration</strong></p>
+<p>The Kendo HtmlHelper exposes all Kendo UI server wrappers.</p>
+<p><img src="images/chapter2/kendo-extension.png" alt="Kendo HtmlHelper extension method"></p>
+<p><strong>Widget options</strong></p>
+<p>The widget options are exposed via fluent interface.</p>
+<p><img src="images/chapter2/fluent-interface.png" alt="Fluent interface"></p>
+<p>Below is an example of how a Numeric Text Box input is created:</p>
+<pre><code>@(Html.Kendo().NumericTextBox()
+    .Name(&quot;name&quot;) // set the name of the NumericTextBox
+    .Value(10) //set the value
+    .Spinners(false) // disable the spinners
+)
+</code></pre><h3 id="adding-a-kendo-datepicker">Adding a Kendo DatePicker</h3>
+<p>Let&#39;s open the <code>Index.cshtml</code> page under the folder <code>views/home/</code>. The <code>Index.cshtml</code> page is where most of the application&#39;s UI lives. This page currently contains basic HTML inputs to collect date input from the user. To provide a better user experience, replace the standard HTML inputs with Kendo date picker controls. The Kendo date picker controls offer users a fly out calendar to choose a desired date.</p>
+<blockquote>
+<p>Note: The Kendo date picker control is touch and mouse friendly. No additional code is necessary to support tablets and phones.</p>
+</blockquote>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Replace StatsFrom and StatsTo TextBoxes with Kendo Date Pickers
+</h4>
+
+<p>Open <code>Views/Home/Index.cshtml</code></p>
+<p>Find the <code>StatsFrom</code> text box </p>
+<pre><code>&lt;!-- Stats From Date Picker --&gt;
+@Html.TextBox(&quot;StatsFrom&quot;, new DateTime(1996, 1, 1))
+</code></pre><p>Replace the code with a Kendo date picker</p>
+<pre><code>&lt;!-- Stats From Date Picker --&gt;
+@(Html.Kendo().DatePicker()
+       .Name(&quot;StatsFrom&quot;)
+       .Value(new DateTime(1996, 1, 1))
+)        
+</code></pre><p>Find the <code>StatsTo</code> text box</p>
+<pre><code>&lt;!-- Stats To Date Picker --&gt;
+@Html.TextBox(&quot;StatsTo&quot;, new DateTime(1996, 1, 1))    
+</code></pre><p>Replace the code with a Kendo date picker</p>
+<pre><code>&lt;!-- Stats To Date Picker --&gt;
+@(Html.Kendo().DatePicker()
+        .Name(&quot;StatsTo&quot;)
+        .Value(new DateTime(1998, 8, 1))
+)
+</code></pre><p>The Kendo HTML helper&#39;s fluent interface let you configure their behavior and appearance. The code you just added uses the following properties:</p>
+<ul>
+<li>Name: Sets the rendered HTML element&#39;s id property.</li>
+<li>Value: Sets a default selected date value for the date picker </li>
+</ul>
+<div class="exercise-end"></div>
+
+<p>After you run your app with this change, you will see a calendar icon in the <strong>Stats from</strong> field. Click or tap the icon to reveal the date picker:</p>
+<p><img src="images/chapter2/date-picker-flyout.jpg" alt="Tap to show a date picker"></p>
 
 			</div>
 						<hr>

@@ -4,16 +4,25 @@ Welcome to the [UI for ASP.NET MVC](http://www.telerik.com/aspnet-mvc) quick-sta
 
 ### What you're building
 
+
 This guide will walk you through building Team Efficiency Dashboard, a single page app that does the following things:
 
-- Connects rich chart visualizations and grids to a SQL datasource
+- Connects rich chart visualizations and grids to a SQL data source
 - Provides an interactive master/detail dashboard with filtering, sorting and exporting
-- Responsds to any device size including: mobile, tablet and desktop
+- Responds to any device size including: mobile, tablet and desktop
+
+If you follow along until the end, here is what the finished app will look like.
+
+![](images/chapter0/dashboard.jpg)
+
+And here is what the app will look like on mobile.
+
+![](images/chapter0/mobile-dashboard.jpg)
 
 ### UI for ASP.NET MVC vs Kendo UI widgets
 
 From client-side point of view, the vanilla HTML/JavaScript **Kendo UI** widgets and the rendered **UI for ASP.NET MVC** represent the same thing and provide the same capabilities.
-However, the UI for ASP.NET MVC wrappers provide additional capaiblites for use with ASP.NET MVC and tooling for VisualStudio. Refer to the [documentation](http://docs.telerik.com/kendo-ui/aspnet-mvc/kendo-ui-vs-mvc-wrappers) for a complete feature comparison.
+However, the UI for ASP.NET MVC wrappers provide additional capabilities for use with ASP.NET MVC and tooling for VisualStudio. Refer to the [documentation](http://docs.telerik.com/kendo-ui/aspnet-mvc/kendo-ui-vs-mvc-wrappers) for a complete feature comparison.
 
 ### Important Resources
 
