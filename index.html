@@ -128,11 +128,14 @@ However, the UI for ASP.NET MVC wrappers provide additional capabilities for use
 <p><strong>Tip</strong>: Because the <strong>Convert to Telerik application</strong>, <strong>Upgrade Project</strong>, or <strong>Configure Project</strong> wizards modify the <code>_Layout.cshtml</code> file, be sure to check position of any custom CSS declarations afterward.        </p>
 </blockquote>
 <div class="exercise-end"></div>
+
+<p>Now that your app is ready for development, let&#39;s add some simple input components to create a nice user experience.</p>
+
 			</div>
 			<hr>
 			<div class="chapter">
 				<h2 id="input-controls">Input Controls</h2>
-<p>Now that your app is ready for development, let&#39;s add some UI components. In this chapter we&#39;ll create Kendo DatePicker inputs using the UI for MVC fluent API.</p>
+<p>In this chapter you&#39;ll learn how to add Kendo UI components to your application. UI for MVC has powerful HTML Helpers that render Kendo UI components.</p>
 <h3 id="kendo-helper-overview">Kendo Helper Overview</h3>
 <p><strong>Server-side wrappers</strong></p>
 <p>Telerik UI for ASP.NET MVC is a set of server-side wrappers. A server-wrapper does the following.</p>
@@ -195,17 +198,146 @@ However, the UI for ASP.NET MVC wrappers provide additional capabilities for use
 						<hr>
 			<div class="chapter">
 				<h2 id="scaffolding">Scaffolding</h2>
-<p>In this chapter...</p>
+<p>In this chapter, you&#39;ll learn how to add leverage UI for MVC&#39;s scaffolding capabilities. One feature that MVC developers are quite used to is scaffolding. Visual-Studio-powered MVC scaffolding is a code generation framework that allows you to hook up your model to a controller and render views that are strongly typed, among other things. Since the scaffolding is simply a code generation tool, you are free to change any of the code that it generated.</p>
 <h3 id="upgrade-the-database">Upgrade the database</h3>
-<h3 id="ui-for-mvc-scaffolding-wizard">UI for MVC Scaffolding wizard</h3>
+<p>A copy of the Nortwind database in included with the Kendo Quick Start Boilerplate. Before you begin scaffolding make sure the Nortwind database is upgraded.  Having a working connection to the database is needed for the scaffolding wizard to work properly.</p>
+<blockquote>
+<p>Note: Upgrading the database is only necessary for this guide because the database supplied must support multiple versions of SQL therefore we chose the lowest database version possible.</p>
+</blockquote>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Upgrade the Northwind Database
+</h4>
 
+<blockquote>
+<p>Note: If you do not have a SQL Server instance installed on your machine, you may need to install SQL Server Express Edition from Microsoft. You can download the free installer <a href="http://www.microsoft.com/en-us/server-cloud/products/sql-server-editions/sql-server-express.aspx">here</a>.</p>
+</blockquote>
+<p>Using Visual Studio&#39;s <strong>Server Explorer</strong>, expand <strong>DataConnections</strong> and <strong>right-click NortwindDB &gt; Modify Connection</strong>.</p>
+<p><img src="images/chapter3/upgrade-db-1.jpg" alt=""></p>
+<p>Next, <strong>click OK</strong>.</p>
+<p><img src="images/chapter3/upgrade-db-2.jpg" alt=""></p>
+<p>Finally, <strong>click Yes</strong> to complete the upgrade.</p>
+<p><img src="images/chapter3/upgrade-db-3.jpg" alt=""></p>
+<p>Once the upgrade is complete, <strong>expand</strong> the Northwind Database Tables to verify connectivity.</p>
+<p><img src="images/chapter3/upgrade-db-4.jpg" alt=""></p>
+<div class="exercise-end"></div>
+
+<p>With the database upgraded use the scaffolding wizard to create an interactive grid view. </p>
+<h3 id="ui-for-mvc-scaffolding-wizard">UI for MVC Scaffolding wizard</h3>
+<p>The scaffolding wizard will aid you in creating the view by providing point a click configuration screen.Use the scaffolding wizard to create an interactive Kendo Grid view of invoices for the Team Efficiency Dashboard. By enabling grid features like: sorting, paging and exporting users will be able to analyze and share data in a familiar way.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Scaffold a Grid view of invoices
+</h4>
+
+<p>Start the scaffolding wizard by <strong>right-clicking Controllers &gt; Add &gt; New Scaffolded Item</strong></p>
+<p><img src="images/chapter3/scaffold-1.jpg" alt=""></p>
+<p>Choose the <strong>Kendo UI Scaffolder</strong> and click <strong>Add</strong> to continue</p>
+<p><img src="images/chapter3/scaffold-2.jpg" alt=""></p>
+<p>Notice the Scaffolder is capable of creating Grid, Chart, and Scheduler views for both C# and JavaScript. For this guide you&#39;ll be using the UI for MVC Grid scaffolding option. Choose <strong>UI for MVC Grid</strong> and click <strong>Add</strong> to continue.</p>
+<p><img src="images/chapter3/scaffold-3.jpg" alt=""></p>
+<p>From MVC Grid scaffolding dialog, the Grid&#39;s model options, grid options and events are defined. The Model Options control the following settings:</p>
+<ul>
+<li><em>Controller Name</em> - The name of the controller created by the scaffolder.</li>
+<li><em>View Name</em> - The name of the view created, which will display the scaffolded grid.</li>
+<li><em>Model Class</em> - The model the scaffolder will use to build the view.</li>
+<li><em>Data Context Class</em> - The Entity Framework DbContext used to connect the view to the data.</li>
+</ul>
+<p>Define the Grid&#39;s model options using the following values:</p>
+<ul>
+<li>Controller Name: <strong>InvoiceController</strong></li>
+<li>View Name: <strong>Index</strong></li>
+<li>Model Class: <strong>Invoice</strong></li>
+<li>Data Context Class: <strong>NorthwindDBContext</strong></li>
+</ul>
+<p><img src="images/chapter3/scaffold-4.jpg" alt=""></p>
+<p>The Grid Options control what features are scaffolded &amp; enabled on the grid including:</p>
+<ul>
+<li><em>DataSource</em> Type - Ajax, Server or WebApi.</li>
+<li><em>Editable</em> - Enable the editing, configure the edit mode (InLine, InCell or PopUp) and the operations to be included (Create, Update, Destroy).</li>
+<li><em>Filterable</em> - Enable the filtering of the Grid and select the filter mode.</li>
+<li><em>Column Menu</em> - Enable the column menu.</li>
+<li><em>Navigatable</em> - Enable the keyboard navigation.</li>
+<li><em>Pageable</em> - Enable the paging of the Grid.</li>
+<li><em>Reorderable</em> - Enable the column reording.</li>
+<li><em>Scrollable</em> - Enable the scrolling of the Grid table.</li>
+<li><em>Selectable</em> - Enable the selection and specify the selection mode and type.</li>
+<li><em>Sortable</em> - Enable the sorting and specify the sorting mode.</li>
+<li><em>Excel Export</em> - Enable the Excel export functionality.</li>
+<li><em>PDF Export</em> - Enable the PDF export functionality.</li>
+</ul>
+<p>Define the Grid&#39;s options using the following values:</p>
+<ul>
+<li>[ ] Scrollable</li>
+<li>[x] Sortable</li>
+<li>[x] Pageable</li>
+<li>[x] Excel Export</li>
+<li>[x] PDF Export</li>
+</ul>
+<p><img src="images/chapter3/scaffold-5.jpg" alt=""></p>
+<p>Click <strong>Add</strong> to continue and create the scaffolded items.</p>
+<p>The scaffolder will create the following files:</p>
+<ul>
+<li><code>Controllers/InvoiceController.cs</code> - This controller has the actions for the features selected in the scaffolding wizard.<ul>
+<li><code>Index</code> returns the view</li>
+<li><code>Invoices_Read</code> - gets all invoices from the database and returns a JSON formatted <strong>DataSourceRequest</strong> object. The <strong>DataSourceRequest</strong> will contain the current grid request information - page, sort, group and filter.</li>
+<li><code>Excel_Export_Save</code> - creates an XLS exported File result.</li>
+<li><code>Pdf_Export_Save</code> - creates a PDF exported File result.</li>
+</ul>
+</li>
+<li><code>Views/Invoice/Index.cshtml</code> - This view contains the markup and HTML helper responsible for rendering the Grid control.</li>
+</ul>
+<p>Run the application and navigate to <code>/Invoice/index</code> to see the generated grid control. You should see the following output:</p>
+<p><img src="images/chapter3/invoices-grid.jpg" alt=""></p>
+<div class="exercise-end"></div>
 			</div>
 						<hr>
 			<div class="chapter">
 				<h2 id="kendo-grid">Kendo Grid</h2>
-<p>In this chapter...</p>
+<p>In this chapter you will modify the scaffolded Grid code to further customize the Grid&#39;s appearance and incorporate the Grid into the dashboard  view. </p>
 <h3 id="configuring-kendo-grid-options">Configuring Kendo Grid options</h3>
-<h3 id="the-datasourcerequest-object">The DataSourceRequest object</h3>
+<ul>
+<li><p>Change the Grid&#39;s ID from &quot;grid&quot; to &quot;EmployeeSales&quot;</p>
+<p>  Find
+  @(Html.Kendo().Grid<QuickStart.Models.Invoice>()</p>
+<pre><code>    .Name(&quot;grid&quot;)
+    ...
+</code></pre><p>  )</p>
+<p>  Update
+  @{ Layout = null;}
+  @(Html.Kendo().Grid<QuickStart.Models.Invoice>()</p>
+<pre><code>    .Name(&quot;grid&quot;)
+    ...
+</code></pre><p>  )</p>
+<p>  Update
+  @{ Layout = null;}
+  @(Html.Kendo().Grid<QuickStart.Models.Invoice>()</p>
+<pre><code>    .Name(&quot;EmployeeSales&quot;)
+    ...
+</code></pre><p>  )</p>
+</li>
+<li><p>View Controllers/InvoiceController.cs</p>
+</li>
+<li><p>Add Grid to Index.cshtml</p>
+<p>  Find</p>
+  <!-- Invoices -->
+<p>  @Html.Ipsum().table(5, 3, &quot;d,t,n&quot;, new { @class = &quot;table table-striped table-bordered&quot; })</p>
+<p>  Replace
+  @Html.Action(&quot;Index&quot;,&quot;Invoice&quot;)</p>
+</li>
+<li><p>Run Project</p>
+</li>
+<li><p>Explore Sorting, Paging, and Exporting </p>
+</li>
+<li><p>Apply Date Format</p>
+</li>
+<li><p>Open Invoice/Index.cshtml</p>
+<p>  Find
+  columns.Bound(c =&gt; c.OrderDate);</p>
+<p>  Modify
+  columns.Bound(c =&gt; c.OrderDate).Format(&quot;{0:MM/dd/yyyy}&quot;);</p>
+</li>
+<li><p>Refresh page</p>
+</li>
+</ul>
 
 			</div>
 						<hr>
@@ -213,6 +345,68 @@ However, the UI for ASP.NET MVC wrappers provide additional capabilities for use
 				<h2 id="kendo-listview">Kendo ListView</h2>
 <p>In this chapter...</p>
 <h3 id="this-listview-control">This ListView control</h3>
+<ul>
+<li>Stop project if running</li>
+<li><p>Open Home/Index.cshtml</p>
+<p>  Find</p>
+  <!-- Employee List View -->
+<p>  Remove ul placeholder</p>
+  <nav id="employee-list">
+          <h3>Team members</h3>
+          <!-- Employee List View -->
+
+  </nav>
+
+<p>  Add</p>
+  <!-- Employee List View -->
+<p>  @(Html.Kendo().ListView<Employee>()</p>
+<pre><code>          .Name(&quot;EmployeesList&quot;)
+          .ClientTemplateId(&quot;EmployeeItemTemplate&quot;)
+          .TagName(&quot;ul&quot;)
+          .DataSource(dataSource =&gt;
+          {
+              dataSource.Read(read =&gt; read.Action(&quot;EmployeesList_Read&quot;, &quot;Home&quot;));
+              dataSource.PageSize(9);
+          })
+          .Selectable(s =&gt; s.Mode(ListViewSelectionMode.Single))
+</code></pre><p>  )</p>
+</li>
+<li><p>Discuss Kendo Templates</p>
+</li>
+<li><p>Add Template</p>
+<p>  Find </p>
+  <!-- Kendo Templates -->
+  <!-- /Kendo Templates -->
+<p>  Add</p>
+  <!-- Kendo Templates -->
+<p>  <script type="text/x-kendo-tmpl" id="EmployeeItemTemplate"></p>
+<pre><code>  &lt;li class=&quot;employee&quot;&gt;
+      &lt;div&gt;
+          &lt;img src=&quot;@(Url.Content(&quot;~/content/employees/&quot;))#:EmployeeId#-t.png&quot; /&gt;
+          &lt;span&gt; #: FullName #&lt;/span&gt;
+      &lt;/div&gt;
+  &lt;/li&gt;
+</code></pre><p>  </script>    </p>
+  <!-- /Kendo Templates -->
+</li>
+<li><p>Add Read Action</p>
+</li>
+<li><p>Open Controllers/HomeController.cs</p>
+<p>  Add to top of code</p>
+<p>  using Kendo.Mvc.UI;
+  using Kendo.Mvc.Extensions;</p>
+</li>
+</ul>
+<pre><code>Add to Class
+
+public ActionResult EmployeesList_Read([DataSourceRequest]DataSourceRequest request)
+{
+    var employees = db.Employees.OrderBy(e =&gt; e.FirstName);
+    return Json(employees.ToDataSourceResult(request, ModelState), JsonRequestBehavior.AllowGet);
+}
+</code></pre><ul>
+<li>Run and explore</li>
+</ul>
 <h3 id="adding-a-list-view">Adding a list view</h3>
 <h3 id="kendo-templates">Kendo Templates</h3>
 
@@ -222,6 +416,113 @@ However, the UI for ASP.NET MVC wrappers provide additional capabilities for use
 				<h2 id="client-side">Client Side</h2>
 <p>In this chapter...</p>
 <h3 id="working-with-client-side-events">Working with client side events</h3>
+<ul>
+<li><p>Select the first employee when data is bound</p>
+<p>  Find</p>
+  <!-- Employee List View -->
+<p>  @(Html.Kendo().ListView<Employee>()</p>
+<pre><code>      ...
+      .Selectable(s =&gt; s.Mode(ListViewSelectionMode.Single))
+</code></pre><p>  )</p>
+</li>
+</ul>
+<pre><code>Append
+@(Html.Kendo().ListView&lt;Employee&gt;()
+    ...
+    .Selectable(s =&gt; s.Mode(ListViewSelectionMode.Single))
+    .Events(e =&gt; e.DataBound(&quot;onListDataBound&quot;))
+)
+
+Result
+&lt;!-- Employee List View --&gt;
+@(Html.Kendo().ListView&lt;Employee&gt;()
+    .Name(&quot;EmployeesList&quot;)
+    .ClientTemplateId(&quot;EmployeeItemTemplate&quot;)
+    .TagName(&quot;ul&quot;)
+    .DataSource(dataSource =&gt;
+    {
+        dataSource.Read(read =&gt; read.Action(&quot;EmployeesList_Read&quot;, &quot;Home&quot;));
+        dataSource.PageSize(9);
+    })
+        .Selectable(s =&gt; s.Mode(ListViewSelectionMode.Single))
+        .Events(e =&gt; e.DataBound(&quot;onListDataBound&quot;))
+)
+</code></pre><ul>
+<li><p>Add JavaScript</p>
+<p>  Find 
+  @section Scripts {</p>
+<pre><code>  &lt;script&gt;
+      //Custom Scripts
+  &lt;/script&gt;
+</code></pre><p>  }</p>
+<p>  Add
+  @section Scripts {</p>
+<pre><code>  &lt;script&gt;
+      //Custom Scripts
+      function onListDataBound(e) {
+          this.select($(&quot;.employee:first&quot;));
+      }
+  &lt;/script&gt;
+</code></pre><p>  }</p>
+</li>
+<li><p>Refresh page</p>
+</li>
+</ul>
+<h1 id="n-kendo-datasource">N. Kendo Datasource</h1>
+<ul>
+<li>Get Selected Employee</li>
+<li><p>Update Kendo Template</p>
+<p>  Find    </p>
+  <!-- Employee List View -->
+<p>  @(Html.Kendo().ListView<Employee>()</p>
+<pre><code>      ...
+      .Selectable(s =&gt; s.Mode(ListViewSelectionMode.Single))
+      .Events(e =&gt; e.DataBound(&quot;onListDataBound&quot;))
+</code></pre><p>  )</p>
+<p>  Add</p>
+<pre><code>  @(Html.Kendo().ListView&lt;Employee&gt;()
+      ...
+      .Selectable(s =&gt; s.Mode(ListViewSelectionMode.Single))
+      .Events(e =&gt; e.DataBound(&quot;onListDataBound&quot;))
+              .Change(&quot;onCriteriaChange&quot;))
+</code></pre><p>  )</p>
+<p>  Find</p>
+  <!-- Kendo Templates -->
+<pre><code>  ...
+</code></pre>  <!-- /Kendo Templates -->
+<p>  Add</p>
+  <!-- Kendo Templates -->
+  <script type="text/x-kendo-tmpl" id="employeeAvatarTemplate">
+      <img src="@(Url.Content("~/content/employees/"))#:EmployeeId#.png" />
+      <span>#:FullName#</span>
+  </script>
+
+<p>  Find</p>
+  <script>
+      ...
+  </script>
+
+<p>  Add
+  function getSelectedEmployee() {</p>
+<pre><code>  var employeeList = $(&quot;#EmployeesList&quot;).data(&quot;kendoListView&quot;),
+  employee = employeeList.dataSource.getByUid(employeeList.select().attr(&quot;data-uid&quot;));
+  return employee;
+</code></pre><p>  }</p>
+<p>  function updateEmployeeAvatar() {</p>
+<pre><code>  var employee = getSelectedEmployee(),
+      template = kendo.template($(&quot;#employeeAvatarTemplate&quot;).html());
+
+  //apply template
+  $(&quot;#employee-about&quot;).html(template(employee));
+</code></pre><p>  }</p>
+<p>  function onCriteriaChange() {</p>
+<pre><code>  updateEmployeeAvatar();
+</code></pre><p>  }</p>
+</li>
+<li><p>Refresh page</p>
+</li>
+<li>Watch template update with selected list item</li>
+</ul>
 
 			</div>
 						<hr>
@@ -229,6 +530,134 @@ However, the UI for ASP.NET MVC wrappers provide additional capabilities for use
 				<h2 id="kendo-datasource">Kendo Datasource</h2>
 <p>In this chapter...</p>
 <h3 id="working-with-the-kendo-datasource">Working with the Kendo Datasource</h3>
+<ul>
+<li><p>Create a filter</p>
+<p>  Find</p>
+  <script>
+      ...
+  </script>
+
+<p>  Add
+  function getEmployeeFilter() {</p>
+<pre><code>  var employee = getSelectedEmployee(),
+      statsFrom = $(&quot;#StatsFrom&quot;).data(&quot;kendoDatePicker&quot;),
+      statsTo = $(&quot;#StatsTo&quot;).data(&quot;kendoDatePicker&quot;);
+
+  var filter = {
+      employeeId: employee.EmployeeId,
+      salesPerson: employee.FullName,
+      statsFrom: statsFrom.value(),
+      statsTo: statsTo.value()
+  }
+  return filter;
+</code></pre><p>  }</p>
+<p>  function refreshGrid() {</p>
+<pre><code>  var employeeSales = $(&quot;#EmployeeSales&quot;).data(&quot;kendoGrid&quot;);
+  employeeSales.dataSource.read();
+</code></pre><p>  }</p>
+<p>  Find</p>
+<p>  @(Html.Kendo().Grid<QuickStart.Models.Invoice>()</p>
+<pre><code>    .Name(&quot;EmployeeSales&quot;)
+    ...
+    .Scrollable(scrollable =&gt; scrollable.Enabled(false))
+    .DataSource(dataSource =&gt; dataSource
+        .Ajax()
+        .Read(read =&gt; read.Action(&quot;Invoices_Read&quot;, &quot;Invoice&quot;))
+    )
+</code></pre><p>  )</p>
+<p>  Append
+  @(Html.Kendo().Grid<QuickStart.Models.Invoice>()</p>
+<pre><code>    .Name(&quot;EmployeeSales&quot;)
+    ...
+    .Scrollable(scrollable =&gt; scrollable.Enabled(false))
+    .DataSource(dataSource =&gt; dataSource
+        .Ajax()
+        .Read(read =&gt; read.Action(&quot;Invoices_Read&quot;, &quot;Invoice&quot;)
+        .Data(&quot;getEmployeeFilter&quot;))
+    )
+    .AutoBind(false)
+</code></pre><p>  )</p>
+<p>  Find
+  function onCriteriaChange() {</p>
+<pre><code>  updateEmployeeAvatar();
+</code></pre><p>  }</p>
+<p>  Append
+  function onCriteriaChange() {</p>
+<pre><code>  updateEmployeeAvatar();
+  refreshGrid();
+</code></pre><p>  }</p>
+</li>
+<li><p>Apply filter on the controller action Controllers/InvoiceController.cs</p>
+<p>  Find
+  public ActionResult Invoices_Read([DataSourceRequest]DataSourceRequest request)
+  {</p>
+<pre><code>  IQueryable&lt;Invoice&gt; invoices = db.Invoices;
+  DataSourceResult result = invoices.ToDataSourceResult(request, invoice =&gt; new {
+      OrderID = invoice.OrderID,
+      CustomerName = invoice.CustomerName,
+      OrderDate = invoice.OrderDate,
+      ProductName = invoice.ProductName,
+      UnitPrice = invoice.UnitPrice,
+      Quantity = invoice.Quantity,
+      Salesperson = invoice.Salesperson
+  });
+
+  return Json(result);
+</code></pre><p>  }</p>
+<p>  Append
+  public ActionResult Invoices_Read([DataSourceRequest]DataSourceRequest request,</p>
+<pre><code>  string salesPerson,
+  DateTime statsFrom, 
+  DateTime statsTo)
+</code></pre><p>  {</p>
+<pre><code>  var invoices = db.Invoices.Where(inv =&gt; inv.Salesperson == salesPerson)
+      .Where(inv =&gt; inv.OrderDate &gt;= statsFrom &amp;&amp; inv.OrderDate &lt;= statsTo);
+  DataSourceResult result = invoices.ToDataSourceResult(request, invoice =&gt; new {
+      OrderID = invoice.OrderID,
+      CustomerName = invoice.CustomerName,
+      OrderDate = invoice.OrderDate,
+      ProductName = invoice.ProductName,
+      UnitPrice = invoice.UnitPrice,
+      Quantity = invoice.Quantity,
+      Salesperson = invoice.Salesperson
+  });
+
+  return Json(result);
+</code></pre><p>  }</p>
+</li>
+<li><p>run project</p>
+</li>
+<li><p>inspect behavior list view and grid are in sync</p>
+</li>
+<li><p>update date pickers with client side event</p>
+<p>  Find
+  @(Html.Kendo().DatePicker()</p>
+<pre><code>              .Name(&quot;StatsFrom&quot;)
+              .Value(new DateTime(1996, 1, 1))
+</code></pre><p>  )</p>
+<p>  Append
+  @(Html.Kendo().DatePicker()</p>
+<pre><code>              .Name(&quot;StatsFrom&quot;)
+              .Value(new DateTime(1996, 1, 1))
+              .Events(e =&gt; e.Change(&quot;onCriteriaChange&quot;))
+</code></pre><p>  )</p>
+<p>  Find
+  @(Html.Kendo().DatePicker()</p>
+<pre><code>              .Name(&quot;StatsTo&quot;)
+              .Value(new DateTime(1998, 8, 1))
+</code></pre><p>  )</p>
+</li>
+</ul>
+<pre><code>Append
+@(Html.Kendo().DatePicker()
+                .Name(&quot;StatsTo&quot;)
+                .Value(new DateTime(1998, 8, 1))
+                .Events(e =&gt; e.Change(&quot;onCriteriaChange&quot;))
+)
+</code></pre><ul>
+<li>Save / Reload page</li>
+<li>Change date to see grid reload</li>
+</ul>
 
 			</div>
 						<hr>
@@ -245,14 +674,340 @@ However, the UI for ASP.NET MVC wrappers provide additional capabilities for use
 <p>In this chapter...</p>
 <h3 id="chart-api">Chart API</h3>
 <h3 id="monthly-sales-chart">Monthly sales chart</h3>
-<h3 id="quarter-to-date-sales-chart">Quarter to date sales chart</h3>
+<ul>
+<li><p>Stop project</p>
+</li>
+<li><p>Under Views/Home add a new empty partial view _MontlySalesByEmployee.cshtml</p>
+<p>  Add
+  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
+<pre><code>                  .Name(&quot;EmployeeAverageSales&quot;)
+                  .HtmlAttributes(new { style = &quot;height:30px;&quot; })
+                  .Series(series =&gt;
+                  {
+                      series.Line(model =&gt; model.EmployeeSales)
+                          .Width(1.5)
+                          .Markers(m =&gt; m.Visible(false))
+                          .Tooltip(t =&gt; t.Template(&quot;#=kendo.toString(value, &#39;c2&#39;)#&quot;));
+                  })
+                  .CategoryAxis(c =&gt; c
+                      .Date()
+                      .Categories(x =&gt; x.Date)
+                      .Visible(false)
+                      .MajorGridLines(m =&gt; m.Visible(false))
+                      .MajorTicks(mT =&gt; mT.Visible(false))
+                  )
+                  .Legend(leg =&gt; leg.Visible(false))
+                  .ValueAxis(val =&gt; val.Numeric()
+                          .Visible(false)
+                          .Labels(lab =&gt; lab.Visible(false))
+                          .MajorGridLines(m =&gt; m.Visible(false))
+                          .MajorTicks(mT =&gt; mT.Visible(false)))
+                  .DataSource(ds =&gt; ds
+                      .Aggregates(a =&gt; a.Add(s =&gt; s.EmployeeSales).Average())
+                      .Read(read =&gt; read.Action(&quot;EmployeeAverageSales&quot;, &quot;Home&quot;)
+                      .Data(&quot;getEmployeeFilter&quot;))
+                  )
+                  .AutoBind(false)
+</code></pre><p>  )</p>
+</li>
+<li><p>Create a controller action</p>
+</li>
+<li><p>open controllers/HomeController.cs</p>
+<p>  Add
+  public ActionResult EmployeeAverageSales(</p>
+<pre><code>  int employeeId,
+  DateTime statsFrom,
+  DateTime statsTo)
+</code></pre><p>  {</p>
+<pre><code>  var result = EmployeeAverageSalesQuery(employeeId, statsFrom, statsTo);
 
+  return Json(result, JsonRequestBehavior.AllowGet);
+</code></pre><p>  }    </p>
+</li>
+</ul>
+<p>-open views/home/index.cshtml</p>
+<pre><code>Find
+&lt;!-- Montly Sales Chart --&gt;
+@Html.Placehold(430, 120, &quot;Chart&quot;)
+
+Replace
+&lt;!-- Montly Sales Chart --&gt;
+@Html.Partial(&quot;_MontlySalesByEmployee&quot;)
+
+Find
+&lt;script&gt;
+    ...
+&lt;/script&gt;
+
+Add
+
+function refreshEmployeeAverageSales() {
+    var employeeAverageSales = $(&quot;#EmployeeAverageSales&quot;).data(&quot;kendoChart&quot;);
+    employeeAverageSales.dataSource.read();
+}
+
+Find
+function onCriteriaChange() {
+    updateEmployeeAvatar();
+    refreshGrid();
+}
+
+Append
+function onCriteriaChange() {
+    updateEmployeeAvatar();
+    refreshGrid();
+    refreshEmployeeAverageSales();
+}
+</code></pre><ul>
+<li>Run and inspect</li>
+<li><p>Add Label</p>
+<p>  Find</p>
+  <script>
+      ...
+  </script>
+
+<p>  Add
+  function onAverageSalesDataBound(e) {</p>
+<pre><code>  var label = $(&quot;#EmployeeAverageSalesLabel&quot;),
+      data = this.dataSource.aggregates()
+
+  if (data.EmployeeSales) {
+      label.text(kendo.toString(data.EmployeeSales.average, &quot;c2&quot;));
+  } else {
+      label.text(kendo.toString(0, &quot;c2&quot;));
+  }
+</code></pre><p>  }</p>
+<p>  Find
+  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
+<pre><code>                      ...
+                      .AutoBind(false)
+</code></pre><p>  )</p>
+<p>  Append
+  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
+<pre><code>                      ...
+                      .AutoBind(false)
+                      .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
+</code></pre><p>  )</p>
+</li>
+</ul>
+<h3 id="quarter-to-date-sales-chart">Quarter to date sales chart</h3>
+<ul>
+<li><p>Stop project</p>
+</li>
+<li><p>Under Views/Home add a new empty partial view _QuarterToDateSales.cshtml</p>
+<p>  Add
+  @(Html.Kendo().Chart<QuickStart.Models.QuarterToDateSalesViewModel>()</p>
+<pre><code>                  .Name(&quot;EmployeeQuarterSales&quot;)
+                  .HtmlAttributes(new { style = &quot;height:30px;&quot; })
+                  .Tooltip(false)
+                  .Series(series =&gt;
+                  {
+                      series.Bullet(m =&gt; m.Current, m =&gt; m.Target);
+                  })
+                  .Legend(leg =&gt; leg.Visible(false))
+                  .CategoryAxis(cat =&gt; cat.Labels(lab =&gt; lab.Visible(false))
+                      .MajorGridLines(m =&gt; m.Visible(false)).Visible(false))
+                  .ValueAxis(val =&gt; val.Numeric()
+                      .Labels(lab =&gt; lab.Visible(false))
+                      .MajorGridLines(m =&gt; m.Visible(false))
+                      .MajorTicks(mT =&gt; mT.Visible(false)))
+                  .DataSource(ds =&gt; ds
+                      .Read(read =&gt; read.Action(&quot;EmployeeQuarterSales&quot;, &quot;Home&quot;)
+                      .Data(&quot;getEmployeeFilter&quot;))
+                  )
+                  .AutoBind(false)
+</code></pre><p>  )</p>
+</li>
+<li><p>Create a controller action</p>
+</li>
+<li><p>open controllers/HomeController.cs</p>
+<p>  Add
+  public ActionResult EmployeeQuarterSales(int employeeId, DateTime statsTo)
+  {</p>
+<pre><code>  DateTime startDate = statsTo.AddMonths(-3);
+
+  var result = EmployeeQuarterSalesQuery(employeeId, statsTo, startDate);
+
+  return Json(result, JsonRequestBehavior.AllowGet);
+</code></pre><p>  }</p>
+</li>
+</ul>
+<p>-open views/home/index.cshtml</p>
+<pre><code>Find
+&lt;!-- QTD Sales Chart --&gt;
+@Html.Placehold(430, 120, &quot;Chart&quot;)
+
+Replace
+&lt;!-- QTD Sales Chart --&gt;
+@Html.Partial(&quot;_QuarterToDateSales&quot;)
+
+Find
+&lt;script&gt;
+    ...
+&lt;/script&gt;
+
+Add
+function refreshEmployeeQuarterSales() {
+    var employeeQuarterSales = $(&quot;#EmployeeQuarterSales&quot;).data(&quot;kendoChart&quot;);
+    employeeQuarterSales.dataSource.read();
+}
+
+Find
+function onCriteriaChange() {
+    updateEmployeeAvatar();
+    refreshGrid();
+    refreshEmployeeAverageSales();
+}
+
+Append
+function onCriteriaChange() {
+    updateEmployeeAvatar();
+    refreshGrid();
+    refreshEmployeeAverageSales();
+    refreshEmployeeQuarterSales();
+}
+</code></pre><ul>
+<li>Run and inspect</li>
+<li><p>Add Label</p>
+<p>  Find</p>
+  <script>
+      ...
+  </script>
+
+
+</li>
+</ul>
+<pre><code>Add
+function onQuarterSalesDataBound(e) {
+    var data = this.dataSource.at(0);
+    $(&quot;#EmployeeQuarterSalesLabel&quot;).text(kendo.toString(data.Current, &quot;c2&quot;));
+}
+
+Find
+@(Html.Kendo().Chart&lt;QuickStart.Models.MonthlySalesByEmployeeViewModel&gt;()
+                        ...
+                        .AutoBind(false)
+)
+
+Append
+@(Html.Kendo().Chart&lt;QuickStart.Models.MonthlySalesByEmployeeViewModel&gt;()
+                        ...
+                        .AutoBind(false)
+                        .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
+)
+</code></pre>
 			</div>
 						<hr>
 			<div class="chapter">
 				<h2 id="go-responsive">Go Responsive</h2>
 <p>In this chapter...</p>
 <h3 id="responsive-grid">Responsive Grid</h3>
+<ul>
+<li>Run project</li>
+<li>Inspect responsive behavior</li>
+<li>Modify grid for responsive</li>
+<li><p>Open Views/Invoice/Index.cshtml</p>
+<p>  Find</p>
+<p>  .Columns(columns =&gt;
+  {</p>
+<pre><code>  columns.Bound(c =&gt; c.CustomerName);
+  columns.Bound(c =&gt; c.OrderDate).Format(&quot;{0:MM/dd/yyyy}&quot;);
+  columns.Bound(c =&gt; c.ProductName);
+  columns.Bound(c =&gt; c.UnitPrice);
+  columns.Bound(c =&gt; c.Quantity);
+  columns.Bound(c =&gt; c.Salesperson);
+</code></pre><p>  })</p>
+<p>  Update
+  .Columns(columns =&gt;
+  {</p>
+<pre><code>  columns.Bound(c =&gt; c.CustomerName).MinScreenWidth(900);
+  columns.Bound(c =&gt; c.OrderDate).Format(&quot;{0:MM/dd/yyyy}&quot;);
+  columns.Bound(c =&gt; c.ProductName).MinScreenWidth(768);
+  columns.Bound(c =&gt; c.UnitPrice);
+  columns.Bound(c =&gt; c.Quantity);
+</code></pre><p>  })</p>
+</li>
+<li><p>Refresh page and observe changes</p>
+</li>
+<li><p>Responsive Panel</p>
+<p>  Find</p>
+  <div class="app-wraper">
+      <!-- Menu Panel -->
+      <div class="hidden-xs" style="float:left;">
+
+  Update
+  <div class="app-wraper">
+      <!-- Menu Panel -->
+      @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
+      @<div>
+
+  Find
+  <!-- /Menu Panel -->
+
+  Append
+  ))
+  <!-- /Menu Panel -->
+
+  Find
+  <section id="app-title-bar" class="row">
+      <div class="col-sm-3">
+          <h1 class="title">@ViewBag.Title</h1>
+      </div>
+  </section>
+
+  Append<br>  <div class="hamburger">
+      <!-- toggle button for responsive panel, hidden on large screens -->
+      @(Html.Kendo().Button()
+                  .Name(&quot;menuPanelOpen&quot;)
+                  .Content(&quot;menu&quot;)
+                  .Icon(&quot;hbars&quot;)
+                  .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; })
+      )
+  </div>
+</li>
+<li><p>Add CSS background</p>
+</li>
+<li><p>Open site.css</p>
+<p>  Find
+  /<em> Top Bar </em>/</p>
+<p>  .hamburger {</p>
+<pre><code>  position: absolute;
+  top: 5px;
+  left: 5px;
+</code></pre><p>  }</p>
+<p>  Find
+  /<em> Side Panel </em>/    </p>
+<p>  Add
+  #menuPanel {</p>
+<pre><code>  background-color: #fff;
+  padding: 10px;
+  z-index: 3;
+</code></pre><p>  }</p>
+</li>
+<li><p>Try responsive panel</p>
+</li>
+<li><p>Add close button</p>
+<p>  Find</p>
+  <!-- Menu Panel -->
+<p>  @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
+  @<div></p>
+<pre><code>  &lt;h3&gt;Report Range&lt;/h3&gt;
+</code></pre><p>  Update
+  @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
+  @<div></p>
+<pre><code>  &lt;div class=&quot;text-right&quot;&gt;
+      @(Html.Kendo().Button()
+         .Name(&quot;menuPanelClose&quot;)
+         .Content(&quot;Close&quot;)
+         .Icon(&quot;close&quot;)
+         .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; })
+      )
+  &lt;/div&gt;
+  &lt;h3&gt;Report Range&lt;/h3&gt;
+</code></pre></li>
+<li><p>Refresh and retry</p>
+</li>
+</ul>
 <h3 id="responsive-panel">Responsive Panel</h3>
 
 			</div>
@@ -261,7 +1016,80 @@ However, the UI for ASP.NET MVC wrappers provide additional capabilities for use
 				<h2 id="kendo-themes">Kendo Themes</h2>
 <p>In this chapter...</p>
 <h3 id="theme-change">Theme change</h3>
+<ul>
+<li>stop the project</li>
+<li>Right click on project &gt; Telerik UI For MVC &gt; Configure Project</li>
+<li>Set theme to Nova</li>
+<li><p>Move     @Styles.Render(&quot;~/Content/css&quot;) just above </head></p>
+</li>
+<li><p>Set Charts to Nova</p>
+<p>  Find
+  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
+<pre><code>                      ...
+                      .AutoBind(false)
+                      .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
+</code></pre><p>  )</p>
+<p>  Append
+  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
+<pre><code>                      ...
+                      .AutoBind(false)
+                      .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
+                      .Theme(&quot;nova&quot;)
+</code></pre><p>  )</p>
+<p>  Find
+  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
+<pre><code>                      ...
+                      .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
+                      .AutoBind(false)
+</code></pre><p>  )</p>
+<p>  Append
+  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
+<pre><code>                      ...
+                      .AutoBind(false)
+                      .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
+                      .Theme(&quot;nova&quot;)
+</code></pre><p>  )</p>
+</li>
+</ul>
 <h3 id="finishing-the-app-theme">Finishing the app theme</h3>
+<ul>
+<li>Add CSS primer</li>
+<li><p>Open Views/Shared/_Layout.cshtml</p>
+<p>  Find
+  @Styles.Render(&quot;~/Content/css&quot;)
+  </head></p>
+<p>  Update
+  @Styles.Render(&quot;~/Content/css&quot;)
+  <link href="~/Content/site-nova.css" rel="stylesheet" />
+  </head></p>
+</li>
+<li><p>Refresh</p>
+</li>
+<li><p>open site-nova.css</p>
+<p>  Find
+  /<em> Side Panel - Employee List </em>/</p>
+<p>  Append
+  /<em> Side Panel - Employee List </em>/
+  #menuPanel .k-widget.k-datepicker.k-header {</p>
+<pre><code>  width: 100%;
+</code></pre><p>  }</p>
+<p>  #employee-list &gt; ul {</p>
+<pre><code>  margin: 0 -10px;
+</code></pre><p>  }</p>
+<p>  Find
+  /<em> Small Devices, Tablets, and Up </em>/
+  @media only screen and (min-width : 768px) {</p>
+<p>  }</p>
+<p>  Update
+  /<em> Small Devices, Tablets, and Up </em>/
+  @media only screen and (min-width : 768px) {</p>
+<pre><code>  .app-wraper {
+      position: relative;
+      margin-left: -15px;
+  }
+</code></pre><p>  }</p>
+</li>
+</ul>
 
 			</div>
 			

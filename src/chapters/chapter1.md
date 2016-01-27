@@ -117,3 +117,5 @@ The final code of the head section should look like this:
 > **Tip**: Because the **Convert to Telerik application**, **Upgrade Project**, or **Configure Project** wizards modify the `_Layout.cshtml` file, be sure to check position of any custom CSS declarations afterward.        
 
 <div class="exercise-end"></div>
+
+Now that your app is ready for development, let's add some simple input components to create a nice user experience.

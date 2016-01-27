@@ -1,6 +1,6 @@
 ## Input Controls
 
-Now that your app is ready for development, let's add some UI components. In this chapter we'll create Kendo DatePicker inputs using the UI for MVC fluent API.
+In this chapter you'll learn how to add Kendo UI components to your application. UI for MVC has powerful HTML Helpers that render Kendo UI components.
 
 ### Kendo Helper Overview
 
