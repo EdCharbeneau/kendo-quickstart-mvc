@@ -1,231 +1,121 @@
-## Kendo Charts
+## Go Responsive
 
 In this chapter...
 
-### Chart API
+### Responsive Grid
 
-### Monthly sales chart
+- Run project
+- Inspect responsive behavior
+- Modify grid for responsive
+- Open Views/Invoice/Index.cshtml
 
-- Stop project
+	Find
 
-- Under Views/Home add a new empty partial view _MontlySalesByEmployee.cshtml
-
-	Add
-	@(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()
-                        .Name("EmployeeAverageSales")
-                        .HtmlAttributes(new { style = "height:30px;" })
-                        .Series(series =>
-                        {
-                            series.Line(model => model.EmployeeSales)
-                                .Width(1.5)
-                                .Markers(m => m.Visible(false))
-                                .Tooltip(t => t.Template("#=kendo.toString(value, 'c2')#"));
-                        })
-                        .CategoryAxis(c => c
-                            .Date()
-                            .Categories(x => x.Date)
-                            .Visible(false)
-                            .MajorGridLines(m => m.Visible(false))
-                            .MajorTicks(mT => mT.Visible(false))
-                        )
-                        .Legend(leg => leg.Visible(false))
-                        .ValueAxis(val => val.Numeric()
-                                .Visible(false)
-                                .Labels(lab => lab.Visible(false))
-                                .MajorGridLines(m => m.Visible(false))
-                                .MajorTicks(mT => mT.Visible(false)))
-                        .DataSource(ds => ds
-                            .Aggregates(a => a.Add(s => s.EmployeeSales).Average())
-                            .Read(read => read.Action("EmployeeAverageSales", "Home")
-                            .Data("getEmployeeFilter"))
-                        )
-                        .AutoBind(false)
-	)
-
-- Create a controller action
-- open controllers/HomeController.cs
-
-	Add
-	public ActionResult EmployeeAverageSales(
-        int employeeId,
-        DateTime statsFrom,
-        DateTime statsTo)
+	.Columns(columns =>
     {
-        var result = EmployeeAverageSalesQuery(employeeId, statsFrom, statsTo);
-
-        return Json(result, JsonRequestBehavior.AllowGet);
-    }	
-
--open views/home/index.cshtml
-
-	Find
-	<!-- Montly Sales Chart -->
-	@Html.Placehold(430, 120, "Chart")
+        columns.Bound(c => c.CustomerName);
+        columns.Bound(c => c.OrderDate).Format("{0:MM/dd/yyyy}");
+        columns.Bound(c => c.ProductName);
+        columns.Bound(c => c.UnitPrice);
+        columns.Bound(c => c.Quantity);
+        columns.Bound(c => c.Salesperson);
+    })
 	
-	Replace
-	<!-- Montly Sales Chart -->
-	@Html.Partial("_MontlySalesByEmployee")
-
-	Find
-	<script>
-		...
-	</script>
-
-	Add
-
-	function refreshEmployeeAverageSales() {
-        var employeeAverageSales = $("#EmployeeAverageSales").data("kendoChart");
-        employeeAverageSales.dataSource.read();
-    }
-
-	Find
-	function onCriteriaChange() {
-        updateEmployeeAvatar();
-        refreshGrid();
-    }
-
-	Append
-	function onCriteriaChange() {
-        updateEmployeeAvatar();
-        refreshGrid();
-        refreshEmployeeAverageSales();
-    }
-
-- Run and inspect
-- Add Label
-	
-	Find
-	<script>
-		...
-	</script>
-	
-	Add
-	function onAverageSalesDataBound(e) {
-        var label = $("#EmployeeAverageSalesLabel"),
-            data = this.dataSource.aggregates()
-
-        if (data.EmployeeSales) {
-            label.text(kendo.toString(data.EmployeeSales.average, "c2"));
-        } else {
-            label.text(kendo.toString(0, "c2"));
-        }
-    }
-
-	Find
-	@(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()
-							...
-	                        .AutoBind(false)
-	)
-	
-	Append
-	@(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()
-							...
-	                        .AutoBind(false)
-                        	.Events(e => e.DataBound("onAverageSalesDataBound"))
-	)
-
-### Quarter to date sales chart
-
-- Stop project
-
-- Under Views/Home add a new empty partial view _QuarterToDateSales.cshtml
-
-	Add
-	@(Html.Kendo().Chart<QuickStart.Models.QuarterToDateSalesViewModel>()
-                        .Name("EmployeeQuarterSales")
-                        .HtmlAttributes(new { style = "height:30px;" })
-                        .Tooltip(false)
-                        .Series(series =>
-                        {
-                            series.Bullet(m => m.Current, m => m.Target);
-                        })
-                        .Legend(leg => leg.Visible(false))
-                        .CategoryAxis(cat => cat.Labels(lab => lab.Visible(false))
-                            .MajorGridLines(m => m.Visible(false)).Visible(false))
-                        .ValueAxis(val => val.Numeric()
-                            .Labels(lab => lab.Visible(false))
-                            .MajorGridLines(m => m.Visible(false))
-                            .MajorTicks(mT => mT.Visible(false)))
-                        .DataSource(ds => ds
-                            .Read(read => read.Action("EmployeeQuarterSales", "Home")
-                            .Data("getEmployeeFilter"))
-                        )
-                        .AutoBind(false)
-	)
-
-- Create a controller action
-- open controllers/HomeController.cs
-
-	Add
-	public ActionResult EmployeeQuarterSales(int employeeId, DateTime statsTo)
+	Update
+	.Columns(columns =>
     {
-        DateTime startDate = statsTo.AddMonths(-3);
+        columns.Bound(c => c.CustomerName).MinScreenWidth(900);
+        columns.Bound(c => c.OrderDate).Format("{0:MM/dd/yyyy}");
+        columns.Bound(c => c.ProductName).MinScreenWidth(768);
+        columns.Bound(c => c.UnitPrice);
+        columns.Bound(c => c.Quantity);
+    })
 
-        var result = EmployeeQuarterSalesQuery(employeeId, statsTo, startDate);
+- Refresh page and observe changes
 
-        return Json(result, JsonRequestBehavior.AllowGet);
-    }
-
--open views/home/index.cshtml
-
-	Find
-	<!-- QTD Sales Chart -->
-	@Html.Placehold(430, 120, "Chart")
-	
-	Replace
-	<!-- QTD Sales Chart -->
-    @Html.Partial("_QuarterToDateSales")
+- Responsive Panel
 
 	Find
-	<script>
-		...
-	</script>
+	<div class="app-wraper">
+	    <!-- Menu Panel -->
+	    <div class="hidden-xs" style="float:left;">
 
-	Add
-    function refreshEmployeeQuarterSales() {
-        var employeeQuarterSales = $("#EmployeeQuarterSales").data("kendoChart");
-        employeeQuarterSales.dataSource.read();
-    }
+	Update
+	<div class="app-wraper">
+		<!-- Menu Panel -->
+	    @(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
+	    @<div>
 
 	Find
-    function onCriteriaChange() {
-        updateEmployeeAvatar();
-        refreshGrid();
-        refreshEmployeeAverageSales();
-    }
+	<!-- /Menu Panel -->
 
 	Append
-    function onCriteriaChange() {
-        updateEmployeeAvatar();
-        refreshGrid();
-        refreshEmployeeAverageSales();
-        refreshEmployeeQuarterSales();
-    }
+    ))
+    <!-- /Menu Panel -->
 
-- Run and inspect
-- Add Label
-	
 	Find
-	<script>
-		...
-	</script>
+	<section id="app-title-bar" class="row">
+	    <div class="col-sm-3">
+	        <h1 class="title">@ViewBag.Title</h1>
+	    </div>
+	</section>
+	
+	Append	
+	<div class="hamburger">
+	    <!-- toggle button for responsive panel, hidden on large screens -->
+	    @(Html.Kendo().Button()
+	                .Name("menuPanelOpen")
+	                .Content("menu")
+	                .Icon("hbars")
+	                .HtmlAttributes(new { @class = "k-rpanel-toggle" })
+	    )
+	</div>
 
+- Add CSS background
+- Open site.css
+
+	Find
+	/* Top Bar */
+
+	.hamburger {
+	    position: absolute;
+	    top: 5px;
+	    left: 5px;
+	}
+
+	Find
+	/* Side Panel */	
 	
 	Add
-    function onQuarterSalesDataBound(e) {
-        var data = this.dataSource.at(0);
-        $("#EmployeeQuarterSalesLabel").text(kendo.toString(data.Current, "c2"));
-    }
+	#menuPanel {
+	    background-color: #fff;
+	    padding: 10px;
+	    z-index: 3;
+	}
+
+- Try responsive panel
+- Add close button
 
 	Find
-	@(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()
-							...
-	                        .AutoBind(false)
-	)
-	
-	Append
-	@(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()
-							...
-	                        .AutoBind(false)
-                        	.Events(e => e.DataBound("onQuarterSalesDataBound"))
-	)
+	<!-- Menu Panel -->
+    @(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
+    @<div>
+        <h3>Report Range</h3>
+
+	Update
+	@(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
+    @<div>
+        <div class="text-right">
+            @(Html.Kendo().Button()
+               .Name("menuPanelClose")
+               .Content("Close")
+               .Icon("close")
+               .HtmlAttributes(new { @class = "k-rpanel-toggle" })
+            )
+        </div>
+        <h3>Report Range</h3>
+
+- Refresh and retry
+
+
+### Responsive Panel

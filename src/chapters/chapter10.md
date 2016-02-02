@@ -1,121 +1,88 @@
-## Go Responsive
+## Kendo Themes
 
 In this chapter...
 
-### Responsive Grid
+### Theme change
 
-- Run project
-- Inspect responsive behavior
-- Modify grid for responsive
-- Open Views/Invoice/Index.cshtml
+- stop the project
+- Right click on project > Telerik UI For MVC > Configure Project
+- Set theme to Nova
+- Move     @Styles.Render("~/Content/css") just above </head>
+
+- Set Charts to Nova
 
 	Find
-
-	.Columns(columns =>
-    {
-        columns.Bound(c => c.CustomerName);
-        columns.Bound(c => c.OrderDate).Format("{0:MM/dd/yyyy}");
-        columns.Bound(c => c.ProductName);
-        columns.Bound(c => c.UnitPrice);
-        columns.Bound(c => c.Quantity);
-        columns.Bound(c => c.Salesperson);
-    })
+	@(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()
+							...
+	                        .AutoBind(false)
+                        	.Events(e => e.DataBound("onQuarterSalesDataBound"))
+	)
 	
-	Update
-	.Columns(columns =>
-    {
-        columns.Bound(c => c.CustomerName).MinScreenWidth(900);
-        columns.Bound(c => c.OrderDate).Format("{0:MM/dd/yyyy}");
-        columns.Bound(c => c.ProductName).MinScreenWidth(768);
-        columns.Bound(c => c.UnitPrice);
-        columns.Bound(c => c.Quantity);
-    })
-
-- Refresh page and observe changes
-
-- Responsive Panel
+	Append
+	@(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()
+							...
+	                        .AutoBind(false)
+                        	.Events(e => e.DataBound("onQuarterSalesDataBound"))
+                        	.Theme("nova")
+	)
 
 	Find
-	<div class="app-wraper">
-	    <!-- Menu Panel -->
-	    <div class="hidden-xs" style="float:left;">
+	@(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()
+							...
+							.Events(e => e.DataBound("onAverageSalesDataBound"))
+	                        .AutoBind(false)
+	)
+	
+	Append
+	@(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()
+							...
+	                        .AutoBind(false)
+                        	.Events(e => e.DataBound("onAverageSalesDataBound"))
+                        	.Theme("nova")
+	)
 
-	Update
-	<div class="app-wraper">
-		<!-- Menu Panel -->
-	    @(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
-	    @<div>
+### Finishing the app theme
+
+- Add CSS primer
+- Open Views/Shared/_Layout.cshtml
 
 	Find
-	<!-- /Menu Panel -->
+	@Styles.Render("~/Content/css")
+	</head>
+
+	Update
+	@Styles.Render("~/Content/css")
+    <link href="~/Content/site-nova.css" rel="stylesheet" />
+	</head>
+
+- Refresh
+- open site-nova.css
+
+	Find
+	/* Side Panel - Employee List */
 
 	Append
-    ))
-    <!-- /Menu Panel -->
+	/* Side Panel - Employee List */
+	#menuPanel .k-widget.k-datepicker.k-header {
+	    width: 100%;
+	}
 
-	Find
-	<section id="app-title-bar" class="row">
-	    <div class="col-sm-3">
-	        <h1 class="title">@ViewBag.Title</h1>
-	    </div>
-	</section>
-	
-	Append	
-	<div class="hamburger">
-	    <!-- toggle button for responsive panel, hidden on large screens -->
-	    @(Html.Kendo().Button()
-	                .Name("menuPanelOpen")
-	                .Content("menu")
-	                .Icon("hbars")
-	                .HtmlAttributes(new { @class = "k-rpanel-toggle" })
-	    )
-	</div>
-
-- Add CSS background
-- Open site.css
-
-	Find
-	/* Top Bar */
-
-	.hamburger {
-	    position: absolute;
-	    top: 5px;
-	    left: 5px;
+	#employee-list > ul {
+    	margin: 0 -10px;
 	}
 
 	Find
-	/* Side Panel */	
-	
-	Add
-	#menuPanel {
-	    background-color: #fff;
-	    padding: 10px;
-	    z-index: 3;
+	/* Small Devices, Tablets, and Up */
+	@media only screen and (min-width : 768px) {
+
 	}
-
-- Try responsive panel
-- Add close button
-
-	Find
-	<!-- Menu Panel -->
-    @(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
-    @<div>
-        <h3>Report Range</h3>
 
 	Update
-	@(Html.Kendo().ResponsivePanel().Name("menuPanel").Breakpoint(768).Content(
-    @<div>
-        <div class="text-right">
-            @(Html.Kendo().Button()
-               .Name("menuPanelClose")
-               .Content("Close")
-               .Icon("close")
-               .HtmlAttributes(new { @class = "k-rpanel-toggle" })
-            )
-        </div>
-        <h3>Report Range</h3>
+	/* Small Devices, Tablets, and Up */
+	@media only screen and (min-width : 768px) {
+	    .app-wraper {
+	        position: relative;
+	        margin-left: -15px;
+	    }
+	}
 
-- Refresh and retry
-
-
-### Responsive Panel
