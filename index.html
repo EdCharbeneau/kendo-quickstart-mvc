@@ -738,7 +738,7 @@ using Kendo.Mvc.Extensions;
     return Json(result);
 }
 </code></pre><p>Run the project to see the behavior. Now the EmployeeList and EmployeeSales Grid are in sync. When an employee is selected, only that employees data will show in the Grid.</p>
-<p><img src="images\chapter7\datasource-filter.jpg" alt=""></p>
+<p><img src="images/chapter7/datasource-filter.jpg" alt=""></p>
 <div class="exercise-end"></div>
 
 <p>At this point the EmployeeList is acting as a filter for the EmployeeSales Grid, however the data shown does not reflect the StatsFrom/StatsTo date range. With the filtering code in place, additional controls are wired up with relative ease. Let&#39;s wire up the StatsFrom/StatsTo DatePicker controls to the EmployeeSales Grid.</p>
@@ -764,6 +764,7 @@ using Kendo.Mvc.Extensions;
                 .Events(e =&gt; e.Change(&quot;onCriteriaChange&quot;))
 )
 </code></pre><p>Save the changes and refresh the browser. The StatsFrom/StatsTo DatePickers and EmployeeList ListView will update the Grid with data based on the selected dates and employee.</p>
+<p><img src="images/chapter7/datasource-filter2.jpg" alt=""></p>
 <div class="exercise-end"></div>
 			</div>
 						<hr>

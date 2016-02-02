@@ -141,7 +141,7 @@ The resulting code should be:
 
 Run the project to see the behavior. Now the EmployeeList and EmployeeSales Grid are in sync. When an employee is selected, only that employees data will show in the Grid.
 
-![](images\chapter7\datasource-filter.jpg)
+![](images/chapter7/datasource-filter.jpg)
 
 <div class="exercise-end"></div>
 
@@ -175,5 +175,7 @@ Find the StatsTo DatePicker,  the `Events` property and set the `Change` event t
 	)
 
 Save the changes and refresh the browser. The StatsFrom/StatsTo DatePickers and EmployeeList ListView will update the Grid with data based on the selected dates and employee.
+
+![](images/chapter7/datasource-filter2.jpg)
 
 <div class="exercise-end"></div>
