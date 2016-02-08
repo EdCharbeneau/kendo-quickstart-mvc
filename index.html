@@ -770,231 +770,258 @@ using Kendo.Mvc.Extensions;
 						<hr>
 			<div class="chapter">
 				<h2 id="kendo-charts">Kendo Charts</h2>
-<p>In this chapter...</p>
+<p>In this chapter you&#39;ll learn how to add Kendo UI DataVis to your application. The Telerik ASP.NET MVC chart, powered by Kendo UI, is a powerful data visualization component, which allows you to graphically represent your data. It is useful when you would like to utilize modern browser technologies such as SVG or Canvas (with a fallback to VML for older IE versions) for interactive data visualizations.</p>
+<p>The component offers a variety of chart types such as area, bar, line, scatter, polar, radar, pie and donut, stock (OHLC) and many more.</p>
 <h3 id="chart-api">Chart API</h3>
-<h3 id="monthly-sales-chart">Monthly sales chart</h3>
+<h3 id="bullet-series-chart">Bullet Series Chart</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Add a bullet series chart.
+</h4>
+
+<p>Since changes to the controller are necessary, stop the application if it is running.</p>
+<p>Let&#39;s use partials to keep the markup tidy. Under &#39;Views/Home&#39; add a new empty partial view &#39;_QuarterToDateSales.cshtml&#39;</p>
+<p>In the new partial view <code>_QuarterToDateSales.cshtml</code> begin a new Kendo UI Chart helper.</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.QuarterToDateSalesViewModel&gt;()
+
+)
+</code></pre><p>Set the <code>Name</code> property to <code>EmployeeAverageSales</code>.</p>
+<pre><code>.Name(&quot;EmployeeQuarterSales&quot;)
+</code></pre><p>Set the controls height to <code>30px</code>.</p>
+<pre><code>.HtmlAttributes(new { style = &quot;height:30px;&quot; })
+</code></pre><p>Next, add and define a <code>Bullet</code> Series chart with the following properties. </p>
 <ul>
-<li><p>Stop project</p>
-</li>
-<li><p>Under Views/Home add a new empty partial view _MontlySalesByEmployee.cshtml</p>
-<p>  Add
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                  .Name(&quot;EmployeeAverageSales&quot;)
-                  .HtmlAttributes(new { style = &quot;height:30px;&quot; })
-                  .Series(series =&gt;
-                  {
-                      series.Line(model =&gt; model.EmployeeSales)
-                          .Width(1.5)
-                          .Markers(m =&gt; m.Visible(false))
-                          .Tooltip(t =&gt; t.Template(&quot;#=kendo.toString(value, &#39;c2&#39;)#&quot;));
-                  })
-                  .CategoryAxis(c =&gt; c
-                      .Date()
-                      .Categories(x =&gt; x.Date)
-                      .Visible(false)
-                      .MajorGridLines(m =&gt; m.Visible(false))
-                      .MajorTicks(mT =&gt; mT.Visible(false))
-                  )
-                  .Legend(leg =&gt; leg.Visible(false))
-                  .ValueAxis(val =&gt; val.Numeric()
-                          .Visible(false)
-                          .Labels(lab =&gt; lab.Visible(false))
-                          .MajorGridLines(m =&gt; m.Visible(false))
-                          .MajorTicks(mT =&gt; mT.Visible(false)))
-                  .DataSource(ds =&gt; ds
-                      .Aggregates(a =&gt; a.Add(s =&gt; s.EmployeeSales).Average())
-                      .Read(read =&gt; read.Action(&quot;EmployeeAverageSales&quot;, &quot;Home&quot;)
-                      .Data(&quot;getEmployeeFilter&quot;))
-                  )
-                  .AutoBind(false)
-</code></pre><p>  )</p>
-</li>
-<li><p>Create a controller action</p>
-</li>
-<li><p>open controllers/HomeController.cs</p>
-<p>  Add
-  public ActionResult EmployeeAverageSales(</p>
-<pre><code>  int employeeId,
-  DateTime statsFrom,
-  DateTime statsTo)
-</code></pre><p>  {</p>
-<pre><code>  var result = EmployeeAverageSalesQuery(employeeId, statsFrom, statsTo);
-
-  return Json(result, JsonRequestBehavior.AllowGet);
-</code></pre><p>  }    </p>
-</li>
+<li>Set the current value to the <code>Current</code> property on the model.</li>
+<li>Set the target value to the <code>Target</code> property on the model.</li>
 </ul>
-<p>-open views/home/index.cshtml</p>
-<pre><code>Find
-&lt;!-- Montly Sales Chart --&gt;
-@Html.Placehold(430, 120, &quot;Chart&quot;)
-
-Replace
-&lt;!-- Montly Sales Chart --&gt;
-@Html.Partial(&quot;_MontlySalesByEmployee&quot;)
-
-Find
-&lt;script&gt;
-    ...
-&lt;/script&gt;
-
-Add
-
-function refreshEmployeeAverageSales() {
-    var employeeAverageSales = $(&quot;#EmployeeAverageSales&quot;).data(&quot;kendoChart&quot;);
-    employeeAverageSales.dataSource.read();
-}
-
-Find
-function onCriteriaChange() {
-    updateEmployeeAvatar();
-    refreshGrid();
-}
-
-Append
-function onCriteriaChange() {
-    updateEmployeeAvatar();
-    refreshGrid();
-    refreshEmployeeAverageSales();
-}
-</code></pre><ul>
-<li>Run and inspect</li>
-<li><p>Add Label</p>
-<p>  Find</p>
-  <script>
-      ...
-  </script>
-
-<p>  Add
-  function onAverageSalesDataBound(e) {</p>
-<pre><code>  var label = $(&quot;#EmployeeAverageSalesLabel&quot;),
-      data = this.dataSource.aggregates()
-
-  if (data.EmployeeSales) {
-      label.text(kendo.toString(data.EmployeeSales.average, &quot;c2&quot;));
-  } else {
-      label.text(kendo.toString(0, &quot;c2&quot;));
-  }
-</code></pre><p>  }</p>
-<p>  Find
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-</code></pre><p>  )</p>
-<p>  Append
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-                      .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
-</code></pre><p>  )</p>
-</li>
-</ul>
-<h3 id="quarter-to-date-sales-chart">Quarter to date sales chart</h3>
+<pre><code>.Series(series =&gt;
+{
+    series.Bullet(model =&gt; model.Current, model =&gt; m.Target);
+})
+</code></pre><p>Next, add and configure the Category Axis. Since the chart will be a spark line visualization, set these properties to <code>false</code></p>
 <ul>
-<li><p>Stop project</p>
-</li>
-<li><p>Under Views/Home add a new empty partial view _QuarterToDateSales.cshtml</p>
-<p>  Add
-  @(Html.Kendo().Chart<QuickStart.Models.QuarterToDateSalesViewModel>()</p>
-<pre><code>                  .Name(&quot;EmployeeQuarterSales&quot;)
-                  .HtmlAttributes(new { style = &quot;height:30px;&quot; })
-                  .Tooltip(false)
-                  .Series(series =&gt;
-                  {
-                      series.Bullet(m =&gt; m.Current, m =&gt; m.Target);
-                  })
-                  .Legend(leg =&gt; leg.Visible(false))
-                  .CategoryAxis(cat =&gt; cat.Labels(lab =&gt; lab.Visible(false))
-                      .MajorGridLines(m =&gt; m.Visible(false)).Visible(false))
-                  .ValueAxis(val =&gt; val.Numeric()
-                      .Labels(lab =&gt; lab.Visible(false))
-                      .MajorGridLines(m =&gt; m.Visible(false))
-                      .MajorTicks(mT =&gt; mT.Visible(false)))
-                  .DataSource(ds =&gt; ds
-                      .Read(read =&gt; read.Action(&quot;EmployeeQuarterSales&quot;, &quot;Home&quot;)
-                      .Data(&quot;getEmployeeFilter&quot;))
-                  )
-                  .AutoBind(false)
-</code></pre><p>  )</p>
-</li>
-<li><p>Create a controller action</p>
-</li>
-<li><p>open controllers/HomeController.cs</p>
-<p>  Add
-  public ActionResult EmployeeQuarterSales(int employeeId, DateTime statsTo)
-  {</p>
-<pre><code>  DateTime startDate = statsTo.AddMonths(-3);
-
-  var result = EmployeeQuarterSalesQuery(employeeId, statsTo, startDate);
-
-  return Json(result, JsonRequestBehavior.AllowGet);
-</code></pre><p>  }</p>
-</li>
+<li>Visible</li>
+<li>MajorGridLines</li>
 </ul>
-<p>-open views/home/index.cshtml</p>
-<pre><code>Find
-&lt;!-- QTD Sales Chart --&gt;
-@Html.Placehold(430, 120, &quot;Chart&quot;)
+<pre><code>.CategoryAxis(ca =&gt; ca.Labels(lab =&gt; lab.Visible(false))
+    .MajorGridLines(m =&gt; m.Visible(false)).Visible(false)
+)
+</code></pre><p>Next, add and configure the ValueAxis with a Numeric configuration.</p>
+<p>Since the chart will be a spark line visualization, set these <code>Visible</code> properties to <code>false</code> to disable them.</p>
+<ul>
+<li>Labels</li>
+<li>MajorGridLines</li>
+<li>MajorTicks</li>
+</ul>
+<pre><code>.ValueAxis(va =&gt; va.Numeric()
+    .Labels(lab =&gt; lab.Visible(false))
+    .MajorGridLines(m =&gt; m.Visible(false))
+    .MajorTicks(mT =&gt; mT.Visible(false))
+)
+</code></pre><p>Also set the <code>Legend</code> to <code>false</code>    </p>
+<pre><code>.Legend(leg =&gt; leg.Visible(false))
+</code></pre><p>Configure the <code>DataSource</code> by setting <code>Read</code> to the action <code>EmployeeQuarterSales</code> on the <code>Home</code> controller.</p>
+<p>Using the <code>Data</code> property, set the value to <code>getEmployeeFilter</code> sending filter data back to the <code>Read</code> action. </p>
+<p>Since the DataSource will be invoked on manually, set <code>AutoBind</code> to <code>false</code></p>
+<pre><code>.AutoBind(false)
+</code></pre><p>The resulting code should be:</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.QuarterToDateSalesViewModel&gt;()
+    .Name(&quot;EmployeeQuarterSales&quot;)
+    .HtmlAttributes(new { style = &quot;height:30px;&quot; })
+    .Series(series =&gt;
+    {
+        series.Bullet(m =&gt; m.Current, m =&gt; m.Target);
+    })
+    .CategoryAxis(ca =&gt; ca.Labels(lab =&gt; lab.Visible(false))
+        .MajorGridLines(m =&gt; m.Visible(false)).Visible(false)
+    )
+    .ValueAxis(va =&gt; va.Numeric()
+        .Labels(lab =&gt; lab.Visible(false))
+        .MajorGridLines(m =&gt; m.Visible(false))
+    )
+    .Legend(leg =&gt; leg.Visible(false))
+    .DataSource(ds =&gt; ds
+        .Read(read =&gt; read.Action(&quot;EmployeeQuarterSales&quot;, &quot;Home&quot;)
+        .Data(&quot;getEmployeeFilter&quot;))
+    )
+    .AutoBind(false)
+)
+</code></pre><p>Open <code>controllers/HomeController.cs</code> </p>
+<p>Create a controller action named <code>EmployeeAverageSales</code> on the <code>Home</code> controller. This action will supply the Chart with data. </p>
+<p>The boilerplate installed in chapter 1 has a function named <code>EmployeeQuarterSales</code>, this query will select the data required for the chart. Return the results of <code>EmployeeQuarterSalesQuery</code> as JSON.</p>
+<pre><code>public ActionResult EmployeeQuarterSales(int employeeId, DateTime statsTo)
+{
+    DateTime startDate = statsTo.AddMonths(-3);
 
-Replace
-&lt;!-- QTD Sales Chart --&gt;
+    var result = EmployeeQuarterSalesQuery(employeeId, statsTo, startDate);
+
+    return Json(result, JsonRequestBehavior.AllowGet);
+}
+</code></pre><p>Add the partial view to the main application page.</p>
+<p>In <code>Views/Home/Index.cshtm</code> find the <code>&lt;!-- QTD Sales Chart --&gt;</code> placeholder.</p>
+<pre><code>&lt;!-- QTD Sales Chart --&gt;
+@Html.Placehold(430, 120, &quot;Chart&quot;)
+</code></pre><p>Replace the placeholder with the <code>_QuarterToDateSales</code> partial.</p>
+<p>The resulting code should be:</p>
+<pre><code>&lt;!-- QTD Sales Chart --&gt;
 @Html.Partial(&quot;_QuarterToDateSales&quot;)
-
-Find
-&lt;script&gt;
+</code></pre><p>find the scripts section.</p>
+<pre><code>&lt;script&gt;
     ...
 &lt;/script&gt;
-
-Add
-function refreshEmployeeQuarterSales() {
+</code></pre><p>Add a new function named <code>refreshEmployeeQuarterSales</code>, this function will invoke <code>read</code> on the chart&#39;s data source.</p>
+<p>The resulting code should be:</p>
+<pre><code>function refreshEmployeeQuarterSales() {
     var employeeQuarterSales = $(&quot;#EmployeeQuarterSales&quot;).data(&quot;kendoChart&quot;);
     employeeQuarterSales.dataSource.read();
 }
-
-Find
-function onCriteriaChange() {
+</code></pre><p>Find and modify the <code>onCriteriaChanged</code> function so it calls <code>refreshGrid</code> updating the entire dashboard when a filter is changed.</p>
+<pre><code>function onCriteriaChange() {
     updateEmployeeAvatar();
     refreshGrid();
-    refreshEmployeeAverageSales();
-}
-
-Append
-function onCriteriaChange() {
-    updateEmployeeAvatar();
-    refreshGrid();
-    refreshEmployeeAverageSales();
     refreshEmployeeQuarterSales();
 }
-</code></pre><ul>
-<li>Run and inspect</li>
-<li><p>Add Label</p>
-<p>  Find</p>
-  <script>
-      ...
-  </script>
+</code></pre><p>Run the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.</p>
+<div class="exercise-end"></div>
 
+<h3 id="spark-line-series-chart">Spark Line Series Chart</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Trigger the grid datasource from a DatePicker event.
+</h4>
 
+<p>Since changes to the controller are necessary, stop the application if it is running.</p>
+<p>Let&#39;s use partials to keep the markup tidy. Under &#39;Views/Home&#39; add a new empty partial view &#39;_MontlySalesByEmployee.cshtml&#39;</p>
+<p>In the new partial view <code>_MontlySalesByEmployee.cshtml</code> begin a new Kendo UI Chart helper.</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
+
+)
+</code></pre><p>Set the <code>Name</code> property to <code>EmployeeAverageSales</code>.</p>
+<pre><code>.Name(&quot;EmployeeAverageSales&quot;)
+</code></pre><p>Set the controls height to <code>30px</code>.</p>
+<pre><code>.HtmlAttributes(new { style = &quot;height:30px;&quot; })
+</code></pre><p>Next, add and define a Series chart with the following properties. </p>
+<ul>
+<li>Set <code>Line</code> to the <code>EmployeeSales</code> property on the model.</li>
+<li>Set the <code>Width</code> to <code>1.5</code></li>
+<li>Disable markers by setting the <code>Markers</code> visible property to <code>false</code></li>
+<li>Set the tooltip using an inline Kendo Template <code>#=kendo.toString(value, &#39;c2&#39;)#</code></li>
+</ul>
+<pre><code>.Series(series =&gt;
+{
+    series.Line(model =&gt; model.EmployeeSales)
+    .Width(1.5)
+    .Markers(m =&gt; m.Visible(false))
+    .Tooltip(t =&gt; t.Template(&quot;#=kendo.toString(value, &#39;c2&#39;)#&quot;));
+})
+</code></pre><p>Next, add and configure the Category Axis with a <code>Date</code> configuration</p>
+<p>Set the Category to the <code>Date</code> field of the view model</p>
+<p>Since the chart will be a spark line visualization, set these <code>Visible</code> properties to <code>false</code> to disable them.</p>
+<ul>
+<li><em>Axis</em> Visible</li>
+<li><p>MajorGridLines Visible</p>
+<p>  .CategoryAxis(ca =&gt; ca</p>
+<pre><code>  .Date()
+  .Categories(model =&gt; model.Date)
+  .Visible(false)
+  .MajorGridLines(m =&gt; m.Visible(false))
+</code></pre><p>  )</p>
 </li>
 </ul>
-<pre><code>Add
-function onQuarterSalesDataBound(e) {
-    var data = this.dataSource.at(0);
-    $(&quot;#EmployeeQuarterSalesLabel&quot;).text(kendo.toString(data.Current, &quot;c2&quot;));
+<p>Next, add and configure the ValueAxis with a Numeric configuration.</p>
+<p>Since the chart will be a spark line visualization, set these <code>Visible</code> properties to <code>false</code> to disable them.</p>
+<ul>
+<li><em>Axis</em> Visible</li>
+<li>Labels Visible</li>
+<li><p>MajorGridLines Visible</p>
+<p>  .ValueAxis(va =&gt; va.Numeric()</p>
+<pre><code>  .Visible(false)
+  .Labels(lab =&gt; lab.Visible(false))
+  .MajorGridLines(m =&gt; m.Visible(false))
+</code></pre><p>   )</p>
+</li>
+</ul>
+<p>Also set the <code>Legend</code> to <code>false</code>    </p>
+<pre><code>.Legend(leg =&gt; leg.Visible(false))
+</code></pre><p>Configure the <code>DataSource</code> by setting <code>Read</code> to the action <code>EmployeeAverageSales</code> on the <code>Home</code> controller.</p>
+<p>Using the <code>Data</code> property, set the value to <code>getEmployeeFilter</code> sending filter data back to the <code>Read</code> action. </p>
+<p>Add an <code>Aggregates</code> on the DataSource to <code>Average</code> the <code>EmployeeSales</code>.      </p>
+<pre><code>.DataSource(ds =&gt; ds
+    .Read(read =&gt; read.Action(&quot;EmployeeAverageSales&quot;, &quot;Home&quot;)
+    .Data(&quot;getEmployeeFilter&quot;))
+    .Aggregates(a =&gt; a.Add(model =&gt; model.EmployeeSales).Average())
+ )
+</code></pre><p>Since the DataSource will be invoked on manually, set <code>AutoBind</code> to <code>false</code></p>
+<pre><code>.AutoBind(false)
+</code></pre><p>The resulting code should be:</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
+    .Name(&quot;EmployeeAverageSales&quot;)
+    .HtmlAttributes(new { style = &quot;height:30px;&quot; })
+    .Series(series =&gt;
+    {
+        series.Line(model =&gt; model.EmployeeSales)
+        .Width(1.5)
+        .Markers(m =&gt; m.Visible(false))
+        .Tooltip(t =&gt; t.Template(&quot;#=kendo.toString(value,&#39;c2&#39;)#&quot;));
+    })
+
+    .CategoryAxis(ca =&gt; ca
+        .Date()
+        .Categories(model =&gt; model.Date)
+        .Visible(false)
+        .MajorGridLines(m =&gt; m.Visible(false))
+    )
+
+    .ValueAxis(va =&gt; va.Numeric()
+        .Visible(false)
+        .Labels(lab =&gt; lab.Visible(false))
+        .MajorGridLines(m =&gt; m.Visible(false))
+    )
+    .Legend(leg =&gt; leg.Visible(false))
+    .DataSource(ds =&gt; ds
+        .Read(read =&gt; read.Action(&quot;EmployeeAverageSales&quot;, &quot;Home&quot;)
+        .Data(&quot;getEmployeeFilter&quot;))
+        .Aggregates(a =&gt; a.Add(model =&gt; model.EmployeeSales).Average())
+        )
+    .AutoBind(false)
+)
+</code></pre><p>Open <code>controllers/HomeController.cs</code> </p>
+<p>Create a controller action named <code>EmployeeAverageSales</code> on the <code>Home</code> controller. This action will supply the Chart with data. </p>
+<p>The boilerplate installed in chapter 1 has a function named <code>EmployeeAverageSalesQuery</code>, this query will select the data required for the chart. Return the results of <code>EmployeeAverageSalesQuery</code> as JSON.</p>
+<pre><code>public ActionResult EmployeeAverageSales(
+    int employeeId,
+    DateTime statsFrom,
+    DateTime statsTo)
+{
+    var result = EmployeeAverageSalesQuery(employeeId, statsFrom, statsTo);
+
+    return Json(result, JsonRequestBehavior.AllowGet);
+}    
+</code></pre><p>Add the partial view to the main application page.</p>
+<p>In <code>Views/Home/Index.cshtm</code> find the <code>&lt;!-- Montly Sales Chart --&gt;</code> placeholder.</p>
+<pre><code>&lt;!-- Montly Sales Chart --&gt;
+@Html.Placehold(430, 120, &quot;Chart&quot;)
+</code></pre><p>Replace the placeholder with the <code>_MontlySalesByEmployee</code> partial.</p>
+<p>The resulting code should be:</p>
+<pre><code>&lt;!-- Montly Sales Chart --&gt;
+@Html.Partial(&quot;_MontlySalesByEmployee&quot;)
+</code></pre><p>find the scripts section.</p>
+<pre><code>&lt;script&gt;
+    ...
+&lt;/script&gt;
+</code></pre><p>Add a new function named <code>refreshEmployeeAverageSales</code>, this function will invoke <code>read</code> on the chart&#39;s data source.</p>
+<p>The resulting code should be:</p>
+<pre><code>function refreshEmployeeAverageSales() {
+    var employeeAverageSales = $(&quot;#EmployeeAverageSales&quot;).data(&quot;kendoChart&quot;);
+    employeeAverageSales.dataSource.read();
 }
-
-Find
-@(Html.Kendo().Chart&lt;QuickStart.Models.MonthlySalesByEmployeeViewModel&gt;()
-                        ...
-                        .AutoBind(false)
-)
-
-Append
-@(Html.Kendo().Chart&lt;QuickStart.Models.MonthlySalesByEmployeeViewModel&gt;()
-                        ...
-                        .AutoBind(false)
-                        .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
-)
-</code></pre>
+</code></pre><p>Find and modify the <code>onCriteriaChanged</code> function so it calls <code>refreshGrid</code> updating the entire dashboard when a filter is changed.</p>
+<pre><code>function onCriteriaChange() {
+    updateEmployeeAvatar();
+    refreshGrid();
+    refreshEmployeeQuarterSales();
+    refreshEmployeeAverageSales();
+}
+</code></pre><p>Run the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.</p>
+<div class="exercise-end"></div>
 			</div>
 						<hr>
 			<div class="chapter">
