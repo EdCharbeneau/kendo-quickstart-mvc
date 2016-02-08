@@ -48,9 +48,9 @@ Next, add and configure the Category Axis. Since the chart will be a spark line 
 - MajorGridLines
 
 
-    .CategoryAxis(ca => ca.Labels(lab => lab.Visible(false))
-        .MajorGridLines(m => m.Visible(false)).Visible(false)
-    )
+     .CategoryAxis(ca => ca.Labels(lab => lab.Visible(false))
+         .MajorGridLines(m => m.Visible(false)).Visible(false)
+     )
                             
 Next, add and configure the ValueAxis with a Numeric configuration.
 
@@ -61,11 +61,11 @@ Since the chart will be a spark line visualization, set these `Visible` properti
 - MajorTicks
 
 
-    .ValueAxis(va => va.Numeric()
-        .Labels(lab => lab.Visible(false))
-        .MajorGridLines(m => m.Visible(false))
-        .MajorTicks(mT => mT.Visible(false))
-    )
+     .ValueAxis(va => va.Numeric()
+         .Labels(lab => lab.Visible(false))
+         .MajorGridLines(m => m.Visible(false))
+         .MajorTicks(mT => mT.Visible(false))
+     )
 
 Also set the `Legend` to `false`    
                          
@@ -132,7 +132,7 @@ The resulting code should be:
 	<!-- QTD Sales Chart -->
     @Html.Partial("_QuarterToDateSales")
 
-find the scripts section.
+Find the scripts section.
 
 	<script>
 		...
@@ -208,12 +208,13 @@ Since the chart will be a spark line visualization, set these `Visible` properti
 - *Axis* Visible
 - MajorGridLines Visible
 
-    .CategoryAxis(ca => ca
-        .Date()
-        .Categories(model => model.Date)
-        .Visible(false)
-        .MajorGridLines(m => m.Visible(false))
-    )
+
+     .CategoryAxis(ca => ca
+         .Date()
+         .Categories(model => model.Date)
+         .Visible(false)
+         .MajorGridLines(m => m.Visible(false))
+     )
 
 Next, add and configure the ValueAxis with a Numeric configuration.
 
@@ -223,11 +224,12 @@ Since the chart will be a spark line visualization, set these `Visible` properti
 - Labels Visible
 - MajorGridLines Visible
 
-    .ValueAxis(va => va.Numeric()
-        .Visible(false)
-        .Labels(lab => lab.Visible(false))
-        .MajorGridLines(m => m.Visible(false))
-     )
+
+     .ValueAxis(va => va.Numeric()
+         .Visible(false)
+         .Labels(lab => lab.Visible(false))
+         .MajorGridLines(m => m.Visible(false))
+      )
 
 Also set the `Legend` to `false`    
                          
@@ -313,7 +315,7 @@ The resulting code should be:
 	<!-- Montly Sales Chart -->
 	@Html.Partial("_MontlySalesByEmployee")
 
-find the scripts section.
+Find the scripts section.
 
 	<script>
 		...
@@ -339,4 +341,55 @@ Find and modify the `onCriteriaChanged` function so it calls `refreshGrid` updat
 
 Run the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.
 	
+<div class="exercise-end"></div>
+
+### Client Side API
+
+<h4 class="exercise-start">
+    <b>Exercise</b>: Display chart values using client APIs.
+</h4>
+
+In `Views/Home/Index.cshtm`, find the scripts section.
+
+	<script>
+		...
+	</script>
+
+Add a function named `onQuarterSalesDataBound`, find the first element of the datasource and displays the Current value in `EmployeeQuarterSalesLabel`.
+
+    function onQuarterSalesDataBound(e) {
+        var data = this.dataSource.at(0);
+        $("#EmployeeQuarterSalesLabel").text(kendo.toString(data.Current, "c2"));
+    }
+    
+Add a function named `onAverageSalesDataBound` find the dataSource aggregates and display the average of `EmployeeSales` in the `EmployeeAverageSalesLabel`.
+
+	function onAverageSalesDataBound(e) {
+        var label = $("#EmployeeAverageSalesLabel"),
+            data = this.dataSource.aggregates()
+
+        if (data.EmployeeSales) {
+            label.text(kendo.toString(data.EmployeeSales.average, "c2"));
+        } else {
+            label.text(kendo.toString(0, "c2"));
+        }
+    }
+
+Open the partial view `_MontlySalesByEmployee.cshtml` and add a `DataBound` event handler to the chart, set the event handler to `onQuarterSalesDataBound`. 
+
+    @(Html.Kendo().Chart<KendoQsBoilerplate.MonthlySalesByEmployeeViewModel>()
+        ...
+	    .AutoBind(false)
+        .Events(e => e.DataBound("onAverageSalesDataBound"))
+	)
+
+Open the partial view `_QuarterToDateSales.cshtml` and add a `DataBound` event handler to the chart, set the event handler to `onQuarterSalesDataBound`.
+
+    @(Html.Kendo().Chart<KendoQsBoilerplate.QuarterToDateSalesViewModel>()
+        ...
+        .AutoBind(false)
+        .Events(e => e.DataBound("onQuarterSalesDataBound"))       
+    )
+    
+    
 <div class="exercise-end"></div>
