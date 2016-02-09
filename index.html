@@ -1192,83 +1192,63 @@ using Kendo.Mvc.Extensions;
 						<hr>
 			<div class="chapter">
 				<h2 id="kendo-themes">Kendo Themes</h2>
-<p>In this chapter...</p>
+<p>Kendo UI widgets include a number of predefined themes. In this chapter you&#39;ll learn how to make your app look amazing with themes.</p>
 <h3 id="theme-change">Theme change</h3>
-<ul>
-<li>stop the project</li>
-<li>Right click on project &gt; Telerik UI For MVC &gt; Configure Project</li>
-<li>Set theme to Nova</li>
-<li><p>Move     @Styles.Render(&quot;~/Content/css&quot;) just above </head></p>
-</li>
-<li><p>Set Charts to Nova</p>
-<p>  Find
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-                      .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
-</code></pre><p>  )</p>
-<p>  Append
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-                      .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
-                      .Theme(&quot;nova&quot;)
-</code></pre><p>  )</p>
-<p>  Find
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
-                      .AutoBind(false)
-</code></pre><p>  )</p>
-<p>  Append
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-                      .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
-                      .Theme(&quot;nova&quot;)
-</code></pre><p>  )</p>
-</li>
-</ul>
-<h3 id="finishing-the-app-theme">Finishing the app theme</h3>
-<ul>
-<li>Add CSS primer</li>
-<li><p>Open Views/Shared/_Layout.cshtml</p>
-<p>  Find
-  @Styles.Render(&quot;~/Content/css&quot;)
-  </head></p>
-<p>  Update
-  @Styles.Render(&quot;~/Content/css&quot;)
-  <link href="~/Content/site-nova.css" rel="stylesheet" />
-  </head></p>
-</li>
-<li><p>Refresh</p>
-</li>
-<li><p>open site-nova.css</p>
-<p>  Find
-  /<em> Side Panel - Employee List </em>/</p>
-<p>  Append
-  /<em> Side Panel - Employee List </em>/
-  #menuPanel .k-widget.k-datepicker.k-header {</p>
-<pre><code>  width: 100%;
-</code></pre><p>  }</p>
-<p>  #employee-list &gt; ul {</p>
-<pre><code>  margin: 0 -10px;
-</code></pre><p>  }</p>
-<p>  Find
-  /<em> Small Devices, Tablets, and Up </em>/
-  @media only screen and (min-width : 768px) {</p>
-<p>  }</p>
-<p>  Update
-  /<em> Small Devices, Tablets, and Up </em>/
-  @media only screen and (min-width : 768px) {</p>
-<pre><code>  .app-wraper {
-      position: relative;
-      margin-left: -15px;
-  }
-</code></pre><p>  }</p>
-</li>
-</ul>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Theme the application.
+</h4>
 
+<p>If the project is running, stop the project.</p>
+<p>In Visual Studio&#39;s Project Explorer, Right click on the project and choose Telerik UI For MVC &gt; Configure Project from the menu.</p>
+<p>From the Project Configuration Wizard, choose the Nova theme.</p>
+<p>Open <code>Views/Shared/_Layout.cshtml</code> and move <code>@Styles.Render(&quot;~/Content/css&quot;)</code> just above the closing head tag <code>&lt;/head&gt;</code>.</p>
+<p>Run the application to see the theme applied to the Kendo UI widgets.</p>
+<p>Next, you&#39;ll finishing the themeing the app by adding styles to non-Kendo UI elements creating a completely custom look.</p>
+<p>A style sheet was installed with the boilerplate to give you a jump-start. Let&#39;s add that to the applciation by opening <code>Views/Shared/_Layout.cshtml</code> and adding a reference to <code>~/Content/site-nova.css</code> just above the closing head tag <code>&lt;/head&gt;</code>.</p>
+<p>Note: This is CSS, so the order in which the style sheets are added is very important.</p>
+<pre><code>&lt;link href=&quot;~/Content/site-nova.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;/head&gt;
+</code></pre><p>Refresh the application and notice the look is starting to come together. There&#39;s just a few items that could use some fine-tuning. Let&#39;s add some additional styles to <code>site-nova.css</code> to complete the theme.</p>
+<p>Open site-nova.css and find <code>/* Side Panel - Employee List */</code> and a style that sets the datepicker widgets inside the menuPanel to %100 width of the container.</p>
+<p>The resulting code should be:</p>
+<pre><code>/* Side Panel - Employee List */
+#menuPanel .k-widget.k-datepicker.k-header {
+    width: 100%;
+}
+</code></pre><p>Next, offset the employee list so its content lines up with the left edge of its container.</p>
+<pre><code>#employee-list &gt; ul {
+    margin: 0 -10px;
+}
+</code></pre><p>Find <code>/* Small Devices, Tablets, and Up */</code>. Here you&#39;ll find a media query that will hold some styles that are only applied to scree sizes above <code>768px</code>.</p>
+<pre><code>@media only screen and (min-width : 768px) {
+
+}
+</code></pre><p>Inside the media query add a left margin of <code>-15</code> and set the <code>position</code> to <code>relative</code>. This style will align the app with the left hand edge of the screen.</p>
+<pre><code>/* Small Devices, Tablets, and Up */
+@media only screen and (min-width : 768px) {
+    .app-wraper {
+        position: relative;
+        margin-left: -15px;
+    }
+}
+</code></pre><p>Finally, set the Kendo UI Chart themes.</p>
+<p>Open <code>_MontlySalesByEmployee.cshtml</code> and set the <code>Theme</code> property to <code>nova</code> on the <code>EmployeeAverageSales</code> chart.</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
+    .Name(&quot;EmployeeAverageSales&quot;)
+    ...
+    .AutoBind(false)
+       .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
+    .Theme(&quot;nova&quot;)
+)
+</code></pre><p>Open <code>_QuarterToDateSales.cshtml</code> and set the <code>Theme</code> property to <code>nova</code> on the <code>EmployeeQuarterSales</code> chart.</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.QuarterToDateSalesViewModel&gt;()
+    .Name(&quot;EmployeeQuarterSales&quot;)
+    ...
+    .AutoBind(false)
+    .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
+    .Theme(&quot;nova&quot;)
+)
+</code></pre><div class="exercise-end"></div>
 			</div>
 						<hr>
 			<div class="chapter">
