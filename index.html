@@ -881,6 +881,7 @@ using Kendo.Mvc.Extensions;
     refreshEmployeeQuarterSales();
 }
 </code></pre><p>Run the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.</p>
+<p><img src="images/chapter8/bullet-chart.jpg" alt="Bullet Chart"></p>
 <div class="exercise-end"></div>
 
 <h3 id="spark-line-series-chart">Spark Line Series Chart</h3>
@@ -1019,6 +1020,7 @@ using Kendo.Mvc.Extensions;
     refreshEmployeeAverageSales();
 }
 </code></pre><p>Run the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.</p>
+<p><img src="images/chapter8/spark-line-chart.jpg" alt="Spark Line Chart"></p>
 <div class="exercise-end"></div>
 
 <h3 id="client-side-api">Client Side API</h3>
@@ -1058,120 +1060,133 @@ using Kendo.Mvc.Extensions;
     .AutoBind(false)
     .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))       
 )
-</code></pre><div class="exercise-end"></div>
+</code></pre><p><img src="images/chapter8/chart-client-api.jpg" alt="Chart Client API"></p>
+<div class="exercise-end"></div>
 			</div>
 						<hr>
 			<div class="chapter">
 				<h2 id="go-responsive">Go Responsive</h2>
-<p>In this chapter...</p>
+<p>In this chapter you&#39;ll learn how to make the dashboard application look amazing on any device size.</p>
 <h3 id="responsive-grid">Responsive Grid</h3>
-<ul>
-<li>Run project</li>
-<li>Inspect responsive behavior</li>
-<li>Modify grid for responsive</li>
-<li><p>Open Views/Invoice/Index.cshtml</p>
-<p>  Find</p>
-<p>  .Columns(columns =&gt;
-  {</p>
-<pre><code>  columns.Bound(c =&gt; c.CustomerName);
-  columns.Bound(c =&gt; c.OrderDate).Format(&quot;{0:MM/dd/yyyy}&quot;);
-  columns.Bound(c =&gt; c.ProductName);
-  columns.Bound(c =&gt; c.UnitPrice);
-  columns.Bound(c =&gt; c.Quantity);
-  columns.Bound(c =&gt; c.Salesperson);
-</code></pre><p>  })</p>
-<p>  Update
-  .Columns(columns =&gt;
-  {</p>
-<pre><code>  columns.Bound(c =&gt; c.CustomerName).MinScreenWidth(900);
-  columns.Bound(c =&gt; c.OrderDate).Format(&quot;{0:MM/dd/yyyy}&quot;);
-  columns.Bound(c =&gt; c.ProductName).MinScreenWidth(768);
-  columns.Bound(c =&gt; c.UnitPrice);
-  columns.Bound(c =&gt; c.Quantity);
-</code></pre><p>  })</p>
-</li>
-<li><p>Refresh page and observe changes</p>
-</li>
-<li><p>Responsive Panel</p>
-<p>  Find</p>
-  <div class="app-wraper">
-      <!-- Menu Panel -->
-      <div class="hidden-xs" style="float:left;">
+<p>Run project, and shrink the browser window horizontally to about 400 pixels wide. Refresh the browser and observe how the the application elements stack nicely, but the grid bleeds off the page. There is simply too much information in the grid to show at this screen size. By setting a few properties we can remove non-essential columns from the grid for small screens.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Make the grid mobile friendly with responsive APIs.
+</h4>
 
-  Update
-  <div class="app-wraper">
-      <!-- Menu Panel -->
-      @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
-      @<div>
+<p>Open <code>Views/Invoice/Index.cshtml</code> and find where the <code>Columns</code> are defined in the <code>EmployeeSales</code> grid.</p>
+<pre><code>.Columns(columns =&gt;
+{
+    ...
+})
+</code></pre><p>First, remove the <code>Salesperson</code> column completely. The sales person is already displayed at the top of the page.</p>
+<p>Set the <code>MinScreenWidth</code> of the <code>CustomerName</code> column to 900. This means that the column will no longer be displayed on screen sizes less than 900 pixels wide.</p>
+<p>Set the <code>MinScreenWidth</code> of the <code>ProductName</code> column to 768. This means that the column will no longer be displayed on screen sizes less than 768 pixels wide.</p>
+<pre><code>.Columns(columns =&gt;
+{
+    columns.Bound(c =&gt; c.CustomerName).MinScreenWidth(900);
+    columns.Bound(c =&gt; c.OrderDate).Format(&quot;{0:MM/dd/yyyy}&quot;);
+    columns.Bound(c =&gt; c.ProductName).MinScreenWidth(768);
+    columns.Bound(c =&gt; c.UnitPrice);
+    columns.Bound(c =&gt; c.Quantity);
+})
+</code></pre><p>Refresh page, then shrink and grow the browser to different widths to see how the grid reacts at various sizes.</p>
+<p><img src="images/chapter9/responsive-grid.jpg" alt="Responsive Grid"></p>
+<div class="exercise-end"></div>
 
-  Find
-  <!-- /Menu Panel -->
-
-  Append
-  ))
-  <!-- /Menu Panel -->
-
-  Find
-  <section id="app-title-bar" class="row">
-      <div class="col-sm-3">
-          <h1 class="title">@ViewBag.Title</h1>
-      </div>
-  </section>
-
-  Append<br>  <div class="hamburger">
-      <!-- toggle button for responsive panel, hidden on large screens -->
-      @(Html.Kendo().Button()
-                  .Name(&quot;menuPanelOpen&quot;)
-                  .Content(&quot;menu&quot;)
-                  .Icon(&quot;hbars&quot;)
-                  .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; })
-      )
-  </div>
-</li>
-<li><p>Add CSS background</p>
-</li>
-<li><p>Open site.css</p>
-<p>  Find
-  /<em> Top Bar </em>/</p>
-<p>  .hamburger {</p>
-<pre><code>  position: absolute;
-  top: 5px;
-  left: 5px;
-</code></pre><p>  }</p>
-<p>  Find
-  /<em> Side Panel </em>/    </p>
-<p>  Add
-  #menuPanel {</p>
-<pre><code>  background-color: #fff;
-  padding: 10px;
-  z-index: 3;
-</code></pre><p>  }</p>
-</li>
-<li><p>Try responsive panel</p>
-</li>
-<li><p>Add close button</p>
-<p>  Find</p>
-  <!-- Menu Panel -->
-<p>  @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
-  @<div></p>
-<pre><code>  &lt;h3&gt;Report Range&lt;/h3&gt;
-</code></pre><p>  Update
-  @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
-  @<div></p>
-<pre><code>  &lt;div class=&quot;text-right&quot;&gt;
-      @(Html.Kendo().Button()
-         .Name(&quot;menuPanelClose&quot;)
-         .Content(&quot;Close&quot;)
-         .Icon(&quot;close&quot;)
-         .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; })
-      )
-  &lt;/div&gt;
-  &lt;h3&gt;Report Range&lt;/h3&gt;
-</code></pre></li>
-<li><p>Refresh and retry</p>
-</li>
-</ul>
 <h3 id="responsive-panel">Responsive Panel</h3>
+<p>When changing the screen size you may have noticed the Report Range side bar disappear. If not, take a moment to adjust the browser width again to see the side bar&#39;s behavior. Currently the side bar is hidden using <a href="http://getbootstrap.com/css/#responsive-utilities">Bootstrap&#39;s <code>hidden-xs</code> class</a>. Let&#39;s bring back the side bar using a Kendo UI ResponsivePanel and make a seamless user experience on any device size.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Add a responsive panel side bar.
+</h4>
+
+<p>Open <code>Views/Home/Index.cshtml</code> and find the <code>&lt;!-- Menu Panel --&gt;</code> placeholder.</p>
+<p><code>&lt;!-- Menu Panel --&gt;</code> placeholder with a <code>ResponsivePanel</code>. Set the <code>Name</code> to <code>menuPanel</code> and set the Breakpoint to <code>768</code>.</p>
+<p>Add a <code>Content</code> property and include all of the elements until you reach the ending placeholder <code>&lt;!-- /Menu Panel --&gt;</code></p>
+<blockquote>
+<p>Note: The &quot;at&quot; symbol is used as an escape charter for HTML content.</p>
+</blockquote>
+<p>The resulting code should be:</p>
+<pre><code>&lt;!-- Menu Panel --&gt;
+    @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
+    @&lt;div class=&quot;hidden-xs&quot; style=&quot;float:left;&quot;&gt;
+        ...
+    &lt;/div&gt;
+))
+&lt;!-- /Menu Panel --&gt;
+</code></pre><p>Remove <code>class=&quot;hidden-xs&quot; style=&quot;float:left;&quot;</code> from the <code>div</code> element in the newly added responsive panel.</p>
+<pre><code>&lt;!-- Menu Panel --&gt;
+    @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
+    @&lt;div&gt;
+        ...
+    &lt;/div&gt;
+))
+&lt;!-- /Menu Panel --&gt;
+</code></pre><p>Next, add a button for users to tap and toggle the responsive panel.</p>
+<p>Find the following block of code: </p>
+<pre><code>&lt;section id=&quot;app-title-bar&quot; class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-sm-3&quot;&gt;
+        &lt;h1 class=&quot;title&quot;&gt;@ViewBag.Title&lt;/h1&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+</code></pre><p>After the section&#39;s closing tag <code>&lt;/section&gt;</code>, add a new <code>div</code> with a <code>class</code> of <code>hamburger</code>.</p>
+<p>Inside the hamburger <code>div</code>, create a Kendo UI Button. Set the button&#39;s following properties:</p>
+<ul>
+<li>Name: menuPanelOpen</li>
+<li>Content: menu</li>
+<li>Icon: hbars</li>
+<li>HtmlAttributes: new { @class = &quot;k-rpanel-toggle&quot; }</li>
+</ul>
+<blockquote>
+<p>Note: Any element with the class <code>k-rpanel-toggle</code> will be able to toggle the current page&#39;s responsive panel.</p>
+</blockquote>
+<pre><code>&lt;div class=&quot;hamburger&quot;&gt;
+    &lt;!-- toggle button for responsive panel, hidden on large screens --&gt;
+    @(Html.Kendo().Button()
+                .Name(&quot;menuPanelOpen&quot;)
+                .Content(&quot;menu&quot;)
+                .Icon(&quot;hbars&quot;)
+                .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; }
+    )
+&lt;/div&gt;
+</code></pre><p>Open <code>Content/Site.css</code> and find the <code>/* Top Bar */</code> placeholder.</p>
+<pre><code>/* Top Bar */
+</code></pre><p>Add a style that selects the <code>hamburger</code> element and sets the <code>position</code> to <code>absolute</code>. Give the style a <code>top</code> of <code>5</code> and <code>left</code> of <code>5</code> to create a margin around the element.</p>
+<pre><code>.hamburger {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+</code></pre><p>Add a style that selects the <code>menuPanel</code>. Set a solid background color of <code>#fff</code> (white), include a <code>padding</code> of <code>10px</code> and <code>z-index</code> of <code>3</code>. This style will ensure that the panel appears above other UI elements and has a solid background.</p>
+<pre><code>#menuPanel {
+    background-color: #fff;
+    padding: 10px;
+    z-index: 3;
+}
+</code></pre><p>Run or refresh the application. Expand and contract the browser&#39;s width, notice the <strong>menu</strong> button appear when the browser is small. <strong>Click</strong> the menu button to open the panel. <strong>Click</strong> beside the panel to collapse it.   </p>
+<p>For a better user experience, add close button to the panel so the interaction is discoverable and intuitive.</p>
+<p>Find the <code>menuPanel</code> and add a Kendo UI Button inside the Content&#39;s first <code>div</code>. Set the button&#39;s properies to:</p>
+<ul>
+<li>Name: menuPanelClose</li>
+<li>Content: Close</li>
+<li>Icon: close</li>
+<li>HtmlAttributes: new { @class = &quot;k-rpanel-toggle&quot; }</li>
+</ul>
+<p>Wrap the button in a <code>div</code> with a class of <code>text-right</code> to position the button on the right hand edge of the panel.</p>
+<pre><code>@(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
+@&lt;div&gt;
+    &lt;div class=&quot;text-right&quot;&gt;
+        @(Html.Kendo().Button()
+           .Name(&quot;menuPanelClose&quot;)
+           .Content(&quot;Close&quot;)
+           .Icon(&quot;close&quot;)
+           .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; })
+        )
+    &lt;/div&gt;
+    ...
+ &lt;/div&gt;
+</code></pre><p>Refresh the application. Expand and contract the browser&#39;s width until the <strong>menu</strong> button is shown. Toggle the responsive panel using the <strong>menu</strong> and <strong>close</strong> buttons.</p>
+<p><img src="images/chapter9/responsive-panel.jpg" alt="Responsive Grid"></p>
+<div class="exercise-end"></div>
 
 			</div>
 						<hr>
