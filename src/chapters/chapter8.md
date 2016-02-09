@@ -156,7 +156,9 @@ Find and modify the `onCriteriaChanged` function so it calls `refreshGrid` updat
     }
 
 Run the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.
-	
+
+![Bullet Chart](images/chapter8/bullet-chart.jpg)
+
 <div class="exercise-end"></div>
 
 ### Spark Line Series Chart
@@ -340,6 +342,8 @@ Find and modify the `onCriteriaChanged` function so it calls `refreshGrid` updat
     }
 
 Run the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.
+
+![Spark Line Chart](images/chapter8/spark-line-chart.jpg)
 	
 <div class="exercise-end"></div>
 
@@ -390,6 +394,7 @@ Open the partial view `_QuarterToDateSales.cshtml` and add a `DataBound` event h
         .AutoBind(false)
         .Events(e => e.DataBound("onQuarterSalesDataBound"))       
     )
-    
+ 
+![Chart Client API](images/chapter8/chart-client-api.jpg)
     
 <div class="exercise-end"></div>
