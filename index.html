@@ -770,426 +770,485 @@ using Kendo.Mvc.Extensions;
 						<hr>
 			<div class="chapter">
 				<h2 id="kendo-charts">Kendo Charts</h2>
-<p>In this chapter...</p>
+<p>In this chapter you&#39;ll learn how to add Kendo UI DataVis to your application. The Telerik ASP.NET MVC chart, powered by Kendo UI, is a powerful data visualization component, which allows you to graphically represent your data. It is useful when you would like to utilize modern browser technologies such as SVG or Canvas (with a fallback to VML for older IE versions) for interactive data visualizations.</p>
+<p>The component offers a variety of chart types such as area, bar, line, scatter, polar, radar, pie and donut, stock (OHLC) and many more.</p>
 <h3 id="chart-api">Chart API</h3>
-<h3 id="monthly-sales-chart">Monthly sales chart</h3>
+<h3 id="bullet-series-chart">Bullet Series Chart</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Add a bullet series chart.
+</h4>
+
+<p>Since changes to the controller are necessary, stop the application if it is running.</p>
+<p>Let&#39;s use partials to keep the markup tidy. Under &#39;Views/Home&#39; add a new empty partial view &#39;_QuarterToDateSales.cshtml&#39;</p>
+<p>In the new partial view <code>_QuarterToDateSales.cshtml</code> begin a new Kendo UI Chart helper.</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.QuarterToDateSalesViewModel&gt;()
+
+)
+</code></pre><p>Set the <code>Name</code> property to <code>EmployeeAverageSales</code>.</p>
+<pre><code>.Name(&quot;EmployeeQuarterSales&quot;)
+</code></pre><p>Set the controls height to <code>30px</code>.</p>
+<pre><code>.HtmlAttributes(new { style = &quot;height:30px;&quot; })
+</code></pre><p>Next, add and define a <code>Bullet</code> Series chart with the following properties. </p>
 <ul>
-<li><p>Stop project</p>
-</li>
-<li><p>Under Views/Home add a new empty partial view _MontlySalesByEmployee.cshtml</p>
-<p>  Add
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                  .Name(&quot;EmployeeAverageSales&quot;)
-                  .HtmlAttributes(new { style = &quot;height:30px;&quot; })
-                  .Series(series =&gt;
-                  {
-                      series.Line(model =&gt; model.EmployeeSales)
-                          .Width(1.5)
-                          .Markers(m =&gt; m.Visible(false))
-                          .Tooltip(t =&gt; t.Template(&quot;#=kendo.toString(value, &#39;c2&#39;)#&quot;));
-                  })
-                  .CategoryAxis(c =&gt; c
-                      .Date()
-                      .Categories(x =&gt; x.Date)
-                      .Visible(false)
-                      .MajorGridLines(m =&gt; m.Visible(false))
-                      .MajorTicks(mT =&gt; mT.Visible(false))
-                  )
-                  .Legend(leg =&gt; leg.Visible(false))
-                  .ValueAxis(val =&gt; val.Numeric()
-                          .Visible(false)
-                          .Labels(lab =&gt; lab.Visible(false))
-                          .MajorGridLines(m =&gt; m.Visible(false))
-                          .MajorTicks(mT =&gt; mT.Visible(false)))
-                  .DataSource(ds =&gt; ds
-                      .Aggregates(a =&gt; a.Add(s =&gt; s.EmployeeSales).Average())
-                      .Read(read =&gt; read.Action(&quot;EmployeeAverageSales&quot;, &quot;Home&quot;)
-                      .Data(&quot;getEmployeeFilter&quot;))
-                  )
-                  .AutoBind(false)
-</code></pre><p>  )</p>
-</li>
-<li><p>Create a controller action</p>
-</li>
-<li><p>open controllers/HomeController.cs</p>
-<p>  Add
-  public ActionResult EmployeeAverageSales(</p>
-<pre><code>  int employeeId,
-  DateTime statsFrom,
-  DateTime statsTo)
-</code></pre><p>  {</p>
-<pre><code>  var result = EmployeeAverageSalesQuery(employeeId, statsFrom, statsTo);
-
-  return Json(result, JsonRequestBehavior.AllowGet);
-</code></pre><p>  }    </p>
-</li>
+<li>Set the current value to the <code>Current</code> property on the model.</li>
+<li>Set the target value to the <code>Target</code> property on the model.</li>
 </ul>
-<p>-open views/home/index.cshtml</p>
-<pre><code>Find
-&lt;!-- Montly Sales Chart --&gt;
-@Html.Placehold(430, 120, &quot;Chart&quot;)
-
-Replace
-&lt;!-- Montly Sales Chart --&gt;
-@Html.Partial(&quot;_MontlySalesByEmployee&quot;)
-
-Find
-&lt;script&gt;
-    ...
-&lt;/script&gt;
-
-Add
-
-function refreshEmployeeAverageSales() {
-    var employeeAverageSales = $(&quot;#EmployeeAverageSales&quot;).data(&quot;kendoChart&quot;);
-    employeeAverageSales.dataSource.read();
-}
-
-Find
-function onCriteriaChange() {
-    updateEmployeeAvatar();
-    refreshGrid();
-}
-
-Append
-function onCriteriaChange() {
-    updateEmployeeAvatar();
-    refreshGrid();
-    refreshEmployeeAverageSales();
-}
-</code></pre><ul>
-<li>Run and inspect</li>
-<li><p>Add Label</p>
-<p>  Find</p>
-  <script>
-      ...
-  </script>
-
-<p>  Add
-  function onAverageSalesDataBound(e) {</p>
-<pre><code>  var label = $(&quot;#EmployeeAverageSalesLabel&quot;),
-      data = this.dataSource.aggregates()
-
-  if (data.EmployeeSales) {
-      label.text(kendo.toString(data.EmployeeSales.average, &quot;c2&quot;));
-  } else {
-      label.text(kendo.toString(0, &quot;c2&quot;));
-  }
-</code></pre><p>  }</p>
-<p>  Find
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-</code></pre><p>  )</p>
-<p>  Append
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-                      .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
-</code></pre><p>  )</p>
-</li>
-</ul>
-<h3 id="quarter-to-date-sales-chart">Quarter to date sales chart</h3>
+<pre><code>.Series(series =&gt;
+{
+    series.Bullet(model =&gt; model.Current, model =&gt; m.Target);
+})
+</code></pre><p>Next, add and configure the Category Axis. Since the chart will be a spark line visualization, set these properties to <code>false</code></p>
 <ul>
-<li><p>Stop project</p>
-</li>
-<li><p>Under Views/Home add a new empty partial view _QuarterToDateSales.cshtml</p>
-<p>  Add
-  @(Html.Kendo().Chart<QuickStart.Models.QuarterToDateSalesViewModel>()</p>
-<pre><code>                  .Name(&quot;EmployeeQuarterSales&quot;)
-                  .HtmlAttributes(new { style = &quot;height:30px;&quot; })
-                  .Tooltip(false)
-                  .Series(series =&gt;
-                  {
-                      series.Bullet(m =&gt; m.Current, m =&gt; m.Target);
-                  })
-                  .Legend(leg =&gt; leg.Visible(false))
-                  .CategoryAxis(cat =&gt; cat.Labels(lab =&gt; lab.Visible(false))
-                      .MajorGridLines(m =&gt; m.Visible(false)).Visible(false))
-                  .ValueAxis(val =&gt; val.Numeric()
-                      .Labels(lab =&gt; lab.Visible(false))
-                      .MajorGridLines(m =&gt; m.Visible(false))
-                      .MajorTicks(mT =&gt; mT.Visible(false)))
-                  .DataSource(ds =&gt; ds
-                      .Read(read =&gt; read.Action(&quot;EmployeeQuarterSales&quot;, &quot;Home&quot;)
-                      .Data(&quot;getEmployeeFilter&quot;))
-                  )
-                  .AutoBind(false)
-</code></pre><p>  )</p>
-</li>
-<li><p>Create a controller action</p>
-</li>
-<li><p>open controllers/HomeController.cs</p>
-<p>  Add
-  public ActionResult EmployeeQuarterSales(int employeeId, DateTime statsTo)
-  {</p>
-<pre><code>  DateTime startDate = statsTo.AddMonths(-3);
-
-  var result = EmployeeQuarterSalesQuery(employeeId, statsTo, startDate);
-
-  return Json(result, JsonRequestBehavior.AllowGet);
-</code></pre><p>  }</p>
-</li>
+<li>Visible</li>
+<li>MajorGridLines</li>
 </ul>
-<p>-open views/home/index.cshtml</p>
-<pre><code>Find
-&lt;!-- QTD Sales Chart --&gt;
-@Html.Placehold(430, 120, &quot;Chart&quot;)
+<pre><code> .CategoryAxis(ca =&gt; ca.Labels(lab =&gt; lab.Visible(false))
+     .MajorGridLines(m =&gt; m.Visible(false)).Visible(false)
+ )
+</code></pre><p>Next, add and configure the ValueAxis with a Numeric configuration.</p>
+<p>Since the chart will be a spark line visualization, set these <code>Visible</code> properties to <code>false</code> to disable them.</p>
+<ul>
+<li>Labels</li>
+<li>MajorGridLines</li>
+<li>MajorTicks</li>
+</ul>
+<pre><code> .ValueAxis(va =&gt; va.Numeric()
+     .Labels(lab =&gt; lab.Visible(false))
+     .MajorGridLines(m =&gt; m.Visible(false))
+     .MajorTicks(mT =&gt; mT.Visible(false))
+ )
+</code></pre><p>Also set the <code>Legend</code> to <code>false</code>    </p>
+<pre><code>.Legend(leg =&gt; leg.Visible(false))
+</code></pre><p>Configure the <code>DataSource</code> by setting <code>Read</code> to the action <code>EmployeeQuarterSales</code> on the <code>Home</code> controller.</p>
+<p>Using the <code>Data</code> property, set the value to <code>getEmployeeFilter</code> sending filter data back to the <code>Read</code> action. </p>
+<p>Since the DataSource will be invoked on manually, set <code>AutoBind</code> to <code>false</code></p>
+<pre><code>.AutoBind(false)
+</code></pre><p>The resulting code should be:</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.QuarterToDateSalesViewModel&gt;()
+    .Name(&quot;EmployeeQuarterSales&quot;)
+    .HtmlAttributes(new { style = &quot;height:30px;&quot; })
+    .Series(series =&gt;
+    {
+        series.Bullet(m =&gt; m.Current, m =&gt; m.Target);
+    })
+    .CategoryAxis(ca =&gt; ca.Labels(lab =&gt; lab.Visible(false))
+        .MajorGridLines(m =&gt; m.Visible(false)).Visible(false)
+    )
+    .ValueAxis(va =&gt; va.Numeric()
+        .Labels(lab =&gt; lab.Visible(false))
+        .MajorGridLines(m =&gt; m.Visible(false))
+    )
+    .Legend(leg =&gt; leg.Visible(false))
+    .DataSource(ds =&gt; ds
+        .Read(read =&gt; read.Action(&quot;EmployeeQuarterSales&quot;, &quot;Home&quot;)
+        .Data(&quot;getEmployeeFilter&quot;))
+    )
+    .AutoBind(false)
+)
+</code></pre><p>Open <code>controllers/HomeController.cs</code> </p>
+<p>Create a controller action named <code>EmployeeAverageSales</code> on the <code>Home</code> controller. This action will supply the Chart with data. </p>
+<p>The boilerplate installed in chapter 1 has a function named <code>EmployeeQuarterSales</code>, this query will select the data required for the chart. Return the results of <code>EmployeeQuarterSalesQuery</code> as JSON.</p>
+<pre><code>public ActionResult EmployeeQuarterSales(int employeeId, DateTime statsTo)
+{
+    DateTime startDate = statsTo.AddMonths(-3);
 
-Replace
-&lt;!-- QTD Sales Chart --&gt;
+    var result = EmployeeQuarterSalesQuery(employeeId, statsTo, startDate);
+
+    return Json(result, JsonRequestBehavior.AllowGet);
+}
+</code></pre><p>Add the partial view to the main application page.</p>
+<p>In <code>Views/Home/Index.cshtm</code> find the <code>&lt;!-- QTD Sales Chart --&gt;</code> placeholder.</p>
+<pre><code>&lt;!-- QTD Sales Chart --&gt;
+@Html.Placehold(430, 120, &quot;Chart&quot;)
+</code></pre><p>Replace the placeholder with the <code>_QuarterToDateSales</code> partial.</p>
+<p>The resulting code should be:</p>
+<pre><code>&lt;!-- QTD Sales Chart --&gt;
 @Html.Partial(&quot;_QuarterToDateSales&quot;)
-
-Find
-&lt;script&gt;
+</code></pre><p>Find the scripts section.</p>
+<pre><code>&lt;script&gt;
     ...
 &lt;/script&gt;
-
-Add
-function refreshEmployeeQuarterSales() {
+</code></pre><p>Add a new function named <code>refreshEmployeeQuarterSales</code>, this function will invoke <code>read</code> on the chart&#39;s data source.</p>
+<p>The resulting code should be:</p>
+<pre><code>function refreshEmployeeQuarterSales() {
     var employeeQuarterSales = $(&quot;#EmployeeQuarterSales&quot;).data(&quot;kendoChart&quot;);
     employeeQuarterSales.dataSource.read();
 }
-
-Find
-function onCriteriaChange() {
+</code></pre><p>Find and modify the <code>onCriteriaChanged</code> function so it calls <code>refreshGrid</code> updating the entire dashboard when a filter is changed.</p>
+<pre><code>function onCriteriaChange() {
     updateEmployeeAvatar();
     refreshGrid();
-    refreshEmployeeAverageSales();
-}
-
-Append
-function onCriteriaChange() {
-    updateEmployeeAvatar();
-    refreshGrid();
-    refreshEmployeeAverageSales();
     refreshEmployeeQuarterSales();
 }
-</code></pre><ul>
-<li>Run and inspect</li>
-<li><p>Add Label</p>
-<p>  Find</p>
-  <script>
-      ...
-  </script>
+</code></pre><p>Run the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.</p>
+<p><img src="images/chapter8/bullet-chart.jpg" alt="Bullet Chart"></p>
+<div class="exercise-end"></div>
 
+<h3 id="spark-line-series-chart">Spark Line Series Chart</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Trigger the grid datasource from a DatePicker event.
+</h4>
 
-</li>
+<p>Since changes to the controller are necessary, stop the application if it is running.</p>
+<p>Let&#39;s use partials to keep the markup tidy. Under &#39;Views/Home&#39; add a new empty partial view &#39;_MontlySalesByEmployee.cshtml&#39;</p>
+<p>In the new partial view <code>_MontlySalesByEmployee.cshtml</code> begin a new Kendo UI Chart helper.</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
+
+)
+</code></pre><p>Set the <code>Name</code> property to <code>EmployeeAverageSales</code>.</p>
+<pre><code>.Name(&quot;EmployeeAverageSales&quot;)
+</code></pre><p>Set the controls height to <code>30px</code>.</p>
+<pre><code>.HtmlAttributes(new { style = &quot;height:30px;&quot; })
+</code></pre><p>Next, add and define a Series chart with the following properties. </p>
+<ul>
+<li>Set <code>Line</code> to the <code>EmployeeSales</code> property on the model.</li>
+<li>Set the <code>Width</code> to <code>1.5</code></li>
+<li>Disable markers by setting the <code>Markers</code> visible property to <code>false</code></li>
+<li>Set the tooltip using an inline Kendo Template <code>#=kendo.toString(value, &#39;c2&#39;)#</code></li>
 </ul>
-<pre><code>Add
-function onQuarterSalesDataBound(e) {
+<pre><code>.Series(series =&gt;
+{
+    series.Line(model =&gt; model.EmployeeSales)
+    .Width(1.5)
+    .Markers(m =&gt; m.Visible(false))
+    .Tooltip(t =&gt; t.Template(&quot;#=kendo.toString(value, &#39;c2&#39;)#&quot;));
+})
+</code></pre><p>Next, add and configure the Category Axis with a <code>Date</code> configuration</p>
+<p>Set the Category to the <code>Date</code> field of the view model</p>
+<p>Since the chart will be a spark line visualization, set these <code>Visible</code> properties to <code>false</code> to disable them.</p>
+<ul>
+<li><em>Axis</em> Visible</li>
+<li>MajorGridLines Visible</li>
+</ul>
+<pre><code> .CategoryAxis(ca =&gt; ca
+     .Date()
+     .Categories(model =&gt; model.Date)
+     .Visible(false)
+     .MajorGridLines(m =&gt; m.Visible(false))
+ )
+</code></pre><p>Next, add and configure the ValueAxis with a Numeric configuration.</p>
+<p>Since the chart will be a spark line visualization, set these <code>Visible</code> properties to <code>false</code> to disable them.</p>
+<ul>
+<li><em>Axis</em> Visible</li>
+<li>Labels Visible</li>
+<li>MajorGridLines Visible</li>
+</ul>
+<pre><code> .ValueAxis(va =&gt; va.Numeric()
+     .Visible(false)
+     .Labels(lab =&gt; lab.Visible(false))
+     .MajorGridLines(m =&gt; m.Visible(false))
+  )
+</code></pre><p>Also set the <code>Legend</code> to <code>false</code>    </p>
+<pre><code>.Legend(leg =&gt; leg.Visible(false))
+</code></pre><p>Configure the <code>DataSource</code> by setting <code>Read</code> to the action <code>EmployeeAverageSales</code> on the <code>Home</code> controller.</p>
+<p>Using the <code>Data</code> property, set the value to <code>getEmployeeFilter</code> sending filter data back to the <code>Read</code> action. </p>
+<p>Add an <code>Aggregates</code> on the DataSource to <code>Average</code> the <code>EmployeeSales</code>.      </p>
+<pre><code>.DataSource(ds =&gt; ds
+    .Read(read =&gt; read.Action(&quot;EmployeeAverageSales&quot;, &quot;Home&quot;)
+    .Data(&quot;getEmployeeFilter&quot;))
+    .Aggregates(a =&gt; a.Add(model =&gt; model.EmployeeSales).Average())
+ )
+</code></pre><p>Since the DataSource will be invoked on manually, set <code>AutoBind</code> to <code>false</code></p>
+<pre><code>.AutoBind(false)
+</code></pre><p>The resulting code should be:</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
+    .Name(&quot;EmployeeAverageSales&quot;)
+    .HtmlAttributes(new { style = &quot;height:30px;&quot; })
+    .Series(series =&gt;
+    {
+        series.Line(model =&gt; model.EmployeeSales)
+        .Width(1.5)
+        .Markers(m =&gt; m.Visible(false))
+        .Tooltip(t =&gt; t.Template(&quot;#=kendo.toString(value,&#39;c2&#39;)#&quot;));
+    })
+
+    .CategoryAxis(ca =&gt; ca
+        .Date()
+        .Categories(model =&gt; model.Date)
+        .Visible(false)
+        .MajorGridLines(m =&gt; m.Visible(false))
+    )
+
+    .ValueAxis(va =&gt; va.Numeric()
+        .Visible(false)
+        .Labels(lab =&gt; lab.Visible(false))
+        .MajorGridLines(m =&gt; m.Visible(false))
+    )
+    .Legend(leg =&gt; leg.Visible(false))
+    .DataSource(ds =&gt; ds
+        .Read(read =&gt; read.Action(&quot;EmployeeAverageSales&quot;, &quot;Home&quot;)
+        .Data(&quot;getEmployeeFilter&quot;))
+        .Aggregates(a =&gt; a.Add(model =&gt; model.EmployeeSales).Average())
+        )
+    .AutoBind(false)
+)
+</code></pre><p>Open <code>controllers/HomeController.cs</code> </p>
+<p>Create a controller action named <code>EmployeeAverageSales</code> on the <code>Home</code> controller. This action will supply the Chart with data. </p>
+<p>The boilerplate installed in chapter 1 has a function named <code>EmployeeAverageSalesQuery</code>, this query will select the data required for the chart. Return the results of <code>EmployeeAverageSalesQuery</code> as JSON.</p>
+<pre><code>public ActionResult EmployeeAverageSales(
+    int employeeId,
+    DateTime statsFrom,
+    DateTime statsTo)
+{
+    var result = EmployeeAverageSalesQuery(employeeId, statsFrom, statsTo);
+
+    return Json(result, JsonRequestBehavior.AllowGet);
+}    
+</code></pre><p>Add the partial view to the main application page.</p>
+<p>In <code>Views/Home/Index.cshtm</code> find the <code>&lt;!-- Montly Sales Chart --&gt;</code> placeholder.</p>
+<pre><code>&lt;!-- Montly Sales Chart --&gt;
+@Html.Placehold(430, 120, &quot;Chart&quot;)
+</code></pre><p>Replace the placeholder with the <code>_MontlySalesByEmployee</code> partial.</p>
+<p>The resulting code should be:</p>
+<pre><code>&lt;!-- Montly Sales Chart --&gt;
+@Html.Partial(&quot;_MontlySalesByEmployee&quot;)
+</code></pre><p>Find the scripts section.</p>
+<pre><code>&lt;script&gt;
+    ...
+&lt;/script&gt;
+</code></pre><p>Add a new function named <code>refreshEmployeeAverageSales</code>, this function will invoke <code>read</code> on the chart&#39;s data source.</p>
+<p>The resulting code should be:</p>
+<pre><code>function refreshEmployeeAverageSales() {
+    var employeeAverageSales = $(&quot;#EmployeeAverageSales&quot;).data(&quot;kendoChart&quot;);
+    employeeAverageSales.dataSource.read();
+}
+</code></pre><p>Find and modify the <code>onCriteriaChanged</code> function so it calls <code>refreshGrid</code> updating the entire dashboard when a filter is changed.</p>
+<pre><code>function onCriteriaChange() {
+    updateEmployeeAvatar();
+    refreshGrid();
+    refreshEmployeeQuarterSales();
+    refreshEmployeeAverageSales();
+}
+</code></pre><p>Run the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.</p>
+<p><img src="images/chapter8/spark-line-chart.jpg" alt="Spark Line Chart"></p>
+<div class="exercise-end"></div>
+
+<h3 id="client-side-api">Client Side API</h3>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Display chart values using client APIs.
+</h4>
+
+<p>In <code>Views/Home/Index.cshtm</code>, find the scripts section.</p>
+<pre><code>&lt;script&gt;
+    ...
+&lt;/script&gt;
+</code></pre><p>Add a function named <code>onQuarterSalesDataBound</code>, find the first element of the datasource and displays the Current value in <code>EmployeeQuarterSalesLabel</code>.</p>
+<pre><code>function onQuarterSalesDataBound(e) {
     var data = this.dataSource.at(0);
     $(&quot;#EmployeeQuarterSalesLabel&quot;).text(kendo.toString(data.Current, &quot;c2&quot;));
 }
+</code></pre><p>Add a function named <code>onAverageSalesDataBound</code> find the dataSource aggregates and display the average of <code>EmployeeSales</code> in the <code>EmployeeAverageSalesLabel</code>.</p>
+<pre><code>function onAverageSalesDataBound(e) {
+    var label = $(&quot;#EmployeeAverageSalesLabel&quot;),
+        data = this.dataSource.aggregates()
 
-Find
-@(Html.Kendo().Chart&lt;QuickStart.Models.MonthlySalesByEmployeeViewModel&gt;()
-                        ...
-                        .AutoBind(false)
+    if (data.EmployeeSales) {
+        label.text(kendo.toString(data.EmployeeSales.average, &quot;c2&quot;));
+    } else {
+        label.text(kendo.toString(0, &quot;c2&quot;));
+    }
+}
+</code></pre><p>Open the partial view <code>_MontlySalesByEmployee.cshtml</code> and add a <code>DataBound</code> event handler to the chart, set the event handler to <code>onQuarterSalesDataBound</code>. </p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
+    ...
+    .AutoBind(false)
+    .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
 )
-
-Append
-@(Html.Kendo().Chart&lt;QuickStart.Models.MonthlySalesByEmployeeViewModel&gt;()
-                        ...
-                        .AutoBind(false)
-                        .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
+</code></pre><p>Open the partial view <code>_QuarterToDateSales.cshtml</code> and add a <code>DataBound</code> event handler to the chart, set the event handler to <code>onQuarterSalesDataBound</code>.</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.QuarterToDateSalesViewModel&gt;()
+    ...
+    .AutoBind(false)
+    .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))       
 )
-</code></pre>
+</code></pre><p><img src="images/chapter8/chart-client-api.jpg" alt="Chart Client API"></p>
+<div class="exercise-end"></div>
 			</div>
 						<hr>
 			<div class="chapter">
 				<h2 id="go-responsive">Go Responsive</h2>
-<p>In this chapter...</p>
+<p>In this chapter you&#39;ll learn how to make the dashboard application look amazing on any device size.</p>
 <h3 id="responsive-grid">Responsive Grid</h3>
-<ul>
-<li>Run project</li>
-<li>Inspect responsive behavior</li>
-<li>Modify grid for responsive</li>
-<li><p>Open Views/Invoice/Index.cshtml</p>
-<p>  Find</p>
-<p>  .Columns(columns =&gt;
-  {</p>
-<pre><code>  columns.Bound(c =&gt; c.CustomerName);
-  columns.Bound(c =&gt; c.OrderDate).Format(&quot;{0:MM/dd/yyyy}&quot;);
-  columns.Bound(c =&gt; c.ProductName);
-  columns.Bound(c =&gt; c.UnitPrice);
-  columns.Bound(c =&gt; c.Quantity);
-  columns.Bound(c =&gt; c.Salesperson);
-</code></pre><p>  })</p>
-<p>  Update
-  .Columns(columns =&gt;
-  {</p>
-<pre><code>  columns.Bound(c =&gt; c.CustomerName).MinScreenWidth(900);
-  columns.Bound(c =&gt; c.OrderDate).Format(&quot;{0:MM/dd/yyyy}&quot;);
-  columns.Bound(c =&gt; c.ProductName).MinScreenWidth(768);
-  columns.Bound(c =&gt; c.UnitPrice);
-  columns.Bound(c =&gt; c.Quantity);
-</code></pre><p>  })</p>
-</li>
-<li><p>Refresh page and observe changes</p>
-</li>
-<li><p>Responsive Panel</p>
-<p>  Find</p>
-  <div class="app-wraper">
-      <!-- Menu Panel -->
-      <div class="hidden-xs" style="float:left;">
+<p>Run project, and shrink the browser window horizontally to about 400 pixels wide. Refresh the browser and observe how the the application elements stack nicely, but the grid bleeds off the page. There is simply too much information in the grid to show at this screen size. By setting a few properties we can remove non-essential columns from the grid for small screens.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Make the grid mobile friendly with responsive APIs.
+</h4>
 
-  Update
-  <div class="app-wraper">
-      <!-- Menu Panel -->
-      @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
-      @<div>
+<p>Open <code>Views/Invoice/Index.cshtml</code> and find where the <code>Columns</code> are defined in the <code>EmployeeSales</code> grid.</p>
+<pre><code>.Columns(columns =&gt;
+{
+    ...
+})
+</code></pre><p>First, remove the <code>Salesperson</code> column completely. The sales person is already displayed at the top of the page.</p>
+<p>Set the <code>MinScreenWidth</code> of the <code>CustomerName</code> column to 900. This means that the column will no longer be displayed on screen sizes less than 900 pixels wide.</p>
+<p>Set the <code>MinScreenWidth</code> of the <code>ProductName</code> column to 768. This means that the column will no longer be displayed on screen sizes less than 768 pixels wide.</p>
+<pre><code>.Columns(columns =&gt;
+{
+    columns.Bound(c =&gt; c.CustomerName).MinScreenWidth(900);
+    columns.Bound(c =&gt; c.OrderDate).Format(&quot;{0:MM/dd/yyyy}&quot;);
+    columns.Bound(c =&gt; c.ProductName).MinScreenWidth(768);
+    columns.Bound(c =&gt; c.UnitPrice);
+    columns.Bound(c =&gt; c.Quantity);
+})
+</code></pre><p>Refresh page, then shrink and grow the browser to different widths to see how the grid reacts at various sizes.</p>
+<p><img src="images/chapter9/responsive-grid.jpg" alt="Responsive Grid"></p>
+<div class="exercise-end"></div>
 
-  Find
-  <!-- /Menu Panel -->
-
-  Append
-  ))
-  <!-- /Menu Panel -->
-
-  Find
-  <section id="app-title-bar" class="row">
-      <div class="col-sm-3">
-          <h1 class="title">@ViewBag.Title</h1>
-      </div>
-  </section>
-
-  Append<br>  <div class="hamburger">
-      <!-- toggle button for responsive panel, hidden on large screens -->
-      @(Html.Kendo().Button()
-                  .Name(&quot;menuPanelOpen&quot;)
-                  .Content(&quot;menu&quot;)
-                  .Icon(&quot;hbars&quot;)
-                  .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; })
-      )
-  </div>
-</li>
-<li><p>Add CSS background</p>
-</li>
-<li><p>Open site.css</p>
-<p>  Find
-  /<em> Top Bar </em>/</p>
-<p>  .hamburger {</p>
-<pre><code>  position: absolute;
-  top: 5px;
-  left: 5px;
-</code></pre><p>  }</p>
-<p>  Find
-  /<em> Side Panel </em>/    </p>
-<p>  Add
-  #menuPanel {</p>
-<pre><code>  background-color: #fff;
-  padding: 10px;
-  z-index: 3;
-</code></pre><p>  }</p>
-</li>
-<li><p>Try responsive panel</p>
-</li>
-<li><p>Add close button</p>
-<p>  Find</p>
-  <!-- Menu Panel -->
-<p>  @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
-  @<div></p>
-<pre><code>  &lt;h3&gt;Report Range&lt;/h3&gt;
-</code></pre><p>  Update
-  @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
-  @<div></p>
-<pre><code>  &lt;div class=&quot;text-right&quot;&gt;
-      @(Html.Kendo().Button()
-         .Name(&quot;menuPanelClose&quot;)
-         .Content(&quot;Close&quot;)
-         .Icon(&quot;close&quot;)
-         .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; })
-      )
-  &lt;/div&gt;
-  &lt;h3&gt;Report Range&lt;/h3&gt;
-</code></pre></li>
-<li><p>Refresh and retry</p>
-</li>
-</ul>
 <h3 id="responsive-panel">Responsive Panel</h3>
+<p>When changing the screen size you may have noticed the Report Range side bar disappear. If not, take a moment to adjust the browser width again to see the side bar&#39;s behavior. Currently the side bar is hidden using <a href="http://getbootstrap.com/css/#responsive-utilities">Bootstrap&#39;s <code>hidden-xs</code> class</a>. Let&#39;s bring back the side bar using a Kendo UI ResponsivePanel and make a seamless user experience on any device size.</p>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Add a responsive panel side bar.
+</h4>
+
+<p>Open <code>Views/Home/Index.cshtml</code> and find the <code>&lt;!-- Menu Panel --&gt;</code> placeholder.</p>
+<p><code>&lt;!-- Menu Panel --&gt;</code> placeholder with a <code>ResponsivePanel</code>. Set the <code>Name</code> to <code>menuPanel</code> and set the Breakpoint to <code>768</code>.</p>
+<p>Add a <code>Content</code> property and include all of the elements until you reach the ending placeholder <code>&lt;!-- /Menu Panel --&gt;</code></p>
+<blockquote>
+<p>Note: The &quot;at&quot; symbol is used as an escape charter for HTML content.</p>
+</blockquote>
+<p>The resulting code should be:</p>
+<pre><code>&lt;!-- Menu Panel --&gt;
+    @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
+    @&lt;div class=&quot;hidden-xs&quot; style=&quot;float:left;&quot;&gt;
+        ...
+    &lt;/div&gt;
+))
+&lt;!-- /Menu Panel --&gt;
+</code></pre><p>Remove <code>class=&quot;hidden-xs&quot; style=&quot;float:left;&quot;</code> from the <code>div</code> element in the newly added responsive panel.</p>
+<pre><code>&lt;!-- Menu Panel --&gt;
+    @(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
+    @&lt;div&gt;
+        ...
+    &lt;/div&gt;
+))
+&lt;!-- /Menu Panel --&gt;
+</code></pre><p>Next, add a button for users to tap and toggle the responsive panel.</p>
+<p>Find the following block of code: </p>
+<pre><code>&lt;section id=&quot;app-title-bar&quot; class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-sm-3&quot;&gt;
+        &lt;h1 class=&quot;title&quot;&gt;@ViewBag.Title&lt;/h1&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+</code></pre><p>After the section&#39;s closing tag <code>&lt;/section&gt;</code>, add a new <code>div</code> with a <code>class</code> of <code>hamburger</code>.</p>
+<p>Inside the hamburger <code>div</code>, create a Kendo UI Button. Set the button&#39;s following properties:</p>
+<ul>
+<li>Name: menuPanelOpen</li>
+<li>Content: menu</li>
+<li>Icon: hbars</li>
+<li>HtmlAttributes: new { @class = &quot;k-rpanel-toggle&quot; }</li>
+</ul>
+<blockquote>
+<p>Note: Any element with the class <code>k-rpanel-toggle</code> will be able to toggle the current page&#39;s responsive panel.</p>
+</blockquote>
+<pre><code>&lt;div class=&quot;hamburger&quot;&gt;
+    &lt;!-- toggle button for responsive panel, hidden on large screens --&gt;
+    @(Html.Kendo().Button()
+                .Name(&quot;menuPanelOpen&quot;)
+                .Content(&quot;menu&quot;)
+                .Icon(&quot;hbars&quot;)
+                .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; }
+    )
+&lt;/div&gt;
+</code></pre><p>Open <code>Content/Site.css</code> and find the <code>/* Top Bar */</code> placeholder.</p>
+<pre><code>/* Top Bar */
+</code></pre><p>Add a style that selects the <code>hamburger</code> element and sets the <code>position</code> to <code>absolute</code>. Give the style a <code>top</code> of <code>5</code> and <code>left</code> of <code>5</code> to create a margin around the element.</p>
+<pre><code>.hamburger {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+</code></pre><p>Add a style that selects the <code>menuPanel</code>. Set a solid background color of <code>#fff</code> (white), include a <code>padding</code> of <code>10px</code> and <code>z-index</code> of <code>3</code>. This style will ensure that the panel appears above other UI elements and has a solid background.</p>
+<pre><code>#menuPanel {
+    background-color: #fff;
+    padding: 10px;
+    z-index: 3;
+}
+</code></pre><p>Run or refresh the application. Expand and contract the browser&#39;s width, notice the <strong>menu</strong> button appear when the browser is small. <strong>Click</strong> the menu button to open the panel. <strong>Click</strong> beside the panel to collapse it.   </p>
+<p>For a better user experience, add close button to the panel so the interaction is discoverable and intuitive.</p>
+<p>Find the <code>menuPanel</code> and add a Kendo UI Button inside the Content&#39;s first <code>div</code>. Set the button&#39;s properies to:</p>
+<ul>
+<li>Name: menuPanelClose</li>
+<li>Content: Close</li>
+<li>Icon: close</li>
+<li>HtmlAttributes: new { @class = &quot;k-rpanel-toggle&quot; }</li>
+</ul>
+<p>Wrap the button in a <code>div</code> with a class of <code>text-right</code> to position the button on the right hand edge of the panel.</p>
+<pre><code>@(Html.Kendo().ResponsivePanel().Name(&quot;menuPanel&quot;).Breakpoint(768).Content(
+@&lt;div&gt;
+    &lt;div class=&quot;text-right&quot;&gt;
+        @(Html.Kendo().Button()
+           .Name(&quot;menuPanelClose&quot;)
+           .Content(&quot;Close&quot;)
+           .Icon(&quot;close&quot;)
+           .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; })
+        )
+    &lt;/div&gt;
+    ...
+ &lt;/div&gt;
+</code></pre><p>Refresh the application. Expand and contract the browser&#39;s width until the <strong>menu</strong> button is shown. Toggle the responsive panel using the <strong>menu</strong> and <strong>close</strong> buttons.</p>
+<p><img src="images/chapter9/responsive-panel.jpg" alt="Responsive Grid"></p>
+<div class="exercise-end"></div>
 
 			</div>
 						<hr>
 			<div class="chapter">
 				<h2 id="kendo-themes">Kendo Themes</h2>
-<p>In this chapter...</p>
+<p>Kendo UI widgets include a number of predefined themes. In this chapter you&#39;ll learn how to make your app look amazing with themes.</p>
 <h3 id="theme-change">Theme change</h3>
-<ul>
-<li>stop the project</li>
-<li>Right click on project &gt; Telerik UI For MVC &gt; Configure Project</li>
-<li>Set theme to Nova</li>
-<li><p>Move     @Styles.Render(&quot;~/Content/css&quot;) just above </head></p>
-</li>
-<li><p>Set Charts to Nova</p>
-<p>  Find
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-                      .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
-</code></pre><p>  )</p>
-<p>  Append
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-                      .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
-                      .Theme(&quot;nova&quot;)
-</code></pre><p>  )</p>
-<p>  Find
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
-                      .AutoBind(false)
-</code></pre><p>  )</p>
-<p>  Append
-  @(Html.Kendo().Chart<QuickStart.Models.MonthlySalesByEmployeeViewModel>()</p>
-<pre><code>                      ...
-                      .AutoBind(false)
-                      .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
-                      .Theme(&quot;nova&quot;)
-</code></pre><p>  )</p>
-</li>
-</ul>
-<h3 id="finishing-the-app-theme">Finishing the app theme</h3>
-<ul>
-<li>Add CSS primer</li>
-<li><p>Open Views/Shared/_Layout.cshtml</p>
-<p>  Find
-  @Styles.Render(&quot;~/Content/css&quot;)
-  </head></p>
-<p>  Update
-  @Styles.Render(&quot;~/Content/css&quot;)
-  <link href="~/Content/site-nova.css" rel="stylesheet" />
-  </head></p>
-</li>
-<li><p>Refresh</p>
-</li>
-<li><p>open site-nova.css</p>
-<p>  Find
-  /<em> Side Panel - Employee List </em>/</p>
-<p>  Append
-  /<em> Side Panel - Employee List </em>/
-  #menuPanel .k-widget.k-datepicker.k-header {</p>
-<pre><code>  width: 100%;
-</code></pre><p>  }</p>
-<p>  #employee-list &gt; ul {</p>
-<pre><code>  margin: 0 -10px;
-</code></pre><p>  }</p>
-<p>  Find
-  /<em> Small Devices, Tablets, and Up </em>/
-  @media only screen and (min-width : 768px) {</p>
-<p>  }</p>
-<p>  Update
-  /<em> Small Devices, Tablets, and Up </em>/
-  @media only screen and (min-width : 768px) {</p>
-<pre><code>  .app-wraper {
-      position: relative;
-      margin-left: -15px;
-  }
-</code></pre><p>  }</p>
-</li>
-</ul>
+<h4 class="exercise-start">
+    <b>Exercise</b>: Theme the application.
+</h4>
 
+<p>If the project is running, stop the project.</p>
+<p>In Visual Studio&#39;s Project Explorer, Right click on the project and choose Telerik UI For MVC &gt; Configure Project from the menu.</p>
+<p>From the Project Configuration Wizard, choose the Nova theme.</p>
+<p>Open <code>Views/Shared/_Layout.cshtml</code> and move <code>@Styles.Render(&quot;~/Content/css&quot;)</code> just above the closing head tag <code>&lt;/head&gt;</code>.</p>
+<p>Run the application to see the theme applied to the Kendo UI widgets.</p>
+<p>Next, you&#39;ll finishing the themeing the app by adding styles to non-Kendo UI elements creating a completely custom look.</p>
+<p>A style sheet was installed with the boilerplate to give you a jump-start. Let&#39;s add that to the applciation by opening <code>Views/Shared/_Layout.cshtml</code> and adding a reference to <code>~/Content/site-nova.css</code> just above the closing head tag <code>&lt;/head&gt;</code>.</p>
+<p>Note: This is CSS, so the order in which the style sheets are added is very important.</p>
+<pre><code>&lt;link href=&quot;~/Content/site-nova.css&quot; rel=&quot;stylesheet&quot; /&gt;
+&lt;/head&gt;
+</code></pre><p>Refresh the application and notice the look is starting to come together. There&#39;s just a few items that could use some fine-tuning. Let&#39;s add some additional styles to <code>site-nova.css</code> to complete the theme.</p>
+<p>Open site-nova.css and find <code>/* Side Panel - Employee List */</code> and a style that sets the datepicker widgets inside the menuPanel to %100 width of the container.</p>
+<p>The resulting code should be:</p>
+<pre><code>/* Side Panel - Employee List */
+#menuPanel .k-widget.k-datepicker.k-header {
+    width: 100%;
+}
+</code></pre><p>Next, offset the employee list so its content lines up with the left edge of its container.</p>
+<pre><code>#employee-list &gt; ul {
+    margin: 0 -10px;
+}
+</code></pre><p>Find <code>/* Small Devices, Tablets, and Up */</code>. Here you&#39;ll find a media query that will hold some styles that are only applied to scree sizes above <code>768px</code>.</p>
+<pre><code>@media only screen and (min-width : 768px) {
+
+}
+</code></pre><p>Inside the media query add a left margin of <code>-15</code> and set the <code>position</code> to <code>relative</code>. This style will align the app with the left hand edge of the screen.</p>
+<pre><code>/* Small Devices, Tablets, and Up */
+@media only screen and (min-width : 768px) {
+    .app-wraper {
+        position: relative;
+        margin-left: -15px;
+    }
+}
+</code></pre><p>Finally, set the Kendo UI Chart themes.</p>
+<p>Open <code>_MontlySalesByEmployee.cshtml</code> and set the <code>Theme</code> property to <code>nova</code> on the <code>EmployeeAverageSales</code> chart.</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
+    .Name(&quot;EmployeeAverageSales&quot;)
+    ...
+    .AutoBind(false)
+       .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
+    .Theme(&quot;nova&quot;)
+)
+</code></pre><p>Open <code>_QuarterToDateSales.cshtml</code> and set the <code>Theme</code> property to <code>nova</code> on the <code>EmployeeQuarterSales</code> chart.</p>
+<pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.QuarterToDateSalesViewModel&gt;()
+    .Name(&quot;EmployeeQuarterSales&quot;)
+    ...
+    .AutoBind(false)
+    .Events(e =&gt; e.DataBound(&quot;onQuarterSalesDataBound&quot;))
+    .Theme(&quot;nova&quot;)
+)
+</code></pre><div class="exercise-end"></div>
 			</div>
 						<hr>
 			<div class="chapter">
