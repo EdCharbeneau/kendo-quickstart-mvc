@@ -9,7 +9,7 @@ This guide will walk you through building Team Efficiency Dashboard, a single pa
 
 - Connects rich chart visualizations and grids to a SQL data source
 - Provides an interactive master/detail dashboard with filtering, sorting and exporting
-- Responds to any device size including: mobile, tablet and desktop
+- Looks great on any device size including: mobile, tablet and desktop
 
 If you follow along until the end, here is what the finished app will look like.
 

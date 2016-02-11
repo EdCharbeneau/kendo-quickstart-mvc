@@ -1,6 +1,6 @@
 ## Scaffolding
 
-In this chapter, you'll learn how to add leverage UI for MVC's scaffolding capabilities. One feature that MVC developers are quite used to is scaffolding. Visual-Studio-powered MVC scaffolding is a code generation framework that allows you to hook up your model to a controller and render views that are strongly typed, among other things. Since the scaffolding is simply a code generation tool, you are free to change any of the code that it generated.
+In this chapter, you'll learn how to add leverage Telerik UI for MVC's scaffolding capabilities. One feature that MVC developers are quite used to is scaffolding. Visual-Studio-powered MVC scaffolding is a code generation framework that allows you to hook up your model to a controller and render views that are strongly typed, among other things. Since the scaffolding is simply a code generation tool, you are free to change any of the code that it generated.
 
 ### Upgrade the database
 
@@ -36,10 +36,10 @@ With the database upgraded use the scaffolding wizard to create an interactive g
 
 ### UI for MVC Scaffolding wizard
 
-The scaffolding wizard will aid you in creating the view by providing point a click configuration screen.Use the scaffolding wizard to create an interactive Kendo Grid view of invoices for the Team Efficiency Dashboard. By enabling grid features like: sorting, paging and exporting users will be able to analyze and share data in a familiar way.
+The scaffolding wizard will aid you in creating the view by providing point a click configuration screen. Use the scaffolding wizard to create an interactive Kendo UI grid view of invoices for the Team Efficiency Dashboard. By enabling grid features like: sorting, paging and exporting users will be able to analyze and share data in a familiar way.
 
 <h4 class="exercise-start">
-    <b>Exercise</b>: Scaffold a Grid view of invoices
+    <b>Exercise</b>: Scaffold a grid view of invoices
 </h4>
 
 Start the scaffolding wizard by **right-clicking Controllers > Add > New Scaffolded Item**
@@ -54,14 +54,14 @@ Notice the Scaffolder is capable of creating Grid, Chart, and Scheduler views fo
 
 ![](images/chapter3/scaffold-3.jpg)
 
-From MVC Grid scaffolding dialog, the Grid's model options, grid options and events are defined. The Model Options control the following settings:
+From MVC Grid scaffolding dialog, the grid's model options, grid options and events are defined. The Model Options control the following settings:
 
 - *Controller Name* - The name of the controller created by the scaffolder.
 - *View Name* - The name of the view created, which will display the scaffolded grid.
 - *Model Class* - The model the scaffolder will use to build the view.
 - *Data Context Class* - The Entity Framework DbContext used to connect the view to the data.
 
-Define the Grid's model options using the following values:
+Define the grid's model options using the following values:
 
 - Controller Name: **InvoiceController**
 - View Name: **Index**
@@ -74,24 +74,24 @@ The Grid Options control what features are scaffolded & enabled on the grid incl
 
 - *DataSource* Type - Ajax, Server or WebApi.
 - *Editable* - Enable the editing, configure the edit mode (InLine, InCell or PopUp) and the operations to be included (Create, Update, Destroy).
-- *Filterable* - Enable the filtering of the Grid and select the filter mode.
+- *Filterable* - Enable the filtering of the grid and select the filter mode.
 - *Column Menu* - Enable the column menu.
 - *Navigatable* - Enable the keyboard navigation.
-- *Pageable* - Enable the paging of the Grid.
+- *Pageable* - Enable the paging of the grid.
 - *Reorderable* - Enable the column reording.
-- *Scrollable* - Enable the scrolling of the Grid table.
+- *Scrollable* - Enable the scrolling of the grid table.
 - *Selectable* - Enable the selection and specify the selection mode and type.
 - *Sortable* - Enable the sorting and specify the sorting mode.
 - *Excel Export* - Enable the Excel export functionality.
 - *PDF Export* - Enable the PDF export functionality.
 
-Define the Grid's options using the following values:
+Define the grid's options by setting the following values:
 
-- [ ] Scrollable
-- [x] Sortable
-- [x] Pageable
-- [x] Excel Export
-- [x] PDF Export
+- *unchecked* Scrollable
+- *checked* Sortable
+- *checked* Pageable
+- *checked* Excel Export
+- *checked* PDF Export
 
 ![](images/chapter3/scaffold-5.jpg)
 
@@ -101,13 +101,15 @@ The scaffolder will create the following files:
 
 - `Controllers/InvoiceController.cs` - This controller has the actions for the features selected in the scaffolding wizard.
     - `Index` returns the view
-    - `Invoices_Read` - gets all invoices from the database and returns a JSON formatted **DataSourceRequest** object. The **DataSourceRequest** will contain the current grid request information - page, sort, group and filter.
+    - `Invoices_Read` - gets all invoices from the database and returns a JSON formatted *DataSourceRequest* object. The *DataSourceRequest* will contain the current grid request information - page, sort, group and filter.
     - `Excel_Export_Save` - creates an XLS exported File result.
     - `Pdf_Export_Save` - creates a PDF exported File result.
-- `Views/Invoice/Index.cshtml` - This view contains the markup and HTML helper responsible for rendering the Grid control.
+- `Views/Invoice/Index.cshtml` - This view contains the markup and HTML helper responsible for rendering the grid control.
 
-Run the application and navigate to `/Invoice/index` to see the generated grid control. You should see the following output:
+**Run** the application and navigate to `/Invoice/index` to see the generated grid control. You should see the following output:
 
 ![](images/chapter3/invoices-grid.jpg)
 
 <div class="exercise-end"></div>
+
+Now that the UI for MVC scaffolder has generated a starting point for working with the grid, you can modify the scaffoled code to meet your needs. In the next chapter we'll do just that.

@@ -1,6 +1,6 @@
 ## Getting up and running
 
-In this chapter you're going to start with the basics, including starting a new project, adding UI for MVC to your project, and installing the quick start template.
+In this chapter you're going to start with the basics, including starting a new project, adding Telerik UI for MVC to your project, and installing the quick start boilerplate.
 
 ### Create a new MVC project
 
@@ -23,9 +23,9 @@ Give the application a name (ex: MyQuickStartApp)
     
 Click <b>OK</b> to continue
 
-![](images/chapter1/file-new-mvc-project2.jpg)
-    
 In the <b>New ASP.NET Project</b> dialog, choose MVC from the 4.6 template selection
+
+![](images/chapter1/file-new-mvc-project2.jpg)
     
 Click <b>OK</b> to finish
     
@@ -35,7 +35,7 @@ Click <b>OK</b> to finish
 
 With the new project created, it's time to start building your app. For this guide, we've scaffolded out a boilerplate project to act as a starting point for the Team Efficiency Dashboard.
 
-The boilerplate has an HTML page, the Northwind database and some server-side code you may find in a typical MVC project.
+The boilerplate has an HTML page, a layout, the Northwind database and some server-side code you may find in a typical MVC project.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Install the quick start boilerplate    
@@ -71,19 +71,19 @@ With the boilerplate installed, take a moment to run the application. If all wen
 
 ### Convert to Telerik Application
 
-At this point, you have the wire frame for a basic MVC application. Next you will be adding the UI for ASP.NET MVC to the application by using the convert to Telerik application tooling. When an application is converted to a Telerik application, all required HTML, CSS, JavaScript and .DLL libraries are added. This is the first step you would take to upgrade a new or existing MVC project to use Kendo.
+At this point, you have the wire frame for a basic MVC application. Next you will be adding the UI for ASP.NET MVC to the application by using the **Convert to Telerik Application** tooling. When an application is converted to a Telerik application, all required HTML, CSS, JavaScript and .DLL libraries are added. This is the first step you would take to upgrade a new or existing MVC project to use Telerik UI for ASP.NET MVC.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Convert to a Telerik Application
 </h4>
 
-Stop the application if it is already running.
+**Stop the application** if it is already running.
 
-In the Solution Explorer **right-click** on the project name and select **Telerik UI for ASP.NET MVC > Convert to Telerik Application**. This will launch the Project Configuration Wizard, from here we can choose settings for our Telerik project.
+In the Solution Explorer **right-click** on the project name and select **Telerik UI for ASP.NET MVC > Convert to Telerik Application**. This will launch the Project Configuration Wizard, from here you can choose settings for your Telerik project.
 
 ![](images/chapter1/convert-to-telerik1.jpg)
 
-For this tutorial your project will use CDN support. This means all Kendo resources are served from Telerik's content delivery network (CDN) versus relying on your server for the assets. Mark the box **Use CDN support** and click **Next** to continue.
+For this tutorial your project will use CDN support. This means all Kendo UI resources are served from Telerik's content delivery network (CDN) versus relying on your server for the assets. Mark the box **Use CDN support** and click **Next** to continue.
 
 ![](images/chapter1/convert-to-telerik2.jpg)
 
@@ -93,7 +93,7 @@ Since the boilerplate is designed with [Bootstrap](http://getbootstrap.com), **c
 
 Open **\Views\Shared\_Layout.cshtml** find and remove the following script bundle `@Scripts.Render("~/bundles/modernizr")`. This script is included with the Kendo assets.
 
-Next, find the CSS bundle `@Styles.Render("~/Content/css")` and move it just above the closing head tag `</head>` this will make sure that any custom styles are applied when you customize the application.
+Next, find the CSS bundle `@Styles.Render("~/Content/css")` and **move** it just above the closing head tag `</head>` this will make sure that any custom styles are applied when you customize the application.
 
 The final code of the head section should look like this:
 
