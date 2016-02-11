@@ -40,7 +40,7 @@ The resulting code should be:
     
 ![Date Picker Width](images/chapter10/datepicker-width.jpg)
 
-Next, offset the employee list so its content lines up with the left edge of its container.
+**Add** a style to offset the employee list so its content lines up with the left edge of its container.
     
 	#employee-list > ul {
     	margin: 0 -10px;
@@ -48,13 +48,13 @@ Next, offset the employee list so its content lines up with the left edge of its
     
 ![Date Picker Width](images/chapter10/list-view-container.jpg)
     
-Find `/* Small Devices, Tablets, and Up */`. Here you'll find a media query that will hold some styles that are only applied to scree sizes above `768px`.
+**Find** `/* Small Devices, Tablets, and Up */`. Here you'll find a media query that will hold some styles that are only applied to scree sizes above `768px`.
 
 	@media only screen and (min-width : 768px) {
 
 	}
 
-Inside the media query add a left margin of `-15` and set the `position` to `relative`. This style will align the app with the left hand edge of the screen.
+Inside the media query **add** a selector for `.app-wrapper` and **set** a left margin of `-15` and **set** the `position` to `relative`. This style will align the app with the left hand edge of the screen.
  
 	/* Small Devices, Tablets, and Up */
 	@media only screen and (min-width : 768px) {
@@ -68,7 +68,7 @@ Inside the media query add a left margin of `-15` and set the `position` to `rel
 
 Finally, set the Kendo UI Chart themes.
 
-Open `_MontlySalesByEmployee.cshtml` and set the `Theme` property to `nova` on the `EmployeeAverageSales` chart.
+**Open** `_MontlySalesByEmployee.cshtml` and **set** the `Theme` property to `nova` on the `EmployeeAverageSales` chart.
 
 	@(Html.Kendo().Chart<KendoQsBoilerplate.MonthlySalesByEmployeeViewModel>()
         .Name("EmployeeAverageSales")
@@ -78,7 +78,7 @@ Open `_MontlySalesByEmployee.cshtml` and set the `Theme` property to `nova` on t
         .Theme("nova")
 	)
 
-Open `_QuarterToDateSales.cshtml` and set the `Theme` property to `nova` on the `EmployeeQuarterSales` chart.
+**Open** `_QuarterToDateSales.cshtml` and **set** the `Theme` property to `nova` on the `EmployeeQuarterSales` chart.
 
     @(Html.Kendo().Chart<KendoQsBoilerplate.QuarterToDateSalesViewModel>()
         .Name("EmployeeQuarterSales")
@@ -90,4 +90,6 @@ Open `_QuarterToDateSales.cshtml` and set the `Theme` property to `nova` on the 
     
 <div class="exercise-end"></div>
 
-And... that's it! You've created an interactive dashboard application using Telerik UI for MVC and Kendo UI. In the process you've mastered scaffolding, server and client side APIs, responsive web design and themes. 
+And... that's it! You've created an interactive dashboard application using Telerik UI for MVC and Kendo UI. In the process you've mastered scaffolding, Kendo UI templates, charts, server and client side APIs, responsive web design and themes.
+
+Congratulations!

@@ -1260,16 +1260,16 @@ using Kendo.Mvc.Extensions;
     width: 100%;
 }
 </code></pre><p><img src="images/chapter10/datepicker-width.jpg" alt="Date Picker Width"></p>
-<p>Next, offset the employee list so its content lines up with the left edge of its container.</p>
+<p><strong>Add</strong> a style to offset the employee list so its content lines up with the left edge of its container.</p>
 <pre><code>#employee-list &gt; ul {
     margin: 0 -10px;
 }
 </code></pre><p><img src="images/chapter10/list-view-container.jpg" alt="Date Picker Width"></p>
-<p>Find <code>/* Small Devices, Tablets, and Up */</code>. Here you&#39;ll find a media query that will hold some styles that are only applied to scree sizes above <code>768px</code>.</p>
+<p><strong>Find</strong> <code>/* Small Devices, Tablets, and Up */</code>. Here you&#39;ll find a media query that will hold some styles that are only applied to scree sizes above <code>768px</code>.</p>
 <pre><code>@media only screen and (min-width : 768px) {
 
 }
-</code></pre><p>Inside the media query add a left margin of <code>-15</code> and set the <code>position</code> to <code>relative</code>. This style will align the app with the left hand edge of the screen.</p>
+</code></pre><p>Inside the media query <strong>add</strong> a selector for <code>.app-wrapper</code> and <strong>set</strong> a left margin of <code>-15</code> and <strong>set</strong> the <code>position</code> to <code>relative</code>. This style will align the app with the left hand edge of the screen.</p>
 <pre><code>/* Small Devices, Tablets, and Up */
 @media only screen and (min-width : 768px) {
     .app-wraper {
@@ -1279,7 +1279,7 @@ using Kendo.Mvc.Extensions;
 }
 </code></pre><p><img src="images/chapter10/app-wrapper.jpg" alt="App Wrapper margin"></p>
 <p>Finally, set the Kendo UI Chart themes.</p>
-<p>Open <code>_MontlySalesByEmployee.cshtml</code> and set the <code>Theme</code> property to <code>nova</code> on the <code>EmployeeAverageSales</code> chart.</p>
+<p><strong>Open</strong> <code>_MontlySalesByEmployee.cshtml</code> and <strong>set</strong> the <code>Theme</code> property to <code>nova</code> on the <code>EmployeeAverageSales</code> chart.</p>
 <pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
     .Name(&quot;EmployeeAverageSales&quot;)
     ...
@@ -1287,7 +1287,7 @@ using Kendo.Mvc.Extensions;
        .Events(e =&gt; e.DataBound(&quot;onAverageSalesDataBound&quot;))
     .Theme(&quot;nova&quot;)
 )
-</code></pre><p>Open <code>_QuarterToDateSales.cshtml</code> and set the <code>Theme</code> property to <code>nova</code> on the <code>EmployeeQuarterSales</code> chart.</p>
+</code></pre><p><strong>Open</strong> <code>_QuarterToDateSales.cshtml</code> and <strong>set</strong> the <code>Theme</code> property to <code>nova</code> on the <code>EmployeeQuarterSales</code> chart.</p>
 <pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.QuarterToDateSalesViewModel&gt;()
     .Name(&quot;EmployeeQuarterSales&quot;)
     ...
@@ -1297,7 +1297,8 @@ using Kendo.Mvc.Extensions;
 )
 </code></pre><div class="exercise-end"></div>
 
-<p>And... that&#39;s it! You&#39;ve created an interactive dashboard application using Telerik UI for MVC and Kendo UI. In the process you&#39;ve mastered scaffolding, server and client side APIs, responsive web design and themes. </p>
+<p>And... that&#39;s it! You&#39;ve created an interactive dashboard application using Telerik UI for MVC and Kendo UI. In the process you&#39;ve mastered scaffolding, Kendo UI templates, charts, server and client side APIs, responsive web design and themes.</p>
+<p>Congratulations!</p>
 
 			</div>
 						<hr>
