@@ -1,6 +1,6 @@
 ## Input Controls
 
-In this chapter you'll learn how to add Kendo UI components to your application. UI for MVC has powerful HTML Helpers that render Kendo UI components.
+In this chapter you'll learn how to add Kendo UI widgets to your application. UI for MVC has powerful HTML Helpers that configure and render Kendo UI widgets.
 
 ### Kendo Helper Overview
 
@@ -35,22 +35,20 @@ Below is an example of how a Numeric Text Box input is created:
     
 ### Adding a Kendo DatePicker
 
-Let's open the `Index.cshtml` page under the folder `views/home/`. The `Index.cshtml` page is where most of the application's UI lives. This page currently contains basic HTML inputs to collect date input from the user. To provide a better user experience, replace the standard HTML inputs with Kendo date picker controls. The Kendo date picker controls offer users a fly out calendar to choose a desired date.
+Let's open the `Index.cshtml` page under the folder `views/home/`. The `Index.cshtml` page is where most of the application's UI lives. This page currently contains basic HTML inputs to collect date input from the user. To provide a better user experience, replace the standard HTML inputs with Kendo date picker controls. The Kendo UI date picker controls offer users a fly out calendar to choose a desired date.
 
-> Note: The Kendo date picker control is touch and mouse friendly. No additional code is necessary to support tablets and phones.
+> Note: The Kendo UI date picker control is touch and mouse friendly. No additional code is necessary to support tablets and phones.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Replace StatsFrom and StatsTo TextBoxes with Kendo Date Pickers
 </h4>
 
-Open `Views/Home/Index.cshtml`
-
-Find the `StatsFrom` text box 
+**Open** `Views/Home/Index.cshtml` and find the `StatsFrom` text box helper
 
     <!-- Stats From Date Picker -->
 	@Html.TextBox("StatsFrom", new DateTime(1996, 1, 1))
 
-Replace the code with a Kendo date picker
+**Replace** the text box helper with a Kendo UI date picker. Set the **Name** property to `StatsFrom` and the **Value** with a new `DateTime` of `1996,1,1`. 
 
 	<!-- Stats From Date Picker -->
 	@(Html.Kendo().DatePicker()
@@ -58,12 +56,12 @@ Replace the code with a Kendo date picker
            .Value(new DateTime(1996, 1, 1))
     )        
 
-Find the `StatsTo` text box
+Find the `StatsTo` text box helper
 
 	<!-- Stats To Date Picker -->
 	@Html.TextBox("StatsTo", new DateTime(1996, 1, 1))    
 
-Replace the code with a Kendo date picker
+**Replace** the text box helper with a Kendo UI date picker. Set the **Name** property to `StatsTo` and the **Value** with a new `DateTime` of `1998,8,1`. 
 
 	<!-- Stats To Date Picker -->
 	@(Html.Kendo().DatePicker()
@@ -71,7 +69,7 @@ Replace the code with a Kendo date picker
 			.Value(new DateTime(1998, 8, 1))
 	)
     
-The Kendo HTML helper's fluent interface let you configure their behavior and appearance. The code you just added uses the following properties:
+The Kendo UI HTML helper's fluent interface let you configure a widget's behavior and appearance. The code you just added uses the following properties:
 
 - Name: Sets the rendered HTML element's id property.
 - Value: Sets a default selected date value for the date picker 
@@ -81,3 +79,5 @@ The Kendo HTML helper's fluent interface let you configure their behavior and ap
 After you run your app with this change, you will see a calendar icon in the **Stats from** field. Click or tap the icon to reveal the date picker:
 
 ![Tap to show a date picker](images/chapter2/date-picker-flyout.jpg)
+
+With the inputs upgraded let's move on to the extremely robust Kendo UI grid.
