@@ -146,7 +146,7 @@ Find the `menuPanel` and **add** a Kendo UI Button inside the Content's first `d
                .Content("Close")
                .Icon("close")
                .HtmlAttributes(new { @class = "k-rpanel-toggle" })
-            )
+            ))
         </div>
         ...
      </div>

@@ -185,9 +185,9 @@ Next, add a Line chart, a Line chart shows data as continuous lines that pass th
 
 Since changes to the controller are necessary, **stop** the application if it is running.
 
-Use partials to keep the markup tidy. Under 'Views/Home' **add** a new empty partial view '_MontlySalesByEmployee.cshtml'
+Use partials to keep the markup tidy. Under 'Views/Home' **add** a new empty partial view '_MonthlySalesByEmployee.cshtml'
 
-In the new partial view `_MontlySalesByEmployee.cshtml` **add** a new Kendo UI Chart helper.
+In the new partial view `_MonthlySalesByEmployee.cshtml` **add** a new Kendo UI Chart helper.
 
 	@(Html.Kendo().Chart<KendoQsBoilerplate.MonthlySalesByEmployeeViewModel>()
     
@@ -324,10 +324,10 @@ In `Views/Home/Index.cshtm` **find** the `<!-- Montly Sales Chart -->` placehold
 	<!-- Montly Sales Chart -->
 	@Html.Placehold(430, 120, "Chart")
 	
-**Replace** the placeholder with the `_MontlySalesByEmployee` partial.
+**Replace** the placeholder with the `_MonthlySalesByEmployee` partial.
 
 	<!-- Montly Sales Chart -->
-	@Html.Partial("_MontlySalesByEmployee")
+	@Html.Partial("_MonthlySalesByEmployee")
 
 **Find** the scripts section.
 
@@ -393,7 +393,7 @@ In `Views/Home/Index.cshtm`, **find** the scripts section.
         }
     }
 
-**Open** the partial view `_MontlySalesByEmployee.cshtml` and **add** a `DataBound` event handler to the chart, set the event handler to `onQuarterSalesDataBound`. 
+**Open** the partial view `_MonthlySalesByEmployee.cshtml` and **add** a `DataBound` event handler to the chart, set the event handler to `onQuarterSalesDataBound`. 
 
     @(Html.Kendo().Chart<KendoQsBoilerplate.MonthlySalesByEmployeeViewModel>()
         ...

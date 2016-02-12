@@ -150,6 +150,15 @@ Selecting the first item using the `DataBound` event was a good start. Next we'l
 
 ![selected item to template](images/chapter6/selected-item-to-template.jpg)
 
+**Find and remove** the `<!-- Employee Avatar -->` placeholder code, it is no longer needed because the element is created dynamically.
+
+Remove:
+
+     <!-- Employee Avatar -->
+     @Html.Placehold(90, 90, "Face")
+     <span>Full Name </span>
+
+
 <div class="exercise-end"></div>
 
 Now that you know how to work with client side APIs, let's enhance the Team Efficiency Dashboard by working with datasources. 
