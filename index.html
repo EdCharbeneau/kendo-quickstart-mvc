@@ -5,8 +5,8 @@
 	<title>Telerik UI for ASP.NET MVC Quick Start</title>
 
 	<meta charset="utf-8">
-	<meta name="description" content="A quick-start guide for NativeScript CLI apps">
-	<meta name="author" content="TJ VanToll, Jen Looper">
+	<meta name="description" content="A quick-start guide for Telerik UI for ASP.NET MVC">
+	<meta name="author" content="Ed Charbeneau">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link href="css/style.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 	<div id="header">
 		<a href="#" class="menu header-btn" id="toggle-toc"></a>
 		<h1>UI for ASP.NET MVC Quick Start</h1>
-		<a href="https://github.com/NativeScript/quick-start" class="github header-btn"></a>
+		<a href="https://github.com/EdCharbeneau/kendo-quickstart-mvc" class="github header-btn"></a>
 	</div>
 
 	<div id="content-container">
@@ -633,7 +633,12 @@ using Kendo.Mvc.Extensions;
 }
 </code></pre><p><strong>Refresh</strong> the page and select an employee from the EmployeeList. Selecting an item should update the dashboard with the selected employee&#39;s data.</p>
 <p><img src="images/chapter6/selected-item-to-template.jpg" alt="selected item to template"></p>
-<div class="exercise-end"></div>
+<p><strong>Find and remove</strong> the <code>&lt;!-- Employee Avatar --&gt;</code> placeholder code, it is no longer needed because the element is created dynamically.</p>
+<p>Remove:</p>
+<pre><code> &lt;!-- Employee Avatar --&gt;
+ @Html.Placehold(90, 90, &quot;Face&quot;)
+ &lt;span&gt;Full Name &lt;/span&gt;
+</code></pre><div class="exercise-end"></div>
 
 <p>Now that you know how to work with client side APIs, let&#39;s enhance the Team Efficiency Dashboard by working with datasources. </p>
 
@@ -930,8 +935,8 @@ using Kendo.Mvc.Extensions;
 </h4>
 
 <p>Since changes to the controller are necessary, <strong>stop</strong> the application if it is running.</p>
-<p>Use partials to keep the markup tidy. Under &#39;Views/Home&#39; <strong>add</strong> a new empty partial view &#39;_MontlySalesByEmployee.cshtml&#39;</p>
-<p>In the new partial view <code>_MontlySalesByEmployee.cshtml</code> <strong>add</strong> a new Kendo UI Chart helper.</p>
+<p>Use partials to keep the markup tidy. Under &#39;Views/Home&#39; <strong>add</strong> a new empty partial view &#39;_MonthlySalesByEmployee.cshtml&#39;</p>
+<p>In the new partial view <code>_MonthlySalesByEmployee.cshtml</code> <strong>add</strong> a new Kendo UI Chart helper.</p>
 <pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
 
 )
@@ -1037,9 +1042,9 @@ using Kendo.Mvc.Extensions;
 <p>In <code>Views/Home/Index.cshtm</code> <strong>find</strong> the <code>&lt;!-- Montly Sales Chart --&gt;</code> placeholder.</p>
 <pre><code>&lt;!-- Montly Sales Chart --&gt;
 @Html.Placehold(430, 120, &quot;Chart&quot;)
-</code></pre><p><strong>Replace</strong> the placeholder with the <code>_MontlySalesByEmployee</code> partial.</p>
+</code></pre><p><strong>Replace</strong> the placeholder with the <code>_MonthlySalesByEmployee</code> partial.</p>
 <pre><code>&lt;!-- Montly Sales Chart --&gt;
-@Html.Partial(&quot;_MontlySalesByEmployee&quot;)
+@Html.Partial(&quot;_MonthlySalesByEmployee&quot;)
 </code></pre><p><strong>Find</strong> the scripts section.</p>
 <pre><code>&lt;script&gt;
     ...
@@ -1087,7 +1092,7 @@ using Kendo.Mvc.Extensions;
         label.text(kendo.toString(0, &quot;c2&quot;));
     }
 }
-</code></pre><p><strong>Open</strong> the partial view <code>_MontlySalesByEmployee.cshtml</code> and <strong>add</strong> a <code>DataBound</code> event handler to the chart, set the event handler to <code>onQuarterSalesDataBound</code>. </p>
+</code></pre><p><strong>Open</strong> the partial view <code>_MonthlySalesByEmployee.cshtml</code> and <strong>add</strong> a <code>DataBound</code> event handler to the chart, set the event handler to <code>onQuarterSalesDataBound</code>. </p>
 <pre><code>@(Html.Kendo().Chart&lt;KendoQsBoilerplate.MonthlySalesByEmployeeViewModel&gt;()
     ...
     .AutoBind(false)
@@ -1222,7 +1227,7 @@ using Kendo.Mvc.Extensions;
            .Content(&quot;Close&quot;)
            .Icon(&quot;close&quot;)
            .HtmlAttributes(new { @class = &quot;k-rpanel-toggle&quot; })
-        )
+        ))
     &lt;/div&gt;
     ...
  &lt;/div&gt;
