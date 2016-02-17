@@ -4,7 +4,7 @@ In this chapter you'll learn how to make the dashboard application look amazing 
 
 ### Responsive Grid
 
-Run project, and shrink the browser window horizontally to about 400 pixels wide. Refresh the browser and observe how the the application elements stack nicely, but the grid bleeds off the page. There is simply too much information in the grid to show at this screen size. By setting a few properties we can remove non-essential columns from the grid for small screens.
+Run the project and shrink the browser window horizontally to about 400 pixels wide. Refresh the browser and observe how the application elements stack nicely, but the grid bleeds off the page. There is simply too much information in the grid to show at this screen size. By setting a few properties we can remove non-essential columns from the grid for small screens.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Make the grid mobile friendly with responsive APIs.
@@ -22,7 +22,7 @@ First, **remove** the `Salesperson` column completely. The sales person is alrea
 **Set** the `MinScreenWidth` of the `CustomerName` column to 900. This means that the column will no longer be displayed on screen sizes less than 900 pixels wide.
 
 **Set** the `MinScreenWidth` of the `ProductName` column to 768. This means that the column will no longer be displayed on screen sizes less than 768 pixels wide.
-	
+
 	.Columns(columns =>
     {
         columns.Bound(c => c.CustomerName).MinScreenWidth(900);
@@ -76,14 +76,14 @@ The resulting code should be:
 
 Next, **add** a button for users to tap and toggle the responsive panel.
 
-**Find** the following block of code: 
+**Find** the following block of code:
 
 	<section id="app-title-bar" class="row">
 	    <div class="col-sm-3">
 	        <h1 class="title">@ViewBag.Title</h1>
 	    </div>
 	</section>
-	
+
 After the section's closing tag `</section>`, **add** a new `div` with a `class` of `hamburger`.
 
 Inside the hamburger `div`, **create** a Kendo UI Button. **Set** the button's following properties:
@@ -118,7 +118,7 @@ Inside the hamburger `div`, **create** a Kendo UI Button. **Set** the button's f
 	}
 
 **Add** a style that selects the `menuPanel`. Set a solid background color of `#fff` (white), include a `padding` of `10px` and `z-index` of `3`. This style will ensure that the panel appears above other UI elements and has a solid background.
-	
+
 	#menuPanel {
 	    background-color: #fff;
 	    padding: 10px;
@@ -129,7 +129,7 @@ Inside the hamburger `div`, **create** a Kendo UI Button. **Set** the button's f
 
 For a better user experience, add close button to the panel so the interaction is discoverable and intuitive.
 
-Find the `menuPanel` and **add** a Kendo UI Button inside the Content's first `div`. **Set** the button's properies to:
+Find the `menuPanel` and **add** a Kendo UI Button inside the Content's first `div`. **Set** the button's properties to:
 
 - Name: menuPanelClose
 - Content: Close

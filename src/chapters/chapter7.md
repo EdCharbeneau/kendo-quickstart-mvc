@@ -1,8 +1,8 @@
-## Kendo Datasource
+## Kendo UI Datasource
 
 In this chapter you'll learn how to work with Kendo UI datasources.
 
-### Working with the Kendo Datasource
+### Working with the Kendo UI Datasource
 
 The <a href="http://demos.telerik.com/kendo-ui/datasource/index">Kendo UI DataSource component</a> plays a central role in practically all web applications built with Kendo UI. It is an abstraction for using local data—arrays of JavaScript objects—or remote data—web services returning JSON, JSONP, <a href="http://www.odata.org/">OData</a> or XML.
 
@@ -18,7 +18,7 @@ The Kendo UI DataSource has many abilities and responsibilities, among which to:
 
 For detailed information on the capabilities of the [DataSource](http://docs.telerik.com/kendo-ui/framework/datasource/overview), refer to its <a href="/kendo-ui/api/javascript/data/datasource">configuration API, methods, and events</a>, and <a href="http://demos.telerik.com/kendo-ui/datasource/index">demos</a>.
 
-At this point the dashboard is showing all invoice data. Let's use the EmployeeList list view and StatsFrom/StatsTo date pickers to filter the invoice grid by invoking the grid's datasource. 
+At this point the dashboard is showing all invoice data. Let's use the EmployeeList list view and StatsFrom/StatsTo date pickers to filter the invoice grid by invoking the grid's datasource.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Create a filter.
@@ -29,8 +29,8 @@ In the view `/Views/Home/Index.cshtml` **find** the scripts section.
 	<script>
 		...
     </script>
-	
-**Add** a function named `getEmployeeFilter` that gets the `employeeId`, `salesPerson`, `statsFrom` and `statsTo` values and returns a JSON object. 
+
+**Add** a function named `getEmployeeFilter` that gets the `employeeId`, `salesPerson`, `statsFrom` and `statsTo` values and returns a JSON object.
 
 The resulting code should be:
 
@@ -49,7 +49,7 @@ The resulting code should be:
     }
 
 In the view `/Views/Invoice/Index.cshtml` **find** the EmployeeSales grid.    
-	
+
 	@(Html.Kendo().Grid<KendoQsBoilerplate.Invoice>()
 	      .Name("EmployeeSales")
 		  ...
@@ -83,7 +83,7 @@ The resulting code should be:
 	      )
 		  .AutoBind(false)
 	)
-    
+
 In the view `/Views/Home/Index.cshtml` **add** a function named `refreshGrid`, this function will invoke the grid's `Read` action.
 
 	function refreshGrid() {
@@ -122,16 +122,16 @@ Next, we'll need to update the grid's `Read` action to apply the filter using En
 
     public ActionResult Invoices_Read([DataSourceRequest]DataSourceRequest request,
         string salesPerson,
-        DateTime statsFrom, 
+        DateTime statsFrom,
         DateTime statsTo)
 
 Using the parameter values filter the invoices using a `Where` LINQ query.
-  
+
 The resulting code should be:
 
     public ActionResult Invoices_Read([DataSourceRequest]DataSourceRequest request,
         string salesPerson,
-        DateTime statsFrom, 
+        DateTime statsFrom,
         DateTime statsTo)
     {
         var invoices = db.Invoices.Where(inv => inv.Salesperson == salesPerson)
@@ -167,7 +167,7 @@ In the view `/Views/Home/Index.cshtml` **find** the StatsFrom DatePicker.
                     .Name("StatsFrom")
                     .Value(new DateTime(1996, 1, 1))
 	)
-                    
+
 **Add** the `Events` property and **set** the `Change` event to `onCriteriaChange`.
 
     @(Html.Kendo().DatePicker()
@@ -190,4 +190,4 @@ In the view `/Views/Home/Index.cshtml` **find** the StatsFrom DatePicker.
 
 <div class="exercise-end"></div>
 
-Your Team Efficiency Dashboard is now interactive, users can filter data using dates and employees. Next, you'll enhance the application by adding some data visualizations. 
+Your Team Efficiency Dashboard is now interactive, users can filter data using dates and employees. Next, you'll enhance the application by adding some data visualizations.
