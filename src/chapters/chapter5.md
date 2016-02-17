@@ -1,8 +1,8 @@
-## Kendo ListView
+## Kendo UI ListView
 
-In this chapter you will learn about the Kendo ListView control and client side templates. Using the ListView you'll create a list of employees containing the employee's full name and avatar image. This ListView will allow users to interact with the dashboard by filtering the data.
+In this chapter you will learn about the Kendo UI ListView control and client-side templates. Using the ListView you'll create a list of employees containing the employee's full name and avatar image. This ListView will allow users to interact with the dashboard by filtering the data.
 
-### The ListView control
+### The ListView Control
 
 The purpose of [Kendo UI ListView](http://docs.telerik.com/kendo-ui/controls/data-management/listview/basic-usage) is to display a custom layout of data-bound items through templates. The ListView is ideally suited for scenarios where you wish to display a list of items in a consistent manner.
 
@@ -19,7 +19,7 @@ Example:
             }) // DataSource configuration. It will be used on paging.
             .Pageable() //Enable paging
     )
-    
+
 Use a ListView to create selectable list of employees containing the employee's full name and avatar image.
 
 <h4 class="exercise-start">
@@ -32,13 +32,13 @@ Since you will need to update the `HomeController` **stop** project if it is alr
 
 Remove the `<ul>` and its child elements that follow `<!-- Employee List View -->`.
 
-Now **add** a Kendo ListView of type `KendoQsBoilerplate.Employee` using the Fluent HTML Helper `@(Html.Kendo().ListView<KendoQsBoilerplate.Employee>()`.
+Now **add** a Kendo UI ListView of type `KendoQsBoilerplate.Employee` using the Fluent HTML Helper `@(Html.Kendo().ListView<KendoQsBoilerplate.Employee>()`.
 
 **Set** the `Name` property to `"EmployeesList"`.
 
     .Name("EmployeesList")
 
-**Set** the `ClientTemplateId` property to `"EmployeeItemTemplate"`. The template EmployeeItemTemplate will be created later in the exercise. 
+**Set** the `ClientTemplateId` property to `"EmployeeItemTemplate"`. The template EmployeeItemTemplate will be created later in the exercise.
 
     .ClientTemplateId("EmployeeItemTemplate")
 
@@ -57,7 +57,7 @@ Now **add** a Kendo ListView of type `KendoQsBoilerplate.Employee` using the Flu
 
     .Selectable(s => s.Mode(ListViewSelectionMode.Single))
 
-The resulting code should look like the following: 
+The resulting code should look like the following:
 
 	<!-- Employee List View -->
 	@(Html.Kendo().ListView<KendoQsBoilerplate.Employee>()
@@ -70,10 +70,10 @@ The resulting code should look like the following:
                 })
                 .Selectable(s => s.Mode(ListViewSelectionMode.Single))
     )
-    
+
 <div class="exercise-end"></div>
 
-Now that the ListView is defined you'll need to supply the datasource with employee data by creating the **read action** for the ListView. 
+Now that the ListView is defined you'll need to supply the datasource with employee data by creating the **read action** for the ListView.
 
 <h4 class="exercise-start">
     <b>Exercise</b>: Create the EmployeesList_Read action.
@@ -93,7 +93,7 @@ Now, **create** an `ActionResult` named `EmployeesList_Read` that accepts a `Dat
     }
 
 Use entity framework to **query a list of employees**, ordered by `FirstName` from the database and return the result as `Json` using the `.ToDataSourceResult` extension method, the method will format the data to be consumed by the ListView.
- 
+
     public ActionResult EmployeesList_Read([DataSourceRequest]DataSourceRequest request)
     {
         var employees = db.Employees.OrderBy(e => e.FirstName);
@@ -108,13 +108,13 @@ The ListView is almost complete, however the ListView still needs a template to 
 
 The [Kendo UI Templates](http://docs.telerik.com/kendo-ui/framework/templates/overview) provide a simple-to-use, high-performance JavaScript templating engine within the Kendo UI framework. Templates offer a way to create HTML chunks that can be automatically merged with JavaScript data. They are a substitute for traditional HTML string building in JavaScript.
 
-Kendo UI Templates use a simple templating syntax called hash templates. With this syntax, the # (hash) sign is used to mark areas in a template that should be replaced by data when the template is executed. The # character is also used to signify the beginning and end of custom Javascript code inside the template.
+Kendo UI Templates use a simple templating syntax called hash templates. With this syntax, the # (hash) sign is used to mark areas in a template that should be replaced by data when the template is executed. The # character is also used to signify the beginning and end of custom JavaScript code inside the template.
 
 There are three ways to use the hash syntax:
 
 - Render values as HTML: `#= #`.
 - Use HTML encoding to display values: `#: #`.
-- Execute arbitrary Javascript code: `# if (true) { # ... non-script content here ... # } #`.
+- Execute arbitrary JavaScript code: `# if (true) { # ... non-script content here ... # } #`.
 
 Example:
 
@@ -134,18 +134,18 @@ Example:
 
 After `<!-- Kendo Templates -->` **add** a new `<script>` element of **type** `"text/x-kendo-tmpl"` with an **id** of `EmployeeItemTemplate`
 
-The resulting code should be: 
+The resulting code should be:
 
 	<!-- Kendo Templates -->
 	<script type="text/x-kendo-tmpl" id="EmployeeItemTemplate">
-	</script>	
+	</script>
 	<!-- /Kendo Templates -->
 
 Inside the template **create** a `<li>` and set the **class** to `employee`.
 
 **Add** a `<div>` element inside the `<li>`. Inside the `<div>` add an image that corresponds to the `EmployeeId` by setting the **src** to `"@(Url.Content("~/content/employees/"))#:EmployeeId#-t.png"` and a `<span>` with the template field `#: FullName #`.
-    
-The resulting code should be: 
+
+The resulting code should be:
 
 	<!-- Kendo Templates -->
 	<script type="text/x-kendo-tmpl" id="EmployeeItemTemplate">
@@ -155,15 +155,15 @@ The resulting code should be:
 	            <span> #: FullName #</span>
 	        </div>
 	    </li>
-	</script>	
+	</script>
 	<!-- /Kendo Templates -->
 
 **Run** the application to see the ListView in action.
-    
+
 <div class="exercise-end"></div>
 
 If everything was done correctly, the list view should look like this.
 
 ![employee list view](images/chapter5/employee-list.jpg)
 
-At this point you can select items from the list, but before the dashboard can become truly interactive you'll need to work with the client side APIs.
+At this point you can select items from the list, but before the dashboard can become truly interactive you'll need to work with the client-side APIs.
