@@ -1,4 +1,4 @@
-## Kendo Charts
+## Kendo UI Charts
 
 In this chapter you'll learn how to add Kendo UI Chart widgets to your application. The Telerik ASP.NET MVC chart, powered by Kendo UI, is a powerful data visualization component, which allows you to graphically represent your data. It is useful when you would like to utilize modern browser technologies such as SVG or Canvas (with a fallback to VML for older IE versions) for interactive data visualizations.
 
@@ -37,7 +37,7 @@ Use partials to keep the markup tidy. Under 'Views/Home/' **add** a new empty pa
 In the new partial view `_QuarterToDateSales.cshtml` **add** a new Kendo UI Chart helper of type `QuarterToDateSalesViewModel`. The `QuarterToDateSalesViewModel` is part of the quick start bolierplate.
 
 	@(Html.Kendo().Chart<KendoQsBoilerplate.QuarterToDateSalesViewModel>()
-    
+
     )
 
 **Set** the `Name` property to `EmployeeAverageSales`.
@@ -48,7 +48,7 @@ Using the `.HtmlAttributes` property **Set** the controls height to `30px`.
 
     .HtmlAttributes(new { style = "height:30px;" })
 
-Next, **add** and define a `Bullet` chart with the following properties. 
+Next, **add** and define a `Bullet` chart with the following properties.
 
 - **Set** the current value to the `Current` property on the model.
 - **Set** the target value to the `Target` property on the model.
@@ -69,7 +69,7 @@ Next, **add** and configure the Category Axis. Since the chart will be a spark l
      .CategoryAxis(ca => ca.Labels(lab => lab.Visible(false))
          .MajorGridLines(m => m.Visible(false)).Visible(false)
      )
-                            
+
 Next, **add** and configure the ValueAxis with a Numeric configuration.
 
 Since the chart will be a spark line visualization, set these `Visible` properties to `false` to disable them.
@@ -86,15 +86,15 @@ Since the chart will be a spark line visualization, set these `Visible` properti
      )
 
 Also **set** the `Legend` to `false`    
-                         
+
     .Legend(leg => leg.Visible(false))
 
 **Configure** the `DataSource` by setting `Read` to the action `EmployeeQuarterSales` on the `Home` controller.
 
-Using the `Data` property, **set** the value to `getEmployeeFilter` sending filter data back to the `Read` action. 
+Using the `Data` property, **set** the value to `getEmployeeFilter` sending filter data back to the `Read` action.
 
 Since the DataSource will be invoked on manually, **set** `AutoBind` to `false`
-    
+
     .AutoBind(false)
 
 The resulting code should be:
@@ -121,9 +121,9 @@ The resulting code should be:
         .AutoBind(false)
     )
 
-**Open** `controllers/HomeController.cs` and **create** a controller action named `EmployeeAverageSales` on the `Home` controller. This action will supply the Chart with data. 
+**Open** `controllers/HomeController.cs` and **create** a controller action named `EmployeeAverageSales` on the `Home` controller. This action will supply the Chart with data.
 
-The boilerplate installed in chapter 1 has a function named `EmployeeQuarterSales`, this query will select the data required for the chart. **Return** the results of `EmployeeQuarterSalesQuery` as JSON.
+The boilerplate installed in Chapter 1 has a function named `EmployeeQuarterSales`, this query will select the data required for the chart. **Return** the results of `EmployeeQuarterSalesQuery` as JSON.
 
 	public ActionResult EmployeeQuarterSales(int employeeId, DateTime statsTo)
     {
@@ -133,14 +133,14 @@ The boilerplate installed in chapter 1 has a function named `EmployeeQuarterSale
 
         return Json(result, JsonRequestBehavior.AllowGet);
     }
-    
+
 **Add** the partial view to the main application page.
 
 In `Views/Home/Index.cshtm` **find** the `<!-- QTD Sales Chart -->` placeholder.
 
 	<!-- QTD Sales Chart -->
 	@Html.Placehold(430, 120, "Chart")
-	
+
 **Replace** the placeholder with the `_QuarterToDateSales` partial.
 
 	<!-- QTD Sales Chart -->
@@ -190,7 +190,7 @@ Use partials to keep the markup tidy. Under 'Views/Home' **add** a new empty par
 In the new partial view `_MonthlySalesByEmployee.cshtml` **add** a new Kendo UI Chart helper.
 
 	@(Html.Kendo().Chart<KendoQsBoilerplate.MonthlySalesByEmployeeViewModel>()
-    
+
     )
 
 **Set** the `Name` property to `EmployeeAverageSales`.
@@ -201,14 +201,14 @@ In the new partial view `_MonthlySalesByEmployee.cshtml` **add** a new Kendo UI 
 
     .HtmlAttributes(new { style = "height:30px;" })
 
-Next, **add** and define a Series chart with the following properties. 
- 
+Next, **add** and define a Series chart with the following properties.
+
  - **Set** `Line` to the `EmployeeSales` property on the model.
  - **Set** the `Width` to `1.5`
  - **Disable** markers by setting the `Markers` visible property to `false`
- - **Set** the tooltip using an inline Kendo Template `#=kendo.toString(value, 'c2')#`
- 
- 
+ - **Set** the tooltip using an inline Kendo UI Template `#=kendo.toString(value, 'c2')#`
+
+
     .Series(series =>
     {
         series.Line(model => model.EmployeeSales)
@@ -250,15 +250,15 @@ Next, **add** and configure the ValueAxis with a Numeric configuration.
       )
 
 Also **set** the `Legend` to `false`    
-                         
+
     .Legend(leg => leg.Visible(false))
 
 **Configure** the `DataSource` by setting `Read` to the action `EmployeeAverageSales` on the `Home` controller.
 
-Using the `Data` property, **set** the value to `getEmployeeFilter` sending filter data back to the `Read` action. 
+Using the `Data` property, **set** the value to `getEmployeeFilter` sending filter data back to the `Read` action.
 
 **Add** an `Aggregates` on the DataSource to `Average` the `EmployeeSales`.      
-     
+
     .DataSource(ds => ds
         .Read(read => read.Action("EmployeeAverageSales", "Home")
         .Data("getEmployeeFilter"))
@@ -266,7 +266,7 @@ Using the `Data` property, **set** the value to `getEmployeeFilter` sending filt
      )
 
 Since the DataSource will be invoked on manually, **set** `AutoBind` to `false`
-    
+
     .AutoBind(false)
 
 The resulting code should be:
@@ -288,7 +288,7 @@ The resulting code should be:
             .Visible(false)
             .MajorGridLines(m => m.Visible(false))
         )
-        
+
         .ValueAxis(va => va.Numeric()
             .Visible(false)
             .Labels(lab => lab.Visible(false))
@@ -303,9 +303,9 @@ The resulting code should be:
         .AutoBind(false)
     )
 
-**Open** `controllers/HomeController.cs` and **create** a controller action named `EmployeeAverageSales` on the `Home` controller. This action will supply the Chart with data. 
+**Open** `controllers/HomeController.cs` and **create** a controller action named `EmployeeAverageSales` on the `Home` controller. This action will supply the Chart with data.
 
-The boilerplate installed in chapter 1 has a function named `EmployeeAverageSalesQuery`, this query will select the data required for the chart. **Return** the results of `EmployeeAverageSalesQuery` as JSON.
+The boilerplate installed in Chapter 1 has a function named `EmployeeAverageSalesQuery`, this query will select the data required for the chart. **Return** the results of `EmployeeAverageSalesQuery` as JSON.
 
 	public ActionResult EmployeeAverageSales(
         int employeeId,
@@ -315,7 +315,7 @@ The boilerplate installed in chapter 1 has a function named `EmployeeAverageSale
         var result = EmployeeAverageSalesQuery(employeeId, statsFrom, statsTo);
 
         return Json(result, JsonRequestBehavior.AllowGet);
-    }	
+    }
 
 Add the partial view to the main application page.
 
@@ -323,7 +323,7 @@ In `Views/Home/Index.cshtm` **find** the `<!-- Montly Sales Chart -->` placehold
 
 	<!-- Montly Sales Chart -->
 	@Html.Placehold(430, 120, "Chart")
-	
+
 **Replace** the placeholder with the `_MonthlySalesByEmployee` partial.
 
 	<!-- Montly Sales Chart -->
@@ -356,10 +356,10 @@ The resulting code should be:
 **Run** the application to see the chart render on the dashboard. Change the filter criteria to see the chart update along with other UI elements.
 
 ![Spark Line Chart](images/chapter8/spark-line-chart.jpg)
-	
+
 <div class="exercise-end"></div>
 
-### Client Side API
+### Client-Side API
 
 Charts, like other Kendo UI widgets are easy to interact with on the client side. By handling the chart's events additional functionality can be added to the application. Use the DataBound event and the DataSource to populate values on labels within the Team Efficiency Dashboard.
 
@@ -379,7 +379,7 @@ In `Views/Home/Index.cshtm`, **find** the scripts section.
         var data = this.dataSource.at(0);
         $("#EmployeeQuarterSalesLabel").text(kendo.toString(data.Current, "c2"));
     }
-    
+
 **Add** a function named `onAverageSalesDataBound` find the dataSource aggregates and display the average of `EmployeeSales` in the `EmployeeAverageSalesLabel`.
 
 	function onAverageSalesDataBound(e) {
@@ -393,7 +393,7 @@ In `Views/Home/Index.cshtm`, **find** the scripts section.
         }
     }
 
-**Open** the partial view `_MonthlySalesByEmployee.cshtml` and **add** a `DataBound` event handler to the chart, set the event handler to `onQuarterSalesDataBound`. 
+**Open** the partial view `_MonthlySalesByEmployee.cshtml` and **add** a `DataBound` event handler to the chart, set the event handler to `onQuarterSalesDataBound`.
 
     @(Html.Kendo().Chart<KendoQsBoilerplate.MonthlySalesByEmployeeViewModel>()
         ...
@@ -408,9 +408,9 @@ In `Views/Home/Index.cshtm`, **find** the scripts section.
         .AutoBind(false)
         .Events(e => e.DataBound("onQuarterSalesDataBound"))       
     )
- 
+
 ![Chart Client API](images/chapter8/chart-client-api.jpg)
-    
+
 <div class="exercise-end"></div>
 
 The Team Efficiency Dashboard is starting to look complete, but it hasn't been tested for devices like mobile phones or tablets yet. In the next chapter you'll use responsive web design techniques to support devices beyond the desktop.
