@@ -1,8 +1,8 @@
 ## Client Side
 
-The client side is where Kendo UI really shines. Kendo UI uses a common JavaScript language and standards so that it’s easy for any JavaScript developer to get started. In this chapter you'll learn about client side events and how to take control of Kendo UI using JavaScript.
+The client side is where Kendo UI really shines. Kendo UI uses a common JavaScript language and standards so that it’s easy for any JavaScript developer to get started. In this chapter you'll learn about client-side events and how to take control of Kendo UI using JavaScript.
 
-### Working with client side events
+### Working with Client-Side Events
 
 Telerik UI for MVC helpers provide an Events method that is part of the HTML Helper's property chain. The Events method is used to set event handlers for the Kendo UI widget. Each widget has a variety of events that can be handled including: cancel, change, dataBound, dataBinding, edit, remove, and save.
 
@@ -90,7 +90,7 @@ In the `<script>` element and **add** a function `onListDataBound`.
 Selecting the first item using the `DataBound` event was a good start. Next we'll take it a step further by using the selected item to populate a Kendo UI template showing the selected employee on the dashboard.
 
 <h4 class="exercise-start">
-    <b>Exercise</b>: Use the Change event to populate a template. 
+    <b>Exercise</b>: Use the Change event to populate a template.
 </h4>
 
 **Add** an event handler named `onCriteriaChange` for the `Change` event for the EmployeeList.
@@ -107,7 +107,7 @@ Selecting the first item using the `DataBound` event was a good start. Next we'l
 	<!-- Kendo Templates -->
 		...
 	<!-- /Kendo Templates -->
-	
+
 **Add** a new template that will display the selected employee's image and full name.
 
 	<!-- Kendo Templates -->
@@ -121,7 +121,7 @@ Selecting the first item using the `DataBound` event was a good start. Next we'l
 	<script>
 		...
     </script>
-	
+
 **Add** a function named `getSelectedEmployee` that returns the selected employee from the EmployeeList.
 
 	function getSelectedEmployee() {
@@ -161,4 +161,4 @@ Remove:
 
 <div class="exercise-end"></div>
 
-Now that you know how to work with client side APIs, let's enhance the Team Efficiency Dashboard by working with datasources. 
+Now that you know how to work with client-side APIs, let's enhance the Team Efficiency Dashboard by working with datasources.
