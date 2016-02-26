@@ -72,7 +72,7 @@ On the grid's `DataSource` property, **set** the `Data` property to `getEmployee
 
 The resulting code should be:
 
-	@(Html.Kendo().Grid<QuickStart.Models.Invoice>()
+	@(Html.Kendo().Grid<KendoQsBoilerplate.Invoice>()
 	      .Name("EmployeeSales")
 	      ...
 	      .Scrollable(scrollable => scrollable.Enabled(false))
