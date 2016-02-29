@@ -651,15 +651,15 @@ using Kendo.Mvc.Extensions;
 <p>The <a href="http://demos.telerik.com/kendo-ui/datasource/index">Kendo UI DataSource component</a> plays a central role in practically all web applications built with Kendo UI. It is an abstraction for using local data—arrays of JavaScript objects—or remote data—web services returning JSON, JSONP, <a href="http://www.odata.org/">OData</a> or XML.</p>
 <p>The Kendo UI DataSource has many abilities and responsibilities, among which to:</p>
 <ul>
-<li><a href="/kendo-ui/framework/datasource/cors">Retrieve data from a remote endpoint</a>.</li>
-<li>Maintain the <a href="/kendo-ui/framework/datasource/crud#schema">structure and type of the data (<code>schema</code>)</a>.</li>
+<li><a href="http://docs.telerik.com/kendo-ui/framework/datasource/cors">Retrieve data from a remote endpoint</a>.</li>
+<li>Maintain the <a href="http://docs.telerik.com/kendo-ui/framework/datasource/crud#schema">structure and type of the data (schema)</a>.</li>
 <li>Process serialization formats to and from a remote endpoint.</li>
-<li><a href="/kendo-ui/framework/datasource/crud">synchronize updates—create, update, delete</a> to and from a remote endpoint.</li>
-<li><a href="/kendo-ui/framework/datasource/offline">Maintain an in-memory cache of data, including changes</a> for updating to a remote endpoint.</li>
-<li>Calculate and maintain <a href="/kendo-ui/api/javascript/data/datasource#methods-aggregate">aggregates</a>, <a href="/kendo-ui/api/javascript/data/datasource#methods-sort">sorting order</a> and <a href="/kendo-ui/api/javascript/data/datasource#methods-page">paging</a>.</li>
-<li>Provide a query mechanism via <a href="/kendo-ui/api/javascript/data/datasource#methods-filter">filter expressions</a>.</li>
+<li><a href="http://docs.telerik.com/kendo-ui/framework/datasource/crud">synchronize updates—create, update, delete</a> to and from a remote endpoint.</li>
+<li><a href="http://docs.telerik.com/kendo-ui/framework/datasource/offline">Maintain an in-memory cache of data, including changes</a> for updating to a remote endpoint.</li>
+<li>Calculate and maintain <a href="http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#methods-aggregate">aggregates</a>, <a href="http://demos.telerik.com/kendo-ui/api/javascript/data/datasource#methods-sort">sorting order</a> and <a href="http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#methods-page">paging</a>.</li>
+<li>Provide a query mechanism via <a href="http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#methods-filter">filter expressions</a>.</li>
 </ul>
-<p>For detailed information on the capabilities of the <a href="http://docs.telerik.com/kendo-ui/framework/datasource/overview">DataSource</a>, refer to its <a href="/kendo-ui/api/javascript/data/datasource">configuration API, methods, and events</a>, and <a href="http://demos.telerik.com/kendo-ui/datasource/index">demos</a>.</p>
+<p>For detailed information on the capabilities of the <a href="http://docs.telerik.com/kendo-ui/framework/datasource/overview">DataSource</a>, refer to its <a href="http://demos.telerik.com/kendo-ui/api/javascript/data/datasource">configuration API, methods, and events</a>, and <a href="http://demos.telerik.com/kendo-ui/datasource/index">demos</a>.</p>
 <p>At this point the dashboard is showing all invoice data. Let&#39;s use the EmployeeList list view and StatsFrom/StatsTo date pickers to filter the invoice grid by invoking the grid&#39;s datasource.</p>
 <h4 class="exercise-start">
     <b>Exercise</b>: Create a filter.
@@ -702,7 +702,7 @@ using Kendo.Mvc.Extensions;
 )
 </code></pre><p><strong>Add</strong> the property <code>AutoBind</code> to the end of the property chain and set the value to <code>false</code>. Setting AutoBind to false tells UI for MVC that the datasource&#39;s <code>Read</code> action is invoked on manually on the client.</p>
 <p>The resulting code should be:</p>
-<pre><code>@(Html.Kendo().Grid&lt;QuickStart.Models.Invoice&gt;()
+<pre><code>@(Html.Kendo().Grid&lt;KendoQsBoilerplate.Invoice&gt;()
       .Name(&quot;EmployeeSales&quot;)
       ...
       .Scrollable(scrollable =&gt; scrollable.Enabled(false))

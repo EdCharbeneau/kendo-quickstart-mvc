@@ -8,15 +8,15 @@ The <a href="http://demos.telerik.com/kendo-ui/datasource/index">Kendo UI DataSo
 
 The Kendo UI DataSource has many abilities and responsibilities, among which to:
 
-- <a href="/kendo-ui/framework/datasource/cors">Retrieve data from a remote endpoint</a>.
-- Maintain the <a href="/kendo-ui/framework/datasource/crud#schema">structure and type of the data (<code>schema</code>)</a>.
+- <a href="http://docs.telerik.com/kendo-ui/framework/datasource/cors">Retrieve data from a remote endpoint</a>.
+- Maintain the <a href="http://docs.telerik.com/kendo-ui/framework/datasource/crud#schema">structure and type of the data (schema)</a>.
 - Process serialization formats to and from a remote endpoint.
-- <a href="/kendo-ui/framework/datasource/crud">synchronize updates—create, update, delete</a> to and from a remote endpoint.
-- <a href="/kendo-ui/framework/datasource/offline">Maintain an in-memory cache of data, including changes</a> for updating to a remote endpoint.
-- Calculate and maintain <a href="/kendo-ui/api/javascript/data/datasource#methods-aggregate">aggregates</a>, <a href="/kendo-ui/api/javascript/data/datasource#methods-sort">sorting order</a> and <a href="/kendo-ui/api/javascript/data/datasource#methods-page">paging</a>.
-- Provide a query mechanism via <a href="/kendo-ui/api/javascript/data/datasource#methods-filter">filter expressions</a>.
+- <a href="http://docs.telerik.com/kendo-ui/framework/datasource/crud">synchronize updates—create, update, delete</a> to and from a remote endpoint.
+- <a href="http://docs.telerik.com/kendo-ui/framework/datasource/offline">Maintain an in-memory cache of data, including changes</a> for updating to a remote endpoint.
+- Calculate and maintain <a href="http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#methods-aggregate">aggregates</a>, <a href="http://demos.telerik.com/kendo-ui/api/javascript/data/datasource#methods-sort">sorting order</a> and <a href="http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#methods-page">paging</a>.
+- Provide a query mechanism via <a href="http://docs.telerik.com/kendo-ui/api/javascript/data/datasource#methods-filter">filter expressions</a>.
 
-For detailed information on the capabilities of the [DataSource](http://docs.telerik.com/kendo-ui/framework/datasource/overview), refer to its <a href="/kendo-ui/api/javascript/data/datasource">configuration API, methods, and events</a>, and <a href="http://demos.telerik.com/kendo-ui/datasource/index">demos</a>.
+For detailed information on the capabilities of the [DataSource](http://docs.telerik.com/kendo-ui/framework/datasource/overview), refer to its <a href="http://demos.telerik.com/kendo-ui/api/javascript/data/datasource">configuration API, methods, and events</a>, and <a href="http://demos.telerik.com/kendo-ui/datasource/index">demos</a>.
 
 At this point the dashboard is showing all invoice data. Let's use the EmployeeList list view and StatsFrom/StatsTo date pickers to filter the invoice grid by invoking the grid's datasource.
 
